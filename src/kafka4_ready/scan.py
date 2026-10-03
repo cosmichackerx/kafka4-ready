@@ -11,7 +11,7 @@ import re
 from dataclasses import dataclass, field
 
 from .rules import (BOOTSTRAP_TOOLS, BROKER_ONLY, DEPRECATED_BROKER, DEPRECATED_CLI, INVALID_MIN, KRAFT_PATHS, REMOVED_BROKER, REMOVED_CLASSES,
-                    REMOVED_CLI, REMOVED_PARTITIONERS, RULES, TESTED, ZOOKEEPER_SCRIPTS)
+                    REMOVED_CLI, REMOVED_CONNECTOR, REPLACEFIELD_KEYS, REPLACEFIELD_TYPE, REMOVED_PARTITIONERS, REMOVED_SCRIPTS, RULES, TESTED, ZOOKEEPER_SCRIPTS)
 
 SKIP_DIRS = {".git", "node_modules", "vendor", "dist", "target", ".venv", "venv", "__pycache__", ".tox"}
 YAML_EXT = (".yml", ".yaml")
@@ -47,6 +47,8 @@ def kind_of(name: str, path: str = "") -> str | None:
     low = name.lower()
     if low.endswith(".properties") or ".properties." in low:
         return "properties"
+    if low.endswith(".json"):
+        return "json"
     if low.endswith(YAML_EXT):
         return "yaml"
     if low.endswith(SHELL_EXT):
@@ -110,6 +112,24 @@ TOKEN = re.compile(r"""(?:[^\s"';&|()`]+|"[^"]*"|'[^']*')+|[;&|()`]""")
 SEP = {";", "&", "|", "(", ")", "`"}
 
 
+def flatten_tokens(code: str, base: int = 0, depth: int = 0):
+    """Tokens of a logical line; a quoted token with spaces (`bash -c '...'`, `command: "..."`, `CMD ["sh","-c","..."]`) is a command line of its own and is split again."""
+    out = []
+    for m in TOKEN.finditer(code):
+        t = m.group(0)
+        if depth < 3 and t.startswith("[") and t.endswith("]") and re.search(r"""["']""", t) and re.search(r"\s", t) and re.search(r"(?:kafka|zookeeper)-", t):
+            for q in re.finditer(r"\"[^\"]*\"|'[^']*'", t):    # exec form: CMD ["sh", "-c", "kafka-topics.sh --list"]
+                out += flatten_tokens(q.group(0), base + m.start() + q.start(), depth + 1) if re.search(r"\s", q.group(0)) else [(q.group(0), base + m.start() + q.start())]
+            continue
+        if depth < 3 and len(t) > 2 and t[0] in "\"'" and t[-1] == t[0] and re.search(r"\s", t[1:-1]) and re.search(r"(?:kafka|zookeeper)-", t):
+            out.append((";", base + m.start()))
+            out += flatten_tokens(t[1:-1], base + m.start() + 1, depth + 1)
+            out.append((";", base + m.end()))
+        else:
+            out.append((t, base + m.start()))
+    return out
+
+
 def norm(tok: str) -> str:
     t = tok.strip(",[]")
     if len(t) >= 2 and t[0] == t[-1] and t[0] in "\"'":
@@ -140,6 +160,16 @@ def suppressed(lines, line_no: int, rule: str) -> bool:
 
 
 # ---------------------------------------------------------------- command lines
+def creates_path(code: str, i: int) -> bool:
+    """True when the path at `i` is where the repo itself puts a file (COPY/ADD destination, container side of a volume mount): it exists in Kafka 4 images too."""
+    start = max(code.rfind(c, 0, i) for c in " \t\"'=") + 1
+    if ":" in code[start:i]:
+        return True
+    if re.match(r"\s*(?:COPY|ADD)\s", code, re.I):
+        return code.split()[-1].strip("\"'").endswith(code[i:].split()[0].strip("\"'"))
+    return False
+
+
 def command_findings(text: str, file: str):
     out, n_inv = [], 0
     for joined, segs in logical_lines(text):
@@ -148,7 +178,8 @@ def command_findings(text: str, file: str):
         if "kafka" not in low and "zookeeper" not in low:
             continue
         snippet = code.strip()[:160]
-        toks = [(m.group(0), m.start()) for m in TOKEN.finditer(code)]
+        is_copy = bool(re.match(r"\s*(?:COPY|ADD)\s", code, re.I))    # a Dockerfile COPY names a file of the repo, it does not run it
+        toks = flatten_tokens(code)
         k = 0
         while k < len(toks):
             t, pos = toks[k]
@@ -162,9 +193,12 @@ def command_findings(text: str, file: str):
             args = toks[k + 1:j]
             n_inv += 1
             ln, col = locate(segs, pos)
-            if name in ZOOKEEPER_SCRIPTS:
+            if name in ZOOKEEPER_SCRIPTS and not is_copy:
                 out.append(Finding("zookeeper-script", "error", file, ln, col,
                                    f"{name}.sh: the Kafka {V} distribution contains no ZooKeeper script (ZooKeeper support was removed in Kafka 4.0); {RULES['zookeeper-script'].fix}", snippet))
+            if name in REMOVED_SCRIPTS:
+                out.append(Finding("removed-tool-script", "error", file, ln, col,
+                                   f"{name}.sh: the Kafka {V} distribution does not contain it; {REMOVED_SCRIPTS[name]}", snippet))
             flags = []
             b = 0
             while b < len(args):
@@ -202,6 +236,8 @@ def command_findings(text: str, file: str):
         code = strip_comment(joined)
         for p in KRAFT_PATHS:
             i = code.find(p)
+            if i >= 0 and creates_path(code, i):
+                continue
             if i >= 0:
                 ln, col = locate(segs, i)
                 out.append(Finding("kraft-config-path", "error", file, ln, col,
@@ -222,11 +258,14 @@ def env_to_key(var: str) -> str:
     return s.replace("\0", "-").replace("\1", "_").lower()
 
 
+NAME_RE = re.compile(r"""\bname["']?\s*:\s*["']?(KAFKA_(?:CFG_)?[A-Z0-9_]+)["']?\s*,?\s*$""")    # Kubernetes `- name: KAFKA_...` and JSON "name": "KAFKA_..."
+
+
 def env_findings(text: str, file: str):
     out = []
     for i, line in enumerate(text.splitlines()):
         code = strip_comment(line)
-        for m in ENV_RE.finditer(code):
+        for m in list(ENV_RE.finditer(code)) + list(NAME_RE.finditer(code)):
             key = env_to_key(m.group(1))
             real = LOWER_REMOVED.get(key)
             if real and real not in BROKER_ONLY:
@@ -254,10 +293,19 @@ def parse_properties(text: str):
     return items
 
 
+BROKER_HINTS = {"process.roles", "log.dirs", "log.dir", "broker.id", "controller.quorum.voters", "controller.listener.names", "inter.broker.listener.name",
+                "advertised.listeners", "num.network.threads", "num.io.threads", "log.retention.hours", "num.partitions"}
+CLIENT_NAME = re.compile(r"(?:consumer|producer|client|connect|mirror|worker|source|sink|admin)", re.I)
+
+
 def is_broker_file(name: str, keys: set) -> bool:
-    if re.fullmatch(r"(?:server|broker|controller)[\w.\-]*\.properties", name.lower()):
+    """A broker file is named like one or has a key only brokers have. `zookeeper.connect` alone does not count: old ZooKeeper consumers (consumer.properties) and client apps use it too."""
+    low = name.lower()
+    if CLIENT_NAME.match(low):
+        return False
+    if re.search(r"(?:server|broker|controller)", low) or re.fullmatch(r"kafka[\w.\-]*\.properties", low):
         return True
-    return bool(keys & {"process.roles", "log.dirs", "zookeeper.connect", "controller.quorum.voters", "controller.listener.names", "inter.broker.listener.name"})
+    return bool(keys & BROKER_HINTS)
 
 
 def properties_findings(text: str, file: str, name: str):
@@ -268,7 +316,7 @@ def properties_findings(text: str, file: str, name: str):
     kv = {k: (v, ln) for k, v, ln, _ in items}
     for k, v, ln, raw in items:
         snippet = raw.strip()[:160]
-        if k in REMOVED_BROKER and (broker or k not in BROKER_ONLY):
+        if k in REMOVED_BROKER and (broker or not (k in BROKER_ONLY or k.startswith("zookeeper."))):
             out.append(Finding("removed-broker-config", "warning", file, ln, 1,
                                f"{k}: {REMOVED_BROKER[k]}. A Kafka {V} broker starts and ignores it without a log line (`kafka-configs --describe --all` shows {k}=null)", snippet))
         if broker and k in INVALID_MIN:
@@ -287,22 +335,61 @@ def properties_findings(text: str, file: str, name: str):
             out.append(Finding("removed-partitioner", "error", file, ln, 1,
                                f"partitioner.class={v}: Kafka {V} clients fail with ConfigException (class removed); {RULES['removed-partitioner'].fix}", snippet))
     mif, idem = kv.get("max.in.flight.requests.per.connection"), kv.get("enable.idempotence")
-    if mif and idem and idem[0].lower() == "true" and mif[0].isdigit() and int(mif[0]) > 5:
+    if mif and mif[0].isdigit() and int(mif[0]) > 5 and not (idem and idem[0].lower() == "false"):
+        how = "with enable.idempotence=true" if idem else "and idempotence on (the default)"
         out.append(Finding("idempotence-in-flight", "error", file, mif[1], 1,
-                           f"max.in.flight.requests.per.connection={mif[0]} with enable.idempotence=true: Kafka {V} clients fail with ConfigException; {RULES['idempotence-in-flight'].fix}", ""))
-    if broker and "process.roles" not in keys and ({"zookeeper.connect", "log.dirs", "log.dir"} & keys):
+                           f"max.in.flight.requests.per.connection={mif[0]} {how}: a Kafka {V} producer fails with ConfigException (older clients silently turned idempotence off); {RULES['idempotence-in-flight'].fix}", ""))
+    if broker and "process.roles" not in keys and ({"zookeeper.connect", "log.dirs", "log.dir", "broker.id"} & keys):
         ln = kv["zookeeper.connect"][1] if "zookeeper.connect" in kv else 1
         out.append(Finding("zookeeper-mode", "error", file, ln, 1,
                            f"no process.roles: this is a ZooKeeper-mode broker file; Kafka {V} refuses to start (\"Missing required configuration \\\"process.roles\\\"\"). {RULES['zookeeper-mode'].fix}", ""))
     return out
 
 
+# ---------------------------------------------------------------- Connect
+CONN_RE = re.compile(r"""^\s*(?:-\s*)?["']?(%s)["']?\s*[=:]""" % "|".join(re.escape(k) for k in REMOVED_CONNECTOR))
+RF_RE = re.compile(r"""^\s*(?:-\s*)?["']?(transforms\.[\w.\-]+?\.(?:whitelist|blacklist))["']?\s*[=:]""")
+
+
+def connector_findings(text: str, file: str):
+    out = []
+    has_rf = REPLACEFIELD_TYPE in text
+    for i, line in enumerate(text.splitlines()):
+        if line.lstrip().startswith(("#", "!", "//")):
+            continue
+        m = CONN_RE.match(line)
+        if m:
+            cls, what = REMOVED_CONNECTOR[m.group(1)]
+            out.append(Finding("removed-connector-config", "warning", file, i + 1, line.index(m.group(1)) + 1,
+                               f"{m.group(1)}: {cls} in Kafka {V} no longer defines it, so Connect accepts the connector and ignores the key; {what}", line.strip()[:160]))
+            continue
+        m = RF_RE.match(line)
+        if m and has_rf:
+            key = m.group(1)
+            new = REPLACEFIELD_KEYS[key.rsplit(".", 1)[1]]
+            out.append(Finding("removed-connector-config", "warning", file, i + 1, line.index(key) + 1,
+                               f"{key}: the ReplaceField transformation of Kafka {V} no longer defines it, so Connect accepts the connector and ignores the key; use {key.rsplit('.', 1)[0]}.{new}", line.strip()[:160]))
+    return out
+
+
+WRAPPER_NAME = re.compile(r"(?:kafka|connect|zookeeper)-[a-z0-9-]+\.(?:sh|bat)", re.I)
+WRAPPER_EXEC = re.compile(r"^\s*exec\s+.*?kafka-run-class(?:\.sh)?\s", re.M)
+
+
+def is_distribution_wrapper(name: str, text: str) -> bool:
+    """`bin/kafka-features.sh` of a Kafka 3 tarball committed to a repo: a copy of Kafka's own script, not a use of it (the study found 20 of 25 sampled removed-tool-class hits were these)."""
+    return bool(WRAPPER_NAME.fullmatch(name)) and bool(WRAPPER_EXEC.search(text))
+
+
 def scan_text(text: str, file: str, kind: str, name: str = ""):
     if kind == "properties":
         findings, n_inv = properties_findings(text, file, name or os.path.basename(file)), 0
+    elif is_distribution_wrapper(name or os.path.basename(file), text):
+        findings, n_inv = [], 0
     else:
         findings, n_inv = command_findings(text, file)
         findings += env_findings(text, file)
+    findings += connector_findings(text, file)
     lines = text.splitlines()
     return [f for f in findings if not suppressed(lines, f.line, f.rule)], n_inv
 

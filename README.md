@@ -11,7 +11,7 @@ see the [validation table](#validation--results)); nothing is mocked. It emits *
 [![Release](https://img.shields.io/github/v/release/cosmichackerx/kafka4-ready?sort=semver)](https://github.com/cosmichackerx/kafka4-ready/releases)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-Why a static scanner? The broker itself will not tell you: on Kafka 4.3.1 the 27 removed broker settings below were all accepted without a warning, and `kafka-configs.sh --describe --all`
+Why a static scanner? The broker itself will not tell you: on Kafka 4.3.1 the 35 removed broker settings below were all accepted without a warning, and `kafka-configs.sh --describe --all`
 is the only place that shows them as unknown (`zookeeper.connect=null sensitive=true`). The scanner lists every affected line at once, in files, before a rolling upgrade.
 It does **not** connect to a cluster, does **not** migrate ZooKeeper metadata and does **not** replace the official [KRaft migration guide](https://kafka.apache.org/documentation/#kraft_zk_migration)
 or the [upgrade notes](https://kafka.apache.org/43/getting-started/upgrade/). See [Related tools](#related-tools) for live-cluster checkers.
@@ -28,23 +28,26 @@ Every number below is from this repository's own tests or scripts. "Not proven" 
 
 | What is claimed | Checked against | Size | Result | Not proven |
 |---|---|---|---|---|
-| Each rule's claim about Kafka 4 (rejects / ignores / warns) is true | A **real KRaft broker** (formatted with `kafka-storage.sh`, started with `kafka-server-start.sh`) and the real tools of **Kafka 4.3.1** (2026-09), run by [`tests/oracle/run_oracle.py`](tests/oracle/run_oracle.py) on every push; SHA-512 pinned tarballs | 68 cases for 12 rules: 27 removed broker settings, 3 format-time rejections, 2 deprecated settings, 11 removed and 6 deprecated CLI options, 3 bootstrap-server cases, 6 removed classes, 4 ZooKeeper scripts, 3 KRaft paths, 3 client cases | 0 disagreements required for CI to pass; the agreement was 68/68 on 4.3.1 | Linux and Java 17 only, Scala 2.13 tarballs. A case passes on what the tool printed or what the broker described, so it shows the *message*, not that nothing else changed |
-| The same on older releases | Kafka **4.0.1, 4.1.2, 4.2.2** (same cases, [matrix](docs/oracle-matrix.md)) | 68 x 3 | 68/68 on each, with the harness adapting two options that did not exist before 4.2; deprecations show up from the release that introduced them (4.1, 4.2, 4.3) and not before | Other 4.x patch releases and Kafka 3.x were not run. Behaviour can change between releases, so a rule is true **for the tested versions**, nothing else |
-| "Removed settings are silently ignored" | `kafka-configs --describe --all` on the running broker: a known setting shows its value, an unknown one shows `=null sensitive=true`, with two known settings as controls | 27 | all 27 shown as unknown, the broker started without a log line about them | This is the broker's own report of what it knows, not a test that a changed value has no effect. All 27 were added at once to one broker |
-| Detection works on real-world files | Unit tests (100+ unit tests) and the two fixtures | see the CI run | pass on Ubuntu, Windows, macOS x Python 3.9, 3.11, 3.13 | **No precision study on real repositories has been run**; false positive and miss rates in the wild are unknown |
-| Image environment variables (`KAFKA_ZOOKEEPER_CONNECT`, `KAFKA_CFG_*`) map to the setting | The apache/kafka and Bitnami image documentation (read, not run) | - | the mapping is applied by name | **Not run**: no container was started. The scanner labels such findings accordingly |
-| Kafka Connect, MirrorMaker 2, Streams | - | 0 | **not covered** | no rule exists; see the roadmap |
+| Each rule's claim about Kafka 4 (rejects / ignores / warns) is true | A **real KRaft broker** (formatted with `kafka-storage.sh`, started with `kafka-server-start.sh`), a **real Connect worker** (REST validate endpoint) and the real tools of **Kafka 4.3.1** (2026-09), run by [`tests/oracle/run_oracle.py`](tests/oracle/run_oracle.py) on every push; SHA-512 pinned tarballs | 94 cases for 14 rules: 35 removed broker settings, 3 format-time rejections, 2 deprecated settings, 15 removed and 6 deprecated CLI options, 3 bootstrap-server cases, 7 removed classes, 4 ZooKeeper and 3 other removed scripts, 3 KRaft paths, 2 partitioner and 3 idempotence cases, 7 Connect cases, 1 image variable mapping | 0 disagreements required for CI to pass; the agreement was 94/94 on 4.3.1 | Linux and Java 17 only, Scala 2.13 tarballs. A case passes on what the tool printed or what the broker described, so it shows the *message*, not that nothing else changed |
+| The same on older releases | Kafka **4.0.1, 4.1.2, 4.2.2** (same cases, [matrix](docs/oracle-matrix.md)) | 94 x 3 | 94/94 on each, with the harness adapting two options that did not exist before 4.2; deprecations show up from the release that introduced them (4.1, 4.2, 4.3) and not before | Other 4.x patch releases and Kafka 3.x were not run. Behaviour can change between releases, so a rule is true **for the tested versions**, nothing else |
+| "Removed settings are silently ignored" | `kafka-configs --describe --all` on the running broker: a known setting shows its value, an unknown one shows `=null sensitive=true`, with two known settings as controls | 35 | all 35 shown as unknown, the broker started without a log line about them | This is the broker's own report of what it knows, not a test that a changed value has no effect. All 35 were added at once to one broker |
+| Detection works on real-world files | A [precision study](docs/precision-study.md): 3,185 files of 2,446 public repositories found by read-only code search, **378 findings labelled by hand** in three samples, plus a miss check with an independent loose regex; plus the unit tests (145+ unit tests) | 216 + 97 + 65 findings | v0.1.0: 186 of 216 correct (86%), **30 false positives, of which 20 were one pattern** (vendored `bin/kafka-features.sh` copies); fixed in v0.2.0; on a fresh sample 96 of 97 correct and 64 of 65 for the findings the quoted-string fix added | The sample is a convenience sample (code search relevance order, queries chosen for these patterns): it says nothing about how common the problems are. One labeller. Four rules had **no hit at all** in the corpus, so their precision in the wild is untested. Recall is only probed (a loose regex), not measured |
+| Image environment variables (`KAFKA_ZOOKEEPER_CONNECT`, ...) map to the setting | The **apache/kafka image's own entrypoint code**: `kafka.docker.KafkaDockerWrapper`, which ships in the Kafka tarball, run with a variable for every removed setting (no container needed) | 35 + 2 escapes | all 35 variables became the same settings kafka4-ready maps (`.` = `_`, `_` = `__`, `-` = `___`) on 4.0.1 to 4.3.1 | **The image itself was not run** (no container runtime). The Bitnami `KAFKA_CFG_*` convention is not part of the Kafka distribution and is **not verified** |
+| Kafka Connect, MirrorMaker 2, Streams | A real Connect worker; `PUT /connector-plugins/MirrorSourceConnector/config/validate` lists the settings a connector defines | 7 | `topics.blacklist`, `groups.blacklist`, `config.properties.blacklist`, `use.incremental.alter.configs`, `add.source.alias.to.metrics` and ReplaceField `whitelist` / `blacklist` are no longer defined | One connector class (MirrorSourceConnector) and ReplaceField only; other connectors and Kafka Streams are **not covered** |
 
-Oracle outcomes, condensed (the full 68-row table per release is printed in the CI job summary):
+Oracle outcomes, condensed (the full 94-row table per release is printed in the CI job summary):
 
 | Case | Kafka 4 behaviour (observed) |
 |---|---|
 | no `process.roles` (ZooKeeper-mode file) | `kafka-storage.sh format` fails: `ConfigException: Missing required configuration "process.roles"` |
-| 27 removed settings (`zookeeper.*` x 13, `log.message.format.version`, `message.format.version`, `inter.broker.protocol.version`, `offsets.commit.required.acks`, `log.message.timestamp.difference.max.ms`, `delegation.token.master.key`, `metrics.jmx.blacklist/whitelist`, `auto.include.jmx.reporter`, `host.name`, `port`, `advertised.host.name/port`, `broker.id.generation.enable`) | broker **starts**; `kafka-configs --describe --all` shows each as `<key>=null sensitive=true`; a known setting shows its value |
+| 35 removed settings (`zookeeper.*` x 21, `log.message.format.version`, `message.format.version`, `inter.broker.protocol.version`, `offsets.commit.required.acks`, `log.message.timestamp.difference.max.ms`, `delegation.token.master.key`, `metrics.jmx.blacklist/whitelist`, `auto.include.jmx.reporter`, `host.name`, `port`, `advertised.host.name/port`, `broker.id.generation.enable`) | broker **starts**; `kafka-configs --describe --all` shows each as `<key>=null sensitive=true`; a known setting shows its value |
 | `remote.log.manager.copier.thread.pool.size=-1` (also `expiration`) | refuses to start: `Value must be at least 1` |
 | `log.cleaner.enable=false`, `group.coordinator.rebalance.protocols` | starts; the broker log says the setting is deprecated |
-| `kafka-topics/-configs/-reassign-partitions/-consumer-groups --zookeeper`, `kafka-acls --authorizer*`, `--zk-tls-config-file`, `kafka-console-consumer --whitelist`, `kafka-replica-verification --topic-white-list`, `kafka-verifiable-consumer --broker-list` | `... is not a recognized option` / `unrecognized arguments` |
-| `kafka-run-class.sh kafka.tools.JmxTool` (and 5 more classes) | `Could not find or load main class` |
+| `kafka-topics/-configs/-reassign-partitions/-consumer-groups --zookeeper`, `kafka-acls --authorizer*`, `--zk-tls-config-file`, `kafka-console-consumer --whitelist/--zookeeper/--new-consumer`, `kafka-console-producer` and `kafka-consumer-perf-test --broker-list`, `kafka-replica-verification --topic-white-list`, `kafka-verifiable-consumer --broker-list` | `... is not a recognized option` / `unrecognized arguments` |
+| `kafka-run-class.sh kafka.tools.JmxTool` (and 6 more classes, `kafka.tools.MirrorMaker` among them) | `Could not find or load main class` |
+| `kafka-mirror-maker.sh`, `kafka-preferred-replica-election.sh`, `kafka-consumer-offset-checker.sh` | no such file in the distribution |
+| `topics.blacklist` (MirrorMaker 2), ReplaceField `whitelist` / `blacklist` | a real Connect worker's validate endpoint no longer lists the key (its replacement is listed) |
+| `KAFKA_ZOOKEEPER_CONNECT` and 34 more variables | the image's `KafkaDockerWrapper` writes the same settings that kafka4-ready maps |
 | `--bootstrap-server "a:9092 b:9092"` | `KafkaException: Failed to create new KafkaAdminClient` |
 | `partitioner.class` = `DefaultPartitioner` or `UniformStickyPartitioner` | client `ConfigException: Invalid value ...` |
 | `enable.idempotence=true` with `max.in.flight.requests.per.connection=6` | client `ConfigException` |
@@ -88,20 +91,22 @@ server.properties
 
 (That is `tests/fixtures/legacy-ci`; its migrated twin `tests/fixtures/clean-ci` reports nothing.)
 
-## Rules (12)
+## Rules (14)
 
 | Rule | Default severity | What it finds | Tested on |
 |---|---|---|---|
-| `zookeeper-mode` | error | a broker file (`server|broker|controller*.properties`, or any file with `log.dirs`/`zookeeper.connect`) without `process.roles` | oracle: `kafka-storage format` fails |
-| `removed-broker-config` | warning | the 27 removed settings above, in `.properties`, in `KAFKA_*` / `KAFKA_CFG_*` environment variables (compose, Dockerfile, k8s) and in `key=value` blocks of YAML. `host.name`, `port`, `advertised.*`, `broker.id.generation.enable`, `metrics.jmx.*` and `auto.include.jmx.reporter` count only in broker files (clients and Connect use some of them) | oracle: describe shows `=null`. The environment-variable mapping is the apache/kafka and Bitnami **image convention** and was **not run** |
+| `zookeeper-mode` | error | a broker file (named `*server*`, `*broker*`, `*controller*`, `kafka*.properties`, or with a broker-only key such as `log.dirs` or `broker.id`; **not** `consumer`/`producer`/`client` files) without `process.roles` | oracle: `kafka-storage format` fails |
+| `removed-broker-config` | warning | the 35 removed settings above, in `.properties`, in `KAFKA_*` / `KAFKA_CFG_*` environment variables (compose, Dockerfile, k8s, including the `- name: KAFKA_...` form) and in `key=value` blocks of YAML. `host.name`, `port`, `advertised.*`, `broker.id.generation.enable`, `metrics.jmx.*` and `auto.include.jmx.reporter` count only in broker files (clients and Connect use some of them) | oracle: describe shows `=null`. The apache/kafka variable mapping was checked against the image's own `KafkaDockerWrapper`; `KAFKA_CFG_*` (Bitnami) is **not verified** |
 | `invalid-config-value` | error | `remote.log.manager.copier|expiration.thread.pool.size` below 1 | oracle: format fails |
 | `deprecated-broker-config` | note | `log.cleaner.enable=false` (deprecated in 4.1), `group.coordinator.rebalance.protocols` (4.3) | oracle: broker log, per release |
-| `removed-cli-option` | error | the 11 (tool, option) pairs above | oracle: tool rejects it, a control run does not |
+| `removed-cli-option` | error | the 15 (tool, option) pairs above | oracle: tool rejects it, a control run does not |
 | `deprecated-cli-option` | note | `--producer.config`, `--consumer.config`, `--producer-property`, `--consumer-property` (console tools), `--producer-props` (producer perf test), `--messages` (consumer perf test): deprecated in 4.2, still accepted | oracle: warning text, per release |
 | `bootstrap-server-format` | error | space-separated brokers in `--bootstrap-server` of `kafka-topics`, `kafka-configs`, `kafka-console-consumer` | oracle: client fails to construct |
-| `removed-tool-class` | error | `kafka-run-class.sh` with `kafka.admin.FeatureCommand`, `kafka.tools.{ClusterTool,EndToEndLatency,StateChangeLogMerger,StreamsResetter,JmxTool}` | oracle: `Could not find or load main class` |
-| `zookeeper-script` | error | `zookeeper-server-start|stop`, `zookeeper-shell`, `zookeeper-security-migration` | oracle: no such file in the distribution |
-| `kraft-config-path` | error | `config/kraft/{server,broker,controller}.properties` | oracle: file does not exist |
+| `removed-tool-class` | error | `kafka-run-class.sh` with `kafka.admin.FeatureCommand`, `kafka.tools.{ClusterTool,EndToEndLatency,StateChangeLogMerger,StreamsResetter,JmxTool,MirrorMaker}`; copies of Kafka's own `bin/kafka-*.sh` wrappers are skipped | oracle: `Could not find or load main class` |
+| `zookeeper-script` | error | `zookeeper-server-start|stop`, `zookeeper-shell`, `zookeeper-security-migration` (a Dockerfile `COPY` of your own script is not a run) | oracle: no such file in the distribution |
+| `removed-tool-script` | error | `kafka-mirror-maker`, `kafka-preferred-replica-election`, `kafka-consumer-offset-checker` | oracle: no such file in the distribution |
+| `removed-connector-config` | warning | MirrorMaker 2 `topics.blacklist`, `groups.blacklist`, `config.properties.blacklist`, `use.incremental.alter.configs`, `add.source.alias.to.metrics`; ReplaceField `transforms.x.whitelist` / `blacklist` | oracle: a real Connect worker's validate endpoint |
+| `kraft-config-path` | error | `config/kraft/{server,broker,controller}.properties` (not where your Dockerfile `COPY` or volume mount creates that path) | oracle: file does not exist |
 | `removed-partitioner` | error | `partitioner.class` = `DefaultPartitioner` / `UniformStickyPartitioner` | oracle: client ConfigException |
 | `idempotence-in-flight` | error | `enable.idempotence=true` with `max.in.flight.requests.per.connection` above 5 | oracle: client ConfigException |
 
@@ -111,7 +116,7 @@ server.properties
 - uses: actions/checkout@v7
   with:
     fetch-depth: 0          # only needed for pr-mode
-- uses: cosmichackerx/kafka4-ready@v0.1.0
+- uses: cosmichackerx/kafka4-ready@v0.2.0
   with:
     path: .
     fail-on: error          # error | warning | never
@@ -128,7 +133,7 @@ Inputs: `path`, `fail-on`, `disable`, `ignore`, `summary` (job summary), `pr-mod
 ```yaml
 repos:
   - repo: https://github.com/cosmichackerx/kafka4-ready
-    rev: v0.1.0
+    rev: v0.2.0
     hooks:
       - id: kafka4-ready        # report; fails the commit on errors
 ```
@@ -145,7 +150,8 @@ In the Action, `pr-mode: true` does this on pull requests. Needs git history (`f
 * **Unit tests** (`pytest`, 100+ cases, [`tests/`](tests/)): positives and negatives per rule, `\` continuations, JSON-style `CMD [...]`, comments and prose, suppression, outputs, PR mode and the sticky comment.
   CI runs them on Ubuntu, Windows and macOS with Python 3.9, 3.11 and 3.13.
 * **Oracle** ([`tests/oracle/run_oracle.py`](tests/oracle/run_oracle.py)): formats and starts one real KRaft broker per release (Java 17) with every removed setting added, and runs the real tools and a console producer.
-  Tarballs are SHA-512 checked against hashes pinned in the repository. Run it yourself: `python tests/oracle/fetch_kafka.py /tmp/kafka 4.3.1 && python tests/oracle/run_oracle.py --kafka /tmp/kafka/kafka_2.13-4.3.1`.
+  Also starts a Connect worker (heap 256 MB) and runs the image's `KafkaDockerWrapper`. Tarballs are SHA-512 checked against hashes pinned in the repository. Run it yourself: `python tests/oracle/fetch_kafka.py /tmp/kafka 4.3.1 && python tests/oracle/run_oracle.py --kafka /tmp/kafka/kafka_2.13-4.3.1`.
+* **Precision study** ([`docs/precision-study.md`](docs/precision-study.md), scripts in [`study/`](study/)): read-only code search over public repositories, hand-labelled samples.
 * **Action, packaging, pre-commit** self-tests in CI, plus a check of the Marketplace limits for `action.yml` (name, description of at most 125 characters, branding).
 * CI also runs [dependabot-gaps](https://github.com/cosmichackerx/dependabot-gaps), [node24-ready](https://github.com/cosmichackerx/node24-ready) and [claims-check](https://github.com/cosmichackerx/claims-check) (the numbers in this README are checked against the code) on this repository.
 
@@ -169,9 +175,9 @@ I found no other static scanner for Kafka 4 config files and scripts in my searc
 * Text matching on logical lines, not a shell parser: a Kafka tool inside `eval`, a variable-built command line, `xargs` or a wrapper script is not seen. Option values given by variable are not inspected (`--bootstrap-server "$BROKERS"` is not flagged).
 * Rules hold for Kafka 4.0.1, 4.1.2, 4.2.2 and 4.3.1 (Scala 2.13 tarballs on Linux, Java 17) only; the scanner's messages quote the newest. A rule is only claimed for what was run. Flag and setting lists are **not exhaustive**: only changes reproduced on a real broker or tool are rules.
 * Broker settings that are **ignored** are verified through `kafka-configs --describe --all`, not by observing a behaviour change. Client settings that Kafka 4 ignores (for example `auto.include.jmx.reporter` in a producer) could not be told apart from valid ones through the tools, so there is no client rule for them.
-* **Kafka Connect, MirrorMaker 2, Kafka Streams and Docker image behaviour are not covered.** In particular the `KAFKA_*` environment variable mapping is mapped by name from the image documentation; the images were not run.
-* It does not read Helm charts or operator custom resources (Strimzi `Kafka` resources) and does not check ACLs, topics or data.
-* No precision study on real repositories has been run yet. The unit tests and the oracle prove the rules do what they say on the cases they contain, not how often they fire correctly in the wild.
+* **Kafka Streams is not covered, Connect only for MirrorSourceConnector and ReplaceField, and no container image was run.** The `KAFKA_*` variable mapping was checked against the apache/kafka image's own wrapper code (not the image); Bitnami's `KAFKA_CFG_*` mapping is by name only.
+* It does not read Helm charts or operator custom resources (Strimzi `Kafka` resources: the study found 83 `log.message.format.version` / `inter.broker.protocol.version` lines in `config:` blocks that no rule sees) and does not check ACLs, topics or data.
+* The [precision study](docs/precision-study.md) is a convenience sample labelled by one person; four rules never fired in it. A finding is true for the file as written, not proof that a deployment breaks: many hits are old Kafka 0.8 to 3.x fixtures, copies of the same course repository, or templates.
 
 ## Roadmap
 

@@ -1,0 +1,47 @@
+{
+ "about": "Hand labels, one labeller. Sample A = findings of v0.1.0 (seed 20261003, 216 items). Sample B = findings of v0.2.0 after the fixes, seed 777, at most 12 per rule (97 items). Sample C = every finding that only appeared after commands inside quoted strings were scanned (65 items, seed-free: all of them). Items not listed under fp are true positives. Item numbers are the 0-based index in the sample json that study/sample.py writes.",
+ "A": {
+  "fp": {
+   "6": "zookeeper-mode: consumer.properties of an old ZooKeeper consumer, no broker keys",
+   "8": "zookeeper-mode: consumer.properties of an old ZooKeeper consumer",
+   "14": "zookeeper-mode: consumer.properties of an old ZooKeeper consumer",
+   "17": "zookeeper-mode: consumer.properties of an old ZooKeeper consumer",
+   "52": "removed-broker-config: zookeeper.connection.timeout.ms in a client application config (MsgRtrApi.properties), not a broker",
+   "138": "removed-tool-class: bin/kafka-features.sh, a vendored copy of Kafka's own wrapper",
+   "139": "same",
+   "141": "same",
+   "142": "same",
+   "143": "same",
+   "145": "same",
+   "146": "same",
+   "147": "same",
+   "148": "same",
+   "149": "same",
+   "150": "same",
+   "151": "same",
+   "152": "same",
+   "153": "same",
+   "154": "same",
+   "155": "same",
+   "156": "same",
+   "157": "same",
+   "158": "same",
+   "159": "same",
+   "183": "zookeeper-script: Dockerfile COPY of the repo's own zookeeper-server-stop.sh, not a run",
+   "188": "same",
+   "193": "kraft-config-path: Dockerfile COPY destination, the repo creates that path itself",
+   "201": "kraft-config-path: volume mount destination, the repo creates that path itself",
+   "213": "kraft-config-path: Dockerfile COPY destination"
+  }
+ },
+ "B": {
+  "fp": {
+   "84": "kraft-config-path: appends to kafka/config/kraft/server.properties in an entrypoint of an image whose Dockerfile COPYs that file in"
+  }
+ },
+ "C": {
+  "fp": {
+   "57": "zookeeper-script: echo of the bare script name in a help listing, not a run"
+  }
+ }
+}

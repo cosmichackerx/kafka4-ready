@@ -20,6 +20,14 @@ Result of `tests/oracle/run_oracle.py` on four Kafka releases (Scala 2.13 tarbal
 | `removed-broker-config` | `zookeeper.ssl.protocol` | pass | pass | pass | pass |
 | `removed-broker-config` | `zookeeper.ssl.endpoint.identification.algorithm` | pass | pass | pass | pass |
 | `removed-broker-config` | `zookeeper.sync.time.ms` | pass | pass | pass | pass |
+| `removed-broker-config` | `zookeeper.ssl.keystore.password` | pass | pass | pass | pass |
+| `removed-broker-config` | `zookeeper.ssl.keystore.type` | pass | pass | pass | pass |
+| `removed-broker-config` | `zookeeper.ssl.truststore.password` | pass | pass | pass | pass |
+| `removed-broker-config` | `zookeeper.ssl.truststore.type` | pass | pass | pass | pass |
+| `removed-broker-config` | `zookeeper.ssl.cipher.suites` | pass | pass | pass | pass |
+| `removed-broker-config` | `zookeeper.ssl.enabled.protocols` | pass | pass | pass | pass |
+| `removed-broker-config` | `zookeeper.ssl.crl.enable` | pass | pass | pass | pass |
+| `removed-broker-config` | `zookeeper.ssl.ocsp.enable` | pass | pass | pass | pass |
 | `removed-broker-config` | `log.message.format.version` | pass | pass | pass | pass |
 | `removed-broker-config` | `message.format.version` | pass | pass | pass | pass |
 | `removed-broker-config` | `inter.broker.protocol.version` | pass | pass | pass | pass |
@@ -37,7 +45,7 @@ Result of `tests/oracle/run_oracle.py` on four Kafka releases (Scala 2.13 tarbal
 | `deprecated-broker-config` | `log.cleaner.enable` | pass | pass | pass | pass |
 | `deprecated-broker-config` | `group.coordinator.rebalance.protocols` | pass | pass | pass | pass |
 | `removed-cli-option` | `kafka-topics --zookeeper` | pass | pass | pass | pass |
-| `removed-cli-option` | `kafka-configs --zookeeper` | DIFFERS | pass | pass | pass |
+| `removed-cli-option` | `kafka-configs --zookeeper` | pass | pass | pass | pass |
 | `removed-cli-option` | `kafka-reassign-partitions --zookeeper` | pass | pass | pass | pass |
 | `removed-cli-option` | `kafka-consumer-groups --zookeeper` | pass | pass | pass | pass |
 | `removed-cli-option` | `kafka-acls --authorizer` | pass | pass | pass | pass |
@@ -46,6 +54,10 @@ Result of `tests/oracle/run_oracle.py` on four Kafka releases (Scala 2.13 tarbal
 | `removed-cli-option` | `kafka-console-consumer --whitelist` | pass | pass | pass | pass |
 | `removed-cli-option` | `kafka-replica-verification --topic-white-list` | pass | pass | pass | pass |
 | `removed-cli-option` | `kafka-verifiable-consumer --broker-list` | pass | pass | pass | pass |
+| `removed-cli-option` | `kafka-console-consumer --zookeeper` | pass | pass | pass | pass |
+| `removed-cli-option` | `kafka-console-consumer --new-consumer` | pass | pass | pass | pass |
+| `removed-cli-option` | `kafka-console-producer --broker-list` | pass | pass | pass | pass |
+| `removed-cli-option` | `kafka-consumer-perf-test --broker-list` | pass | pass | pass | pass |
 | `removed-cli-option` | `kafka-topics --delete-config` | pass | pass | pass | pass |
 | `deprecated-cli-option` | `kafka-console-producer --producer.config` | pass | pass | pass | pass |
 | `deprecated-cli-option` | `kafka-console-producer --producer-property` | pass | pass | pass | pass |
@@ -59,6 +71,7 @@ Result of `tests/oracle/run_oracle.py` on four Kafka releases (Scala 2.13 tarbal
 | `removed-tool-class` | `kafka.admin.FeatureCommand` | pass | pass | pass | pass |
 | `removed-tool-class` | `kafka.tools.ClusterTool` | pass | pass | pass | pass |
 | `removed-tool-class` | `kafka.tools.EndToEndLatency` | pass | pass | pass | pass |
+| `removed-tool-class` | `kafka.tools.MirrorMaker` | pass | pass | pass | pass |
 | `removed-tool-class` | `kafka.tools.StateChangeLogMerger` | pass | pass | pass | pass |
 | `removed-tool-class` | `kafka.tools.StreamsResetter` | pass | pass | pass | pass |
 | `removed-tool-class` | `kafka.tools.JmxTool` | pass | pass | pass | pass |
@@ -66,9 +79,22 @@ Result of `tests/oracle/run_oracle.py` on four Kafka releases (Scala 2.13 tarbal
 | `zookeeper-script` | `zookeeper-server-stop` | pass | pass | pass | pass |
 | `zookeeper-script` | `zookeeper-shell` | pass | pass | pass | pass |
 | `zookeeper-script` | `zookeeper-security-migration` | pass | pass | pass | pass |
+| `removed-tool-script` | `kafka-mirror-maker` | pass | pass | pass | pass |
+| `removed-tool-script` | `kafka-preferred-replica-election` | pass | pass | pass | pass |
+| `removed-tool-script` | `kafka-consumer-offset-checker` | pass | pass | pass | pass |
+| `removed-broker-config` | `apache/kafka image: KAFKA_* variable names -> settings` | pass | pass | pass | pass |
 | `kraft-config-path` | `config/kraft/server.properties` | pass | pass | pass | pass |
 | `kraft-config-path` | `config/kraft/broker.properties` | pass | pass | pass | pass |
 | `kraft-config-path` | `config/kraft/controller.properties` | pass | pass | pass | pass |
 | `removed-partitioner` | `DefaultPartitioner` | pass | pass | pass | pass |
 | `removed-partitioner` | `UniformStickyPartitioner` | pass | pass | pass | pass |
 | `idempotence-in-flight` | `idempotence+6` | pass | pass | pass | pass |
+| `idempotence-in-flight` | `default+6` | pass | pass | pass | pass |
+| `idempotence-in-flight` | `idempotence off+6 (control)` | pass | pass | pass | pass |
+| `removed-connector-config` | `topics.blacklist` | pass | pass | pass | pass |
+| `removed-connector-config` | `groups.blacklist` | pass | pass | pass | pass |
+| `removed-connector-config` | `config.properties.blacklist` | pass | pass | pass | pass |
+| `removed-connector-config` | `use.incremental.alter.configs` | pass | pass | pass | pass |
+| `removed-connector-config` | `add.source.alias.to.metrics` | pass | pass | pass | pass |
+| `removed-connector-config` | `ReplaceField whitelist` | pass | pass | pass | pass |
+| `removed-connector-config` | `ReplaceField blacklist` | pass | pass | pass | pass |

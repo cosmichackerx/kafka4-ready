@@ -31,8 +31,10 @@ RULES = {r.id: r for r in [
     Rule("bootstrap-server-format", "error", "--bootstrap-server with space-separated brokers: Kafka 4 accepts only a comma-separated list", "Separate the brokers with commas.", True),
     Rule("removed-tool-class", "error", "kafka-run-class.sh with a tool class that Kafka 4 removed", "Use the dedicated tool named in the message.", True),
     Rule("zookeeper-script", "error", "A ZooKeeper script (zookeeper-server-start.sh, zookeeper-shell.sh, ...) that the Kafka 4 distribution no longer contains", "Remove the ZooKeeper step; use KRaft tools (kafka-metadata-quorum.sh, kafka-storage.sh).", True),
+    Rule("removed-tool-script", "error", "A tool script (kafka-mirror-maker.sh, kafka-preferred-replica-election.sh, kafka-consumer-offset-checker.sh) that the Kafka 4 distribution no longer contains", "Use the replacement named in the message.", True),
     Rule("kraft-config-path", "error", "config/kraft/*.properties: Kafka 4 moved the KRaft files to config/", "Use config/server.properties, config/broker.properties or config/controller.properties.", True),
     Rule("removed-partitioner", "error", "partitioner.class set to a class that Kafka 4 removed", "Delete the line: the default partitioner is built in.", True),
+    Rule("removed-connector-config", "warning", "A MirrorMaker 2 or ReplaceField setting that Kafka 4 Connect no longer defines: the worker accepts the connector and ignores the key", "Use the replacement named in the message.", True),
     Rule("idempotence-in-flight", "error", "A producer with idempotence and more than 5 in-flight requests: Kafka 4 fails instead of silently turning idempotence off", "Set max.in.flight.requests.per.connection to 5 or less, or enable.idempotence=false.", True),
 ]}
 
@@ -43,6 +45,8 @@ REMOVED_BROKER = {
     "zookeeper.max.in.flight.requests": ZK, "zookeeper.metadata.migration.enable": ZK, "zookeeper.clientCnxnSocket": ZK,
     "zookeeper.ssl.client.enable": ZK, "zookeeper.ssl.keystore.location": ZK, "zookeeper.ssl.truststore.location": ZK,
     "zookeeper.ssl.protocol": ZK, "zookeeper.ssl.endpoint.identification.algorithm": ZK, "zookeeper.sync.time.ms": ZK,
+    "zookeeper.ssl.keystore.password": ZK, "zookeeper.ssl.keystore.type": ZK, "zookeeper.ssl.truststore.password": ZK, "zookeeper.ssl.truststore.type": ZK,
+    "zookeeper.ssl.cipher.suites": ZK, "zookeeper.ssl.enabled.protocols": ZK, "zookeeper.ssl.crl.enable": ZK, "zookeeper.ssl.ocsp.enable": ZK,
     "log.message.format.version": "removed; KRaft always uses record format v2, there is no replacement",
     "message.format.version": "removed; there is no replacement",
     "inter.broker.protocol.version": "removed; in KRaft choose the metadata version with kafka-storage.sh format --release-version or kafka-features.sh",
@@ -78,6 +82,10 @@ REMOVED_CLI = [
     ("kafka-console-consumer", "--whitelist", "use --include"),
     ("kafka-replica-verification", "--topic-white-list", "use --topics-include"),
     ("kafka-verifiable-consumer", "--broker-list", "use --bootstrap-server"),
+    ("kafka-console-consumer", "--zookeeper", "use --bootstrap-server"),
+    ("kafka-console-consumer", "--new-consumer", "the option is gone (the new consumer is the only one); delete it"),
+    ("kafka-console-producer", "--broker-list", "use --bootstrap-server"),
+    ("kafka-consumer-perf-test", "--broker-list", "use --bootstrap-server"),
     ("kafka-topics", "--delete-config", "the option is no longer supported; use kafka-configs.sh --alter --delete-config"),
 ]
 # deprecated in 4.2: (tool, option, replacement)
@@ -94,8 +102,25 @@ BOOTSTRAP_TOOLS = ("kafka-topics", "kafka-configs", "kafka-console-consumer")
 # ---- tool classes the Kafka 4 distribution does not contain
 REMOVED_CLASSES = {
     "kafka.admin.FeatureCommand": "kafka-features.sh", "kafka.tools.ClusterTool": "kafka-cluster.sh", "kafka.tools.EndToEndLatency": "kafka-e2e-latency.sh",
-    "kafka.tools.StateChangeLogMerger": "(removed without replacement)", "kafka.tools.StreamsResetter": "kafka-streams-application-reset.sh", "kafka.tools.JmxTool": "kafka-jmx.sh",
+    "kafka.tools.MirrorMaker": "connect-mirror-maker.sh", "kafka.tools.StateChangeLogMerger": "(removed without replacement)", "kafka.tools.StreamsResetter": "kafka-streams-application-reset.sh", "kafka.tools.JmxTool": "kafka-jmx.sh",
+}
+REMOVED_SCRIPTS = {
+    "kafka-mirror-maker": "MirrorMaker 1 was removed in Kafka 4.0; use connect-mirror-maker.sh (MirrorMaker 2)",
+    "kafka-preferred-replica-election": "removed; use kafka-leader-election.sh --election-type preferred",
+    "kafka-consumer-offset-checker": "removed; use kafka-consumer-groups.sh --describe",
 }
 ZOOKEEPER_SCRIPTS = ("zookeeper-server-start", "zookeeper-server-stop", "zookeeper-shell", "zookeeper-security-migration")
 KRAFT_PATHS = ("config/kraft/server.properties", "config/kraft/broker.properties", "config/kraft/controller.properties")
 REMOVED_PARTITIONERS = ("org.apache.kafka.clients.producer.internals.DefaultPartitioner", "org.apache.kafka.clients.producer.UniformStickyPartitioner")
+
+# ---- Connect: settings the Kafka 4 Connect worker no longer defines. The REST validate endpoint lists every setting a connector knows (`configs[].definition.name`);
+# these are absent there, their replacements present. key -> (connector class short name, replacement text)
+REMOVED_CONNECTOR = {
+    "topics.blacklist": ("MirrorSourceConnector", "use topics.exclude"),
+    "groups.blacklist": ("MirrorSourceConnector", "use groups.exclude"),
+    "config.properties.blacklist": ("MirrorSourceConnector", "use config.properties.exclude"),
+    "use.incremental.alter.configs": ("MirrorSourceConnector", "removed; Kafka 4 always behaves like the old 'required' (target brokers must be 2.3.0 or newer)"),
+    "add.source.alias.to.metrics": ("MirrorSourceConnector", "removed; the source cluster alias is always added to the metrics"),
+}
+REPLACEFIELD_TYPE = "org.apache.kafka.connect.transforms.ReplaceField"
+REPLACEFIELD_KEYS = {"whitelist": "include", "blacklist": "exclude"}

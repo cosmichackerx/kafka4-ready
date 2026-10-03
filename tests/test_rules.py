@@ -139,8 +139,46 @@ def test_ambiguous_keys_only_in_broker_files(key):
     assert run(f"{key}=x\n", "client.properties") == []
 
 
-def test_zookeeper_keys_flagged_anywhere():
-    assert ids(run("zookeeper.session.timeout.ms=18000\n", "app.properties")) == ["removed-broker-config"]
+def test_zookeeper_keys_only_in_broker_files():
+    # study: old ZooKeeper consumers and client apps use zookeeper.* keys in files that are no broker config
+    assert run("zookeeper.session.timeout.ms=18000\n", "app.properties") == []
+    assert run("zookeeper.connect=zk:2181\ngroup.id=g\n", "consumer.properties") == []
+    assert run("zookeeper.connect=zk:2181\nzookeeper.connection.timeout.ms=6000\n", "MsgRtrApi.properties") == []
+    assert ids(run("zookeeper.connect=zk:2181\nzookeeper.connection.timeout.ms=6000\n", "server.properties")) == ["removed-broker-config", "removed-broker-config", "zookeeper-mode"]
+    assert "zookeeper-mode" in ids(run("broker.id=0\nzookeeper.connect=zk:2181\n", "kafka.properties"))
+    assert "zookeeper-mode" not in ids(run("broker.id=0\nzookeeper.connect=zk:2181\n", "consumer.properties"))
+    assert ids(run("process.roles=broker\nzookeeper.ssl.truststore.type=null\n", "server.properties")) == ["removed-broker-config"]
+
+
+def test_vendored_wrapper_scripts_are_skipped():
+    wrapper = 'exec $(dirname $0)/kafka-run-class.sh kafka.admin.FeatureCommand "$@"\n'
+    assert run(wrapper, "kafka-features.sh") == []
+    assert ids(run(wrapper, "upgrade.sh")) == ["removed-tool-class"]
+
+
+def test_copy_and_mount_are_not_uses():
+    assert run("COPY scripts/zookeeper-server-stop.sh /opt/kafka/bin\n", "Dockerfile") == []
+    assert ids(run("RUN /opt/kafka/bin/zookeeper-server-start.sh config/zookeeper.properties\n", "Dockerfile")) == ["zookeeper-script"]
+    assert run("COPY server.properties /opt/kafka/config/kraft/server.properties\n", "Dockerfile") == []
+    assert run("    volumes:\n      - ./server.properties:/kafka/config/kraft/server.properties\n", "docker-compose.yml") == []
+    assert ids(run("COPY --from=k /opt/kafka/config/kraft/server.properties /conf/\n", "Dockerfile")) == ["kraft-config-path"]
+    assert ids(run("bin/kafka-server-start.sh config/kraft/server.properties\n")) == ["kraft-config-path"]
+
+
+def test_kubernetes_env_name_form():
+    y = "env:\n  - name: KAFKA_ZOOKEEPER_CONNECT\n    value: zk:2181\n"
+    assert ids(run(y, "kafka.yaml")) == ["removed-broker-config"]
+    assert ids(run('{"name": "KAFKA_CFG_ZOOKEEPER_CONNECT",\n', "x.yaml")) == ["removed-broker-config"]
+
+
+def test_more_removed_options_and_scripts():
+    assert ids(run("kafka-console-consumer.sh --zookeeper zk:2181 --topic t\n")) == ["removed-cli-option"]
+    assert ids(run("kafka-console-consumer.sh --bootstrap-server b:9092 --new-consumer --topic t\n")) == ["removed-cli-option"]
+    assert ids(run("kafka-console-producer.sh --broker-list b:9092 --topic t\n")) == ["removed-cli-option"]
+    assert ids(run("kafka-consumer-perf-test.sh --broker-list b:9092 --topic t\n")) == ["removed-cli-option"]
+    assert ids(run("bin/kafka-mirror-maker.sh --consumer.config c --producer.config p --whitelist '.*'\n")) == ["removed-tool-script"]
+    assert ids(run("kafka-preferred-replica-election.sh --zookeeper zk:2181\n")) == ["removed-tool-script"]
+    assert ids(run("kafka-run-class.sh kafka.tools.MirrorMaker --whitelist x\n")) == ["removed-tool-class"]
 
 
 def test_properties_comments_and_colon_and_spaces():
@@ -179,7 +217,36 @@ def test_idempotence_in_flight():
     assert ids(run("enable.idempotence=true\nmax.in.flight.requests.per.connection=6\n", "p.properties")) == ["idempotence-in-flight"]
     assert run("enable.idempotence=true\nmax.in.flight.requests.per.connection=5\n", "p.properties") == []
     assert run("enable.idempotence=false\nmax.in.flight.requests.per.connection=6\n", "p.properties") == []
-    assert run("max.in.flight.requests.per.connection=6\n", "p.properties") == []
+    assert run("max.in.flight.requests.per.connection=1\n", "p.properties") == []
+
+
+def test_idempotence_default_on_is_flagged_too():
+    (f,) = run("bootstrap.servers=b:9092\nmax.in.flight.requests.per.connection=10\n", "producer.properties")
+    assert f.rule == "idempotence-in-flight" and "the default" in f.message and f.line == 2
+
+
+# ---------------------------------------------------------------- Connect
+@pytest.mark.parametrize("key", list(R.REMOVED_CONNECTOR))
+def test_removed_connector_keys_in_properties_json_and_yaml(key):
+    assert ids(run(f"name=m\n{key}=x\n", "mm2.properties")) == ["removed-connector-config"]
+    assert ids(run(f'{{\n  "{key}": "x"\n}}\n', "mirror.json")) == ["removed-connector-config"]
+    assert ids(run(f"config:\n  {key}: x\n", "connector.yaml")) == ["removed-connector-config"]
+
+
+def test_connector_replacements_are_clean():
+    assert run("topics.exclude=a\ngroups.exclude=b\nconfig.properties.exclude=c\n", "mm2.properties") == []
+
+
+def test_replacefield_needs_the_transform_in_the_file():
+    text = "transforms=drop\ntransforms.drop.type=org.apache.kafka.connect.transforms.ReplaceField$Value\ntransforms.drop.blacklist=ssn\n"
+    (f,) = run(text, "sink.properties")
+    assert f.rule == "removed-connector-config" and "transforms.drop.exclude" in f.message and f.line == 3
+    assert run("transforms.drop.whitelist=a\n", "other.properties") == []
+    assert run(text.replace("blacklist", "exclude"), "sink.properties") == []
+
+
+def test_connector_key_in_comment_is_ignored():
+    assert run("# topics.blacklist=a\n", "mm2.properties") == []
 
 
 # ---------------------------------------------------------------- environment variables (image convention)
@@ -233,7 +300,7 @@ def test_kinds():
 # ---------------------------------------------------------------- registry consistency and CLI
 def test_every_rule_has_a_detector_test_and_oracle_flag():
     assert set(RULES) == {"zookeeper-mode", "removed-broker-config", "invalid-config-value", "deprecated-broker-config", "removed-cli-option", "deprecated-cli-option",
-                          "bootstrap-server-format", "removed-tool-class", "zookeeper-script", "kraft-config-path", "removed-partitioner", "idempotence-in-flight"}
+                          "bootstrap-server-format", "removed-tool-class", "zookeeper-script", "kraft-config-path", "removed-partitioner", "idempotence-in-flight", "removed-connector-config", "removed-tool-script"}
     assert all(r.oracle for r in RULES.values()) and TESTED == sorted(TESTED, key=lambda v: [int(x) for x in v.split(".")])
 
 
@@ -258,3 +325,12 @@ def test_cli_formats_and_exit_codes(tmp_path, capsys):
 def test_list_rules(capsys):
     assert main(["--list-rules"]) == 0
     assert len(capsys.readouterr().out.strip().splitlines()) == len(RULES)
+
+
+def test_commands_inside_quoted_strings():
+    assert ids(run('command: "bin/zookeeper-server-start.sh config/zookeeper.properties"\n', "docker-compose.yml")) == ["zookeeper-script"]
+    assert ids(run("command: \"bash -c 'kafka-topics --create --zookeeper zk:2181 --topic t'\"\n", "docker-compose.yml")) == ["removed-cli-option"]
+    assert ids(run('CMD ["/bin/bash","-c","/opt/kafka/bin/zookeeper-server-start.sh /opt/kafka/config/zookeeper.properties"]\n', "Dockerfile")) == ["zookeeper-script"]
+    assert run('echo "the kafka docs say hello there"\n') == []
+    f = run("x: \"bash -c 'kafka-topics --zookeeper zk:2181'\"\n", "c.yml")[0]
+    assert (f.line, f.col) == (1, 27)
