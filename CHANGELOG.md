@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.0 - 2026-10-03
+
+* **`--fix` and `--diff`**: rewrite the mechanical spellings (`--whitelist` to `--include`, `--topic-white-list` to `--topics-include`, `--broker-list` to `--bootstrap-server`, `--new-consumer` deleted, spaces to commas in `--bootstrap-server`, `config/kraft/` to `config/`). Idempotent, only the option changes. 13 fix cases run on the real tools of Kafka 4.0.1 to 4.3.1 in CI (`tests/oracle/run_fix_oracle.py`).
+* Fixed a miss found while writing the fixer: `--bootstrap-server='a:9092 b:9092'` (quoted value after `=`) was not reported.
+* CI: the release gate and the weekly pin check call the reusable workflows of claims-check 0.3.0.
+
 ## 0.2.0 - 2026-10-03
 
 * **Precision study** on 3,185 files of 2,446 public repositories (`docs/precision-study.md`): 378 findings labelled by hand. v0.1.0 was right on 186 of 216; the 30 false positives are fixed.
