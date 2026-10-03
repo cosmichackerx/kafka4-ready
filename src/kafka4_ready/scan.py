@@ -309,12 +309,12 @@ def is_broker_file(name: str, keys: set) -> bool:
     return bool(keys & BROKER_HINTS)
 
 
-def properties_findings(text: str, file: str, name: str, items=None, strimzi: bool = False):
+def properties_findings(text: str, file: str, name: str, items=None, strimzi: bool = False, role: str = "broker"):
     """`items` and `strimzi=True` come from a Strimzi `Kafka` resource: the entries are broker settings by definition, and process.roles is managed by the operator."""
     out = []
     items = parse_properties(text) if items is None else items
     keys = {k for k, _, _, _ in items}
-    broker = True if strimzi else is_broker_file(name, keys)
+    broker = (role == "broker") if strimzi else is_broker_file(name, keys)
     kv = {k: (v, ln) for k, v, ln, _ in items}
     for k, v, ln, raw in items:
         snippet = raw.strip()[:160]
@@ -362,10 +362,23 @@ def _yaml_value(raw: str) -> str:
     return re.split(r"\s+#", raw, maxsplit=1)[0].strip()
 
 
-def strimzi_items(text: str):
-    """The `key: value` entries of `spec.kafka.config` in every Strimzi `Kafka` document of a YAML file, as (key, value, line, raw) like a .properties file.
-    Plain indentation tracking, no YAML parser: flow style (`config: {a: b}`), anchors and multi-line scalars are not read."""
-    items, doc, start = [], [], 0
+STRIMZI_KIND_ANY = re.compile(r"^kind:\s*[\"']?(\w+)[\"']?\s*(?:#.*)?$", re.M)
+# kind -> {path of the config map: role}. "broker" = settings of a Kafka broker, "client" = settings of a Kafka client (Connect worker, MirrorMaker 2 cluster connection, Bridge producer/consumer).
+# KafkaNodePool has no config map (roles/storage/resources only), so there is nothing to read in it.
+STRIMZI_PATHS = {
+    "Kafka": {("spec", "kafka", "config"): "broker"},
+    "KafkaConnect": {("spec", "config"): "client"},
+    "KafkaMirrorMaker2": {("spec", "clusters", "config"): "client"},
+    "KafkaBridge": {("spec", "producer", "config"): "client", ("spec", "consumer", "config"): "client", ("spec", "admin", "config"): "client"},
+}
+# Helm values of the Bitnami kafka chart (32.x, Kafka 4.0): key/value maps under these paths become server.properties lines; older charts have a text block `extraConfig`.
+# A leading `kafka:` (the chart used as a dependency) is accepted. Only applied to files named values*.y(a)ml that talk about Kafka.
+HELM_MAPS = {("config",), ("overrideConfiguration",), ("controller", "config"), ("controller", "overrideConfiguration"), ("broker", "config"), ("broker", "overrideConfiguration")}
+HELM_BLOCKS = {("extraConfig",), ("controller", "extraConfig"), ("broker", "extraConfig")}
+HELM_NAME = re.compile(r"^(?:.*[-_.])?values(?:[-_.][\w.\-]*)?\.ya?ml$", re.I)
+
+
+def _yaml_docs(text: str):
     lines = text.splitlines()
     docs, cur, first = [], [], 1
     for i, line in enumerate(lines):
@@ -375,33 +388,83 @@ def strimzi_items(text: str):
         else:
             cur.append(line)
     docs.append((first, cur))
-    for first, dl in docs:
-        body = "\n".join(dl)
-        if not (STRIMZI_API.search(body) and STRIMZI_KIND.search(body)):
+    return docs
+
+
+def _walk_config(dl, first, selector):
+    """Yield (role, key, value, line, raw) for every entry under a path chosen by selector(path) -> role | ("block", role) | None."""
+    stack = []
+    block = None   # (indent, role) while inside a `|` text block
+    for off, line in enumerate(dl):
+        if block is not None:
+            if not line.strip():
+                continue
+            if len(line) - len(line.lstrip()) > block[0]:
+                t = line.strip()
+                if not t.startswith(("#", "!")) and "{{" not in t:
+                    k, sep, v = re.split(r"\s*([=:])\s*", t, maxsplit=1) if re.search(r"[=:]", t) else (t, "", "")
+                    if sep:
+                        yield block[1], k, v.strip(), first + off, line
+                continue
+            block = None
+        if not line.strip() or line.lstrip().startswith("#"):
             continue
-        stack = []
-        for off, line in enumerate(dl):
-            if not line.strip() or line.lstrip().startswith("#"):
-                continue
-            m = YAML_KEY.match(line)
-            if not m:
-                continue
-            indent = len(m.group(1)) + (2 if re.match(r"\s*-\s", line) else 0)
-            key = m.group(2) or m.group(3) or m.group(4)
-            while stack and stack[-1][0] >= indent:
-                stack.pop()
-            if [k for _, k in stack] == ["spec", "kafka", "config"] and "{{" not in key and "{{" not in (m.group(5) or ""):
-                items.append((key, _yaml_value(m.group(5)), first + off, line))
-            stack.append((indent, key))
-    return items
+        m = YAML_KEY.match(line)
+        if not m:
+            continue
+        indent = len(m.group(1)) + (2 if re.match(r"\s*-\s", line) else 0)
+        key = m.group(2) or m.group(3) or m.group(4)
+        while stack and stack[-1][0] >= indent:
+            stack.pop()
+        path = tuple(k for _, k in stack)
+        sel = selector(path) if stack else None
+        if sel and "{{" not in key and "{{" not in (m.group(5) or ""):
+            yield sel, key, _yaml_value(m.group(5)), first + off, line
+        if selector(path + (key,)) == "block" and (m.group(5) or "").strip() in ("|", "|-", "|+"):
+            block = (indent, "broker")
+        stack.append((indent, key))
+
+
+def config_entries(text: str, name: str = ""):
+    """(role, key, value, line, raw) of every Kafka-related config map in a YAML file: Strimzi resources by kind, Helm values by chart convention. Plain indentation tracking, no YAML parser: flow style (`config: {a: b}`), anchors and Helm template lines are skipped."""
+    out = []
+    helm = bool(HELM_NAME.match(os.path.basename(name or ""))) and re.search(r"kafka|kraft", text, re.I)
+    for first, dl in _yaml_docs(text):
+        body = "\n".join(dl)
+        if STRIMZI_API.search(body):
+            m = STRIMZI_KIND_ANY.search(body)
+            paths = STRIMZI_PATHS.get(m.group(1) if m else "")
+            if paths:
+                out += list(_walk_config(dl, first, lambda p: paths.get(p)))
+        elif helm:
+            def sel(p, _h=HELM_MAPS, _b=HELM_BLOCKS):
+                q = p[1:] if p[:1] == ("kafka",) and len(p) > 1 else p
+                if q in _b:
+                    return "block"
+                return "broker" if q in _h else None
+            out += list(_walk_config(dl, first, sel))
+    return out
+
+
+def strimzi_items(text: str):
+    """The broker `key: value` entries of `spec.kafka.config` in every Strimzi `Kafka` document of a YAML file, as (key, value, line, raw) like a .properties file."""
+    return [(k, v, ln, raw) for role, k, v, ln, raw in config_entries(text) if role == "broker"]
+
+
+BROKER_RULES = ("removed-broker-config", "invalid-config-value", "deprecated-broker-config")
+CLIENT_RULES = ("removed-broker-config", "removed-partitioner", "idempotence-in-flight")
 
 
 def strimzi_findings(text: str, file: str):
-    items = strimzi_items(text)
-    if not items:
-        return []
-    out = properties_findings(text, file, os.path.basename(file), items=items, strimzi=True)
-    return [f for f in out if f.rule in ("removed-broker-config", "invalid-config-value", "deprecated-broker-config")]
+    entries = config_entries(text, file)
+    out = []
+    for role in ("broker", "client"):
+        items = [(k, v, ln, raw) for r, k, v, ln, raw in entries if r == role]
+        if not items:
+            continue
+        found = properties_findings(text, file, os.path.basename(file), items=items, strimzi=True, role=role)
+        out += [f for f in found if f.rule in (BROKER_RULES if role == "broker" else CLIENT_RULES)]
+    return out
 
 
 # ---------------------------------------------------------------- Connect
