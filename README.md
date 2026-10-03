@@ -139,7 +139,7 @@ The new spellings are for Kafka 4: `config/server.properties` is a ZooKeeper-mod
 - uses: actions/checkout@v7
   with:
     fetch-depth: 0          # only needed for pr-mode
-- uses: cosmichackerx/kafka4-ready@v0.3.0
+- uses: cosmichackerx/kafka4-ready@v0.4.0
   with:
     path: .
     fail-on: error          # error | warning | never
@@ -156,7 +156,7 @@ Inputs: `path`, `fail-on`, `disable`, `ignore`, `summary` (job summary), `pr-mod
 ```yaml
 repos:
   - repo: https://github.com/cosmichackerx/kafka4-ready
-    rev: v0.3.0
+    rev: v0.4.0
     hooks:
       - id: kafka4-ready        # report; fails the commit on errors
 ```
@@ -193,13 +193,25 @@ Other tools for the Kafka 4 move, with what they do differently (read from their
 
 I found no other static scanner for Kafka 4 config files and scripts in my search; that is not proof there is none.
 
+## Strimzi `Kafka` resources
+
+A YAML document with `apiVersion: kafka.strimzi.io/...` and `kind: Kafka` has its `spec.kafka.config` map read like a broker `.properties` file, with the rules `removed-broker-config`, `invalid-config-value` and `deprecated-broker-config` (the v0.2.0 study had found 83 `log.message.format.version` / `inter.broker.protocol.version` lines there that nothing saw). Line numbers point at the real YAML line; `# kafka4-ready: ignore <rule>` works.
+
+```yaml
+  kafka:
+    config:
+      log.message.format.version: "3.5"      # 11:1  warning  removed-broker-config
+```
+
+What this does **not** prove: the Kafka side (removed keys are ignored by a 4.x broker, invalid values are refused) comes from the oracle on real brokers; what Strimzi does with the key before it reaches the broker (it may reject or rewrite some options itself) was **not** run, there is no Kubernetes or operator in the test setup. The reader is plain indentation tracking, not a YAML parser: flow style (`config: {a: b}`), anchors, and Helm template lines are skipped. `spec.zookeeper` sections are not reported (Strimzi 0.46+ dropped ZooKeeper per its release notes; this is not checked here).
+
 ## Limitations (read these)
 
 * Text matching on logical lines, not a shell parser: a Kafka tool inside `eval`, a variable-built command line, `xargs` or a wrapper script is not seen. Option values given by variable are not inspected (`--bootstrap-server "$BROKERS"` is not flagged).
 * Rules hold for Kafka 4.0.1, 4.1.2, 4.2.2 and 4.3.1 (Scala 2.13 tarballs on Linux, Java 17) only; the scanner's messages quote the newest. A rule is only claimed for what was run. Flag and setting lists are **not exhaustive**: only changes reproduced on a real broker or tool are rules.
 * Broker settings that are **ignored** are verified through `kafka-configs --describe --all`, not by observing a behaviour change. Client settings that Kafka 4 ignores (for example `auto.include.jmx.reporter` in a producer) could not be told apart from valid ones through the tools, so there is no client rule for them.
 * **Kafka Streams is not covered, Connect only for MirrorSourceConnector and ReplaceField, and no container image was run.** The `KAFKA_*` variable mapping was checked against the apache/kafka image's own wrapper code (not the image); Bitnami's `KAFKA_CFG_*` mapping is by name only.
-* It does not read Helm charts or operator custom resources (Strimzi `Kafka` resources: the study found 83 `log.message.format.version` / `inter.broker.protocol.version` lines in `config:` blocks that no rule sees) and does not check ACLs, topics or data.
+* It does not render Helm charts and does not check ACLs, topics or data. Of operator resources it reads only the `spec.kafka.config` map of Strimzi `Kafka` resources (see below); `KafkaConnect`, `KafkaMirrorMaker2`, `KafkaNodePool` and Kustomize patches are not read.
 * The [precision study](docs/precision-study.md) is a convenience sample labelled by one person; four rules never fired in it. A finding is true for the file as written, not proof that a deployment breaks: many hits are old Kafka 0.8 to 3.x fixtures, copies of the same course repository, or templates.
 
 ## Roadmap
