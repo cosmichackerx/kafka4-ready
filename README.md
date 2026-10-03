@@ -181,7 +181,7 @@ In the Action, `pr-mode: true` does this on pull requests. Needs git history (`f
 ## Related tools
 
 Same author, same style (static, zero dependencies, SARIF, oracle-validated):
-[helm4-ready](https://github.com/cosmichackerx/helm4-ready) (Helm 3 to 4), [node24-ready](https://github.com/cosmichackerx/node24-ready) (GitHub Actions on Node 24),
+[helm4-ready](https://github.com/cosmichackerx/helm4-ready) (Helm 3 to 4), [pandas3-ready](https://github.com/cosmichackerx/pandas3-ready) (pandas 2 to 3), [node24-ready](https://github.com/cosmichackerx/node24-ready) (GitHub Actions on Node 24),
 [dependabot-gaps](https://github.com/cosmichackerx/dependabot-gaps), [claims-check](https://github.com/cosmichackerx/claims-check) (keeps README numbers true),
 [sha256-ready](https://github.com/cosmichackerx/sha256-ready), [gradle10-ready](https://github.com/cosmichackerx/gradle10-ready), [kotlin24-ready](https://github.com/cosmichackerx/kotlin24-ready).
 
