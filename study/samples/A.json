@@ -1,0 +1,2162 @@
+[
+ {
+  "repo": "ChristianTrolleMikkelsen/vagrant_kafka",
+  "rule": "zookeeper-mode",
+  "severity": "error",
+  "file": "kafka1.properties",
+  "line": 120,
+  "message": "no process.roles: this is a ZooKeeper-mode broker file; Kafka 4.3.1 refuses to start (\"Missing required configuration \\\"process.roles\\\"\"). Migrate the cluster to KRaft before upgrading (set process.roles, node.id, controller.quorum.bootstrap.servers, controller.listener.names).",
+  "snippet": "",
+  "id": "zookeeper-mode-0"
+ },
+ {
+  "repo": "liyuqi/kafka_exp",
+  "rule": "zookeeper-mode",
+  "severity": "error",
+  "file": "kafka-properties/server-z3-b7-p3.properties",
+  "line": 35,
+  "message": "no process.roles: this is a ZooKeeper-mode broker file; Kafka 4.3.1 refuses to start (\"Missing required configuration \\\"process.roles\\\"\"). Migrate the cluster to KRaft before upgrading (set process.roles, node.id, controller.quorum.bootstrap.servers, controller.listener.names).",
+  "snippet": "",
+  "id": "zookeeper-mode-1"
+ },
+ {
+  "repo": "Abhijeet2901/Library-KAFKA-SpringBoot-Project",
+  "rule": "zookeeper-mode",
+  "severity": "error",
+  "file": "kafka_2.13-3.2.0/config/server-1.properties",
+  "line": 143,
+  "message": "no process.roles: this is a ZooKeeper-mode broker file; Kafka 4.3.1 refuses to start (\"Missing required configuration \\\"process.roles\\\"\"). Migrate the cluster to KRaft before upgrading (set process.roles, node.id, controller.quorum.bootstrap.servers, controller.listener.names).",
+  "snippet": "",
+  "id": "zookeeper-mode-2"
+ },
+ {
+  "repo": "deepin-community/rsyslog",
+  "rule": "zookeeper-mode",
+  "severity": "error",
+  "file": "tests/testsuites/kafka-server.dep_wrk2.properties",
+  "line": 62,
+  "message": "no process.roles: this is a ZooKeeper-mode broker file; Kafka 4.3.1 refuses to start (\"Missing required configuration \\\"process.roles\\\"\"). Migrate the cluster to KRaft before upgrading (set process.roles, node.id, controller.quorum.bootstrap.servers, controller.listener.names).",
+  "snippet": "",
+  "id": "zookeeper-mode-3"
+ },
+ {
+  "repo": "Kyfaiyya/apachekafka",
+  "rule": "zookeeper-mode",
+  "severity": "error",
+  "file": "kafka-python-2.2.7/servers/2.4.0/resources/kafka.properties",
+  "line": 156,
+  "message": "no process.roles: this is a ZooKeeper-mode broker file; Kafka 4.3.1 refuses to start (\"Missing required configuration \\\"process.roles\\\"\"). Migrate the cluster to KRaft before upgrading (set process.roles, node.id, controller.quorum.bootstrap.servers, controller.listener.names).",
+  "snippet": "",
+  "id": "zookeeper-mode-4"
+ },
+ {
+  "repo": "viniciusccarvalho/kafka-boshrelease",
+  "rule": "zookeeper-mode",
+  "severity": "error",
+  "file": "jobs/broker/templates/server.properties.erb",
+  "line": 114,
+  "message": "no process.roles: this is a ZooKeeper-mode broker file; Kafka 4.3.1 refuses to start (\"Missing required configuration \\\"process.roles\\\"\"). Migrate the cluster to KRaft before upgrading (set process.roles, node.id, controller.quorum.bootstrap.servers, controller.listener.names).",
+  "snippet": "",
+  "id": "zookeeper-mode-5"
+ },
+ {
+  "repo": "gridgentoo/uber-uReplicator",
+  "rule": "zookeeper-mode",
+  "severity": "error",
+  "file": "config/consumer.properties",
+  "line": 20,
+  "message": "no process.roles: this is a ZooKeeper-mode broker file; Kafka 4.3.1 refuses to start (\"Missing required configuration \\\"process.roles\\\"\"). Migrate the cluster to KRaft before upgrading (set process.roles, node.id, controller.quorum.bootstrap.servers, controller.listener.names).",
+  "snippet": "",
+  "id": "zookeeper-mode-6"
+ },
+ {
+  "repo": "chaordic/platform-dockerized",
+  "rule": "zookeeper-mode",
+  "severity": "error",
+  "file": "kafka/server.properties",
+  "line": 15,
+  "message": "no process.roles: this is a ZooKeeper-mode broker file; Kafka 4.3.1 refuses to start (\"Missing required configuration \\\"process.roles\\\"\"). Migrate the cluster to KRaft before upgrading (set process.roles, node.id, controller.quorum.bootstrap.servers, controller.listener.names).",
+  "snippet": "",
+  "id": "zookeeper-mode-7"
+ },
+ {
+  "repo": "holen/opensource",
+  "rule": "zookeeper-mode",
+  "severity": "error",
+  "file": "kafka/consumer.properties",
+  "line": 21,
+  "message": "no process.roles: this is a ZooKeeper-mode broker file; Kafka 4.3.1 refuses to start (\"Missing required configuration \\\"process.roles\\\"\"). Migrate the cluster to KRaft before upgrading (set process.roles, node.id, controller.quorum.bootstrap.servers, controller.listener.names).",
+  "snippet": "",
+  "id": "zookeeper-mode-8"
+ },
+ {
+  "repo": "HernanRivasAcosta/kafkerl",
+  "rule": "zookeeper-mode",
+  "severity": "error",
+  "file": "bin/server1.properties",
+  "line": 15,
+  "message": "no process.roles: this is a ZooKeeper-mode broker file; Kafka 4.3.1 refuses to start (\"Missing required configuration \\\"process.roles\\\"\"). Migrate the cluster to KRaft before upgrading (set process.roles, node.id, controller.quorum.bootstrap.servers, controller.listener.names).",
+  "snippet": "",
+  "id": "zookeeper-mode-9"
+ },
+ {
+  "repo": "lxl0928/timi_kafka",
+  "rule": "zookeeper-mode",
+  "severity": "error",
+  "file": "servers/0.8.1/resources/kafka.properties",
+  "line": 62,
+  "message": "no process.roles: this is a ZooKeeper-mode broker file; Kafka 4.3.1 refuses to start (\"Missing required configuration \\\"process.roles\\\"\"). Migrate the cluster to KRaft before upgrading (set process.roles, node.id, controller.quorum.bootstrap.servers, controller.listener.names).",
+  "snippet": "",
+  "id": "zookeeper-mode-10"
+ },
+ {
+  "repo": "edward2a/docker-kafka",
+  "rule": "zookeeper-mode",
+  "severity": "error",
+  "file": "config/server-cluster_node.properties",
+  "line": 2,
+  "message": "no process.roles: this is a ZooKeeper-mode broker file; Kafka 4.3.1 refuses to start (\"Missing required configuration \\\"process.roles\\\"\"). Migrate the cluster to KRaft before upgrading (set process.roles, node.id, controller.quorum.bootstrap.servers, controller.listener.names).",
+  "snippet": "",
+  "id": "zookeeper-mode-11"
+ },
+ {
+  "repo": "hardenedlinux/Debian-GNU-Linux-Profiles",
+  "rule": "zookeeper-mode",
+  "severity": "error",
+  "file": "NSM/conf/kafka/server.properties",
+  "line": 2,
+  "message": "no process.roles: this is a ZooKeeper-mode broker file; Kafka 4.3.1 refuses to start (\"Missing required configuration \\\"process.roles\\\"\"). Migrate the cluster to KRaft before upgrading (set process.roles, node.id, controller.quorum.bootstrap.servers, controller.listener.names).",
+  "snippet": "",
+  "id": "zookeeper-mode-12"
+ },
+ {
+  "repo": "ciena/afkak",
+  "rule": "zookeeper-mode",
+  "severity": "error",
+  "file": "servers/0.8.2.2/resources/kafka.properties",
+  "line": 123,
+  "message": "no process.roles: this is a ZooKeeper-mode broker file; Kafka 4.3.1 refuses to start (\"Missing required configuration \\\"process.roles\\\"\"). Migrate the cluster to KRaft before upgrading (set process.roles, node.id, controller.quorum.bootstrap.servers, controller.listener.names).",
+  "snippet": "",
+  "id": "zookeeper-mode-13"
+ },
+ {
+  "repo": "DataToKnowledge/dockerfile",
+  "rule": "zookeeper-mode",
+  "severity": "error",
+  "file": "kafka08/config/consumer.properties",
+  "line": 19,
+  "message": "no process.roles: this is a ZooKeeper-mode broker file; Kafka 4.3.1 refuses to start (\"Missing required configuration \\\"process.roles\\\"\"). Migrate the cluster to KRaft before upgrading (set process.roles, node.id, controller.quorum.bootstrap.servers, controller.listener.names).",
+  "snippet": "",
+  "id": "zookeeper-mode-14"
+ },
+ {
+  "repo": "CM-Well/CM-Well",
+  "rule": "zookeeper-mode",
+  "severity": "error",
+  "file": "server/cmwell-cons/app/scripts/templates/kafka.server.properties",
+  "line": 16,
+  "message": "no process.roles: this is a ZooKeeper-mode broker file; Kafka 4.3.1 refuses to start (\"Missing required configuration \\\"process.roles\\\"\"). Migrate the cluster to KRaft before upgrading (set process.roles, node.id, controller.quorum.bootstrap.servers, controller.listener.names).",
+  "snippet": "",
+  "id": "zookeeper-mode-15"
+ },
+ {
+  "repo": "n2yen/rsyslog-backup",
+  "rule": "zookeeper-mode",
+  "severity": "error",
+  "file": "tests/testsuites/kafka-server.dep_wrk2.properties",
+  "line": 62,
+  "message": "no process.roles: this is a ZooKeeper-mode broker file; Kafka 4.3.1 refuses to start (\"Missing required configuration \\\"process.roles\\\"\"). Migrate the cluster to KRaft before upgrading (set process.roles, node.id, controller.quorum.bootstrap.servers, controller.listener.names).",
+  "snippet": "",
+  "id": "zookeeper-mode-16"
+ },
+ {
+  "repo": "gridgentoo/ChaperoneUber",
+  "rule": "zookeeper-mode",
+  "severity": "error",
+  "file": "config/consumer.properties",
+  "line": 20,
+  "message": "no process.roles: this is a ZooKeeper-mode broker file; Kafka 4.3.1 refuses to start (\"Missing required configuration \\\"process.roles\\\"\"). Migrate the cluster to KRaft before upgrading (set process.roles, node.id, controller.quorum.bootstrap.servers, controller.listener.names).",
+  "snippet": "",
+  "id": "zookeeper-mode-17"
+ },
+ {
+  "repo": "dpkp/kafka-python",
+  "rule": "zookeeper-mode",
+  "severity": "error",
+  "file": "servers/0.10.2.2/resources/kafka.properties",
+  "line": 134,
+  "message": "no process.roles: this is a ZooKeeper-mode broker file; Kafka 4.3.1 refuses to start (\"Missing required configuration \\\"process.roles\\\"\"). Migrate the cluster to KRaft before upgrading (set process.roles, node.id, controller.quorum.bootstrap.servers, controller.listener.names).",
+  "snippet": "",
+  "id": "zookeeper-mode-18"
+ },
+ {
+  "repo": "suryakolachana/SF-Crime-Spark-Kafka-Integration",
+  "rule": "zookeeper-mode",
+  "severity": "error",
+  "file": "server.properties",
+  "line": 118,
+  "message": "no process.roles: this is a ZooKeeper-mode broker file; Kafka 4.3.1 refuses to start (\"Missing required configuration \\\"process.roles\\\"\"). Migrate the cluster to KRaft before upgrading (set process.roles, node.id, controller.quorum.bootstrap.servers, controller.listener.names).",
+  "snippet": "",
+  "id": "zookeeper-mode-19"
+ },
+ {
+  "repo": "Joker-5/kafka-source-debug",
+  "rule": "zookeeper-mode",
+  "severity": "error",
+  "file": "config/server.properties",
+  "line": 129,
+  "message": "no process.roles: this is a ZooKeeper-mode broker file; Kafka 4.3.1 refuses to start (\"Missing required configuration \\\"process.roles\\\"\"). Migrate the cluster to KRaft before upgrading (set process.roles, node.id, controller.quorum.bootstrap.servers, controller.listener.names).",
+  "snippet": "",
+  "id": "zookeeper-mode-20"
+ },
+ {
+  "repo": "marcosArruda/kafka-docker",
+  "rule": "zookeeper-mode",
+  "severity": "error",
+  "file": "0.11.0.0/scripts/templates/full-server-config.properties",
+  "line": 2,
+  "message": "no process.roles: this is a ZooKeeper-mode broker file; Kafka 4.3.1 refuses to start (\"Missing required configuration \\\"process.roles\\\"\"). Migrate the cluster to KRaft before upgrading (set process.roles, node.id, controller.quorum.bootstrap.servers, controller.listener.names).",
+  "snippet": "",
+  "id": "zookeeper-mode-21"
+ },
+ {
+  "repo": "yhuang/sandboxes",
+  "rule": "zookeeper-mode",
+  "severity": "error",
+  "file": "files/server0.properties",
+  "line": 118,
+  "message": "no process.roles: this is a ZooKeeper-mode broker file; Kafka 4.3.1 refuses to start (\"Missing required configuration \\\"process.roles\\\"\"). Migrate the cluster to KRaft before upgrading (set process.roles, node.id, controller.quorum.bootstrap.servers, controller.listener.names).",
+  "snippet": "",
+  "id": "zookeeper-mode-22"
+ },
+ {
+  "repo": "sascommunities/iot-esp-ha-using-kafka",
+  "rule": "zookeeper-mode",
+  "severity": "error",
+  "file": "KafkaScripts/server1.properties",
+  "line": 125,
+  "message": "no process.roles: this is a ZooKeeper-mode broker file; Kafka 4.3.1 refuses to start (\"Missing required configuration \\\"process.roles\\\"\"). Migrate the cluster to KRaft before upgrading (set process.roles, node.id, controller.quorum.bootstrap.servers, controller.listener.names).",
+  "snippet": "",
+  "id": "zookeeper-mode-23"
+ },
+ {
+  "repo": "KPostOffice/kafka_quickstart",
+  "rule": "zookeeper-mode",
+  "severity": "error",
+  "file": "config/server-2.properties",
+  "line": 123,
+  "message": "no process.roles: this is a ZooKeeper-mode broker file; Kafka 4.3.1 refuses to start (\"Missing required configuration \\\"process.roles\\\"\"). Migrate the cluster to KRaft before upgrading (set process.roles, node.id, controller.quorum.bootstrap.servers, controller.listener.names).",
+  "snippet": "",
+  "id": "zookeeper-mode-24"
+ },
+ {
+  "repo": "uber/uReplicator",
+  "rule": "zookeeper-mode",
+  "severity": "error",
+  "file": "devenv/server1.properties",
+  "line": 120,
+  "message": "no process.roles: this is a ZooKeeper-mode broker file; Kafka 4.3.1 refuses to start (\"Missing required configuration \\\"process.roles\\\"\"). Migrate the cluster to KRaft before upgrading (set process.roles, node.id, controller.quorum.bootstrap.servers, controller.listener.names).",
+  "snippet": "",
+  "id": "zookeeper-mode-25"
+ },
+ {
+  "repo": "habitat-sh/core-plans",
+  "rule": "zookeeper-mode",
+  "severity": "error",
+  "file": "kafka/config/server.properties",
+  "line": 43,
+  "message": "no process.roles: this is a ZooKeeper-mode broker file; Kafka 4.3.1 refuses to start (\"Missing required configuration \\\"process.roles\\\"\"). Migrate the cluster to KRaft before upgrading (set process.roles, node.id, controller.quorum.bootstrap.servers, controller.listener.names).",
+  "snippet": "",
+  "id": "zookeeper-mode-26"
+ },
+ {
+  "repo": "DemandCube/Scribengin",
+  "rule": "zookeeper-mode",
+  "severity": "error",
+  "file": "V1/servers/0.8.1/resources/kafka.properties",
+  "line": 58,
+  "message": "no process.roles: this is a ZooKeeper-mode broker file; Kafka 4.3.1 refuses to start (\"Missing required configuration \\\"process.roles\\\"\"). Migrate the cluster to KRaft before upgrading (set process.roles, node.id, controller.quorum.bootstrap.servers, controller.listener.names).",
+  "snippet": "",
+  "id": "zookeeper-mode-27"
+ },
+ {
+  "repo": "o-ran-sc/nonrtric-plt-ranpm",
+  "rule": "zookeeper-mode",
+  "severity": "error",
+  "file": "docker-proj/config/kafka/strimzi.properties",
+  "line": 27,
+  "message": "no process.roles: this is a ZooKeeper-mode broker file; Kafka 4.3.1 refuses to start (\"Missing required configuration \\\"process.roles\\\"\"). Migrate the cluster to KRaft before upgrading (set process.roles, node.id, controller.quorum.bootstrap.servers, controller.listener.names).",
+  "snippet": "",
+  "id": "zookeeper-mode-28"
+ },
+ {
+  "repo": "aaronlevin/kafka-jq",
+  "rule": "zookeeper-mode",
+  "severity": "error",
+  "file": "scripts/server.properties",
+  "line": 123,
+  "message": "no process.roles: this is a ZooKeeper-mode broker file; Kafka 4.3.1 refuses to start (\"Missing required configuration \\\"process.roles\\\"\"). Migrate the cluster to KRaft before upgrading (set process.roles, node.id, controller.quorum.bootstrap.servers, controller.listener.names).",
+  "snippet": "",
+  "id": "zookeeper-mode-29"
+ },
+ {
+  "repo": "valitydev/mg2",
+  "rule": "removed-broker-config",
+  "severity": "warning",
+  "file": "compose.yaml",
+  "line": 113,
+  "message": "KAFKA_ZOOKEEPER_CONNECT sets zookeeper.connect: ZooKeeper mode is gone in Kafka 4; remove it (migrate to KRaft first). A Kafka 4.3.1 broker starts and ignores it without a log line (variable-to-setting mapping is the apache/kafka and Bitnami image convention; mapped by name, the image was not run)",
+  "snippet": "KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'",
+  "id": "removed-broker-config-30"
+ },
+ {
+  "repo": "ricardodiasc/kafka-inspec",
+  "rule": "removed-broker-config",
+  "severity": "warning",
+  "file": "docker-compose.yml",
+  "line": 20,
+  "message": "KAFKA_CFG_ZOOKEEPER_CONNECT sets zookeeper.connect: ZooKeeper mode is gone in Kafka 4; remove it (migrate to KRaft first). A Kafka 4.3.1 broker starts and ignores it without a log line (variable-to-setting mapping is the apache/kafka and Bitnami image convention; mapped by name, the image was not run)",
+  "snippet": "- KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181",
+  "id": "removed-broker-config-31"
+ },
+ {
+  "repo": "VarunPius/ReferenceCheatsheets",
+  "rule": "removed-broker-config",
+  "severity": "warning",
+  "file": "systems/Docker/ImagesNotes/DockerCompose_KafkaCluster2.yaml",
+  "line": 96,
+  "message": "KAFKA_ZOOKEEPER_CONNECT sets zookeeper.connect: ZooKeeper mode is gone in Kafka 4; remove it (migrate to KRaft first). A Kafka 4.3.1 broker starts and ignores it without a log line (variable-to-setting mapping is the apache/kafka and Bitnami image convention; mapped by name, the image was not run)",
+  "snippet": "KAFKA_ZOOKEEPER_CONNECT: zookeeper-1:12181,zookeeper-2:22181,zookeeper-3:32181",
+  "id": "removed-broker-config-32"
+ },
+ {
+  "repo": "diofthecr3ed/EdgeDevices-Realtime-DataPipeline-Security-Orchestration-analytics-Processing",
+  "rule": "removed-broker-config",
+  "severity": "warning",
+  "file": "config/ssl/server-2.properties",
+  "line": 39,
+  "message": "zookeeper.clientCnxnSocket: ZooKeeper mode is gone in Kafka 4; remove it (migrate to KRaft first). A Kafka 4.3.1 broker starts and ignores it without a log line (`kafka-configs --describe --all` shows zookeeper.clientCnxnSocket=null)",
+  "snippet": "zookeeper.clientCnxnSocket=org.apache.zookeeper.ClientCnxnSocketNetty",
+  "id": "removed-broker-config-33"
+ },
+ {
+  "repo": "gauravshelangia/SF-Crime-Statistics-with-Spark-Streaming",
+  "rule": "removed-broker-config",
+  "severity": "warning",
+  "file": "config/server.properties",
+  "line": 117,
+  "message": "zookeeper.connection.timeout.ms: ZooKeeper mode is gone in Kafka 4; remove it (migrate to KRaft first). A Kafka 4.3.1 broker starts and ignores it without a log line (`kafka-configs --describe --all` shows zookeeper.connection.timeout.ms=null)",
+  "snippet": "zookeeper.connection.timeout.ms=1000000",
+  "id": "removed-broker-config-34"
+ },
+ {
+  "repo": "hongdosung/kafka_git",
+  "rule": "removed-broker-config",
+  "severity": "warning",
+  "file": "server.properties",
+  "line": 236,
+  "message": "zookeeper.clientCnxnSocket: ZooKeeper mode is gone in Kafka 4; remove it (migrate to KRaft first). A Kafka 4.3.1 broker starts and ignores it without a log line (`kafka-configs --describe --all` shows zookeeper.clientCnxnSocket=null)",
+  "snippet": "zookeeper.clientCnxnSocket = null",
+  "id": "removed-broker-config-35"
+ },
+ {
+  "repo": "hazelcast/hazelcast-platform-demos",
+  "rule": "removed-broker-config",
+  "severity": "warning",
+  "file": "telco/churn/src/main/scripts/docker-kafka1.sh",
+  "line": 35,
+  "message": "KAFKA_CFG_ZOOKEEPER_CONNECT sets zookeeper.connect: ZooKeeper mode is gone in Kafka 4; remove it (migrate to KRaft first). A Kafka 4.3.1 broker starts and ignores it without a log line (variable-to-setting mapping is the apache/kafka and Bitnami image convention; mapped by name, the image was not run)",
+  "snippet": "CMD=\"docker run -e ALLOW_PLAINTEXT_LISTENER=yes -e KAFKA_INTER_BROKER_LISTENER_NAME=${INTERBROKER} -e KAFKA_LISTENERS=${LISTENERS} -e KAFKA_LISTENER_SECURITY_PR",
+  "id": "removed-broker-config-36"
+ },
+ {
+  "repo": "Codeferi/kafka2",
+  "rule": "removed-broker-config",
+  "severity": "warning",
+  "file": "tests/kafkatest/services/kafka/templates/kafka.properties",
+  "line": 56,
+  "message": "zookeeper.connection.timeout.ms: ZooKeeper mode is gone in Kafka 4; remove it (migrate to KRaft first). A Kafka 4.3.1 broker starts and ignores it without a log line (`kafka-configs --describe --all` shows zookeeper.connection.timeout.ms=null)",
+  "snippet": "zookeeper.connection.timeout.ms={{ zk_connect_timeout }}",
+  "id": "removed-broker-config-37"
+ },
+ {
+  "repo": "edward2a/docker-kafka",
+  "rule": "removed-broker-config",
+  "severity": "warning",
+  "file": "config/server-cluster_node.properties",
+  "line": 4,
+  "message": "zookeeper.max.in.flight.requests: ZooKeeper mode is gone in Kafka 4; remove it (migrate to KRaft first). A Kafka 4.3.1 broker starts and ignores it without a log line (`kafka-configs --describe --all` shows zookeeper.max.in.flight.requests=null)",
+  "snippet": "zookeeper.max.in.flight.requests = 10",
+  "id": "removed-broker-config-38"
+ },
+ {
+  "repo": "ccri/cloud-local",
+  "rule": "removed-broker-config",
+  "severity": "warning",
+  "file": "templates/kafka/server.properties",
+  "line": 125,
+  "message": "zookeeper.connection.timeout.ms: ZooKeeper mode is gone in Kafka 4; remove it (migrate to KRaft first). A Kafka 4.3.1 broker starts and ignores it without a log line (`kafka-configs --describe --all` shows zookeeper.connection.timeout.ms=null)",
+  "snippet": "zookeeper.connection.timeout.ms=6000",
+  "id": "removed-broker-config-39"
+ },
+ {
+  "repo": "semirtatli/EarthGuard",
+  "rule": "removed-broker-config",
+  "severity": "warning",
+  "file": "docker-compose.yml",
+  "line": 48,
+  "message": "KAFKA_ZOOKEEPER_CONNECT sets zookeeper.connect: ZooKeeper mode is gone in Kafka 4; remove it (migrate to KRaft first). A Kafka 4.3.1 broker starts and ignores it without a log line (variable-to-setting mapping is the apache/kafka and Bitnami image convention; mapped by name, the image was not run)",
+  "snippet": "KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181",
+  "id": "removed-broker-config-40"
+ },
+ {
+  "repo": "Dabz/kafka-security-playbook",
+  "rule": "removed-broker-config",
+  "severity": "warning",
+  "file": "kerberos/kafka/server.properties",
+  "line": 4,
+  "message": "zookeeper.connect: ZooKeeper mode is gone in Kafka 4; remove it (migrate to KRaft first). A Kafka 4.3.1 broker starts and ignores it without a log line (`kafka-configs --describe --all` shows zookeeper.connect=null)",
+  "snippet": "zookeeper.connect=zookeeper.kerberos-demo.local:2181",
+  "id": "removed-broker-config-41"
+ },
+ {
+  "repo": "gridgentoo/uReplicatorUber",
+  "rule": "removed-broker-config",
+  "severity": "warning",
+  "file": "bin/server2.properties",
+  "line": 25,
+  "message": "port: removed; use listeners. A Kafka 4.3.1 broker starts and ignores it without a log line (`kafka-configs --describe --all` shows port=null)",
+  "snippet": "port=9094",
+  "id": "removed-broker-config-42"
+ },
+ {
+  "repo": "o-ran-sc/nonrtric-plt-ranpm",
+  "rule": "removed-broker-config",
+  "severity": "warning",
+  "file": "docker-proj/config/kafka/strimzi.properties",
+  "line": 77,
+  "message": "log.message.format.version: removed; KRaft always uses record format v2, there is no replacement. A Kafka 4.3.1 broker starts and ignores it without a log line (`kafka-configs --describe --all` shows log.message.format.version=null)",
+  "snippet": "log.message.format.version=3.3",
+  "id": "removed-broker-config-43"
+ },
+ {
+  "repo": "jazracherif/udacity-data-streaming-crime-stats",
+  "rule": "removed-broker-config",
+  "severity": "warning",
+  "file": "config/server.properties",
+  "line": 28,
+  "message": "host.name: removed; use listeners. A Kafka 4.3.1 broker starts and ignores it without a log line (`kafka-configs --describe --all` shows host.name=null)",
+  "snippet": "host.name=localhost",
+  "id": "removed-broker-config-44"
+ },
+ {
+  "repo": "Chuiko-GIT/tech-experiments",
+  "rule": "removed-broker-config",
+  "severity": "warning",
+  "file": "message-brokers/kafka/docker-compose.yaml",
+  "line": 62,
+  "message": "KAFKA_ZOOKEEPER_CONNECT sets zookeeper.connect: ZooKeeper mode is gone in Kafka 4; remove it (migrate to KRaft first). A Kafka 4.3.1 broker starts and ignores it without a log line (variable-to-setting mapping is the apache/kafka and Bitnami image convention; mapped by name, the image was not run)",
+  "snippet": "KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181",
+  "id": "removed-broker-config-45"
+ },
+ {
+  "repo": "chicknsoup/kafka-exporter",
+  "rule": "removed-broker-config",
+  "severity": "warning",
+  "file": "Shopify/sarama/vagrant/server.properties",
+  "line": 126,
+  "message": "zookeeper.session.timeout.ms: ZooKeeper mode is gone in Kafka 4; remove it (migrate to KRaft first). A Kafka 4.3.1 broker starts and ignores it without a log line (`kafka-configs --describe --all` shows zookeeper.session.timeout.ms=null)",
+  "snippet": "zookeeper.session.timeout.ms=3000",
+  "id": "removed-broker-config-46"
+ },
+ {
+  "repo": "Kalaganov-Konstantin/eventflow-commerce",
+  "rule": "removed-broker-config",
+  "severity": "warning",
+  "file": "infrastructure/kafka/server.properties",
+  "line": 10,
+  "message": "zookeeper.connect: ZooKeeper mode is gone in Kafka 4; remove it (migrate to KRaft first). A Kafka 4.3.1 broker starts and ignores it without a log line (`kafka-configs --describe --all` shows zookeeper.connect=null)",
+  "snippet": "zookeeper.connect=zookeeper:2181",
+  "id": "removed-broker-config-47"
+ },
+ {
+  "repo": "gridgentoo/uber-uReplicator",
+  "rule": "removed-broker-config",
+  "severity": "warning",
+  "file": "devenv/server1.properties",
+  "line": 123,
+  "message": "zookeeper.connection.timeout.ms: ZooKeeper mode is gone in Kafka 4; remove it (migrate to KRaft first). A Kafka 4.3.1 broker starts and ignores it without a log line (`kafka-configs --describe --all` shows zookeeper.connection.timeout.ms=null)",
+  "snippet": "zookeeper.connection.timeout.ms=6000",
+  "id": "removed-broker-config-48"
+ },
+ {
+  "repo": "yhuang/sandboxes",
+  "rule": "removed-broker-config",
+  "severity": "warning",
+  "file": "files/server0.properties",
+  "line": 118,
+  "message": "zookeeper.connect: ZooKeeper mode is gone in Kafka 4; remove it (migrate to KRaft first). A Kafka 4.3.1 broker starts and ignores it without a log line (`kafka-configs --describe --all` shows zookeeper.connect=null)",
+  "snippet": "zookeeper.connect=localhost:2181",
+  "id": "removed-broker-config-49"
+ },
+ {
+  "repo": "framiere/mirror-maker-docker-example",
+  "rule": "removed-broker-config",
+  "severity": "warning",
+  "file": "docker-compose.yml",
+  "line": 16,
+  "message": "KAFKA_ZOOKEEPER_CONNECT sets zookeeper.connect: ZooKeeper mode is gone in Kafka 4; remove it (migrate to KRaft first). A Kafka 4.3.1 broker starts and ignores it without a log line (variable-to-setting mapping is the apache/kafka and Bitnami image convention; mapped by name, the image was not run)",
+  "snippet": "KAFKA_ZOOKEEPER_CONNECT: 'zookeeper-source:2181'",
+  "id": "removed-broker-config-50"
+ },
+ {
+  "repo": "fusioninsight/fusioninsight_hd_examples",
+  "rule": "removed-broker-config",
+  "severity": "warning",
+  "file": "solutions/interactiveQuery/InteractiveQueryJavaSparkSQL/src/main/resources/server.properties",
+  "line": 64,
+  "message": "inter.broker.protocol.version: removed; in KRaft choose the metadata version with kafka-storage.sh format --release-version or kafka-features.sh. A Kafka 4.3.1 broker starts and ignores it without a log line (`kafka-configs --describe --all` shows inter.broker.protocol.version=null)",
+  "snippet": "inter.broker.protocol.version = 1.1-IV0",
+  "id": "removed-broker-config-51"
+ },
+ {
+  "repo": "onap/integration-csit",
+  "rule": "removed-broker-config",
+  "severity": "warning",
+  "file": "plans/dcaegen2-services-slice-analysis-ms/testsuites/config/dmaap/MsgRtrApi.properties",
+  "line": 56,
+  "message": "zookeeper.connection.timeout.ms: ZooKeeper mode is gone in Kafka 4; remove it (migrate to KRaft first). A Kafka 4.3.1 broker starts and ignores it without a log line (`kafka-configs --describe --all` shows zookeeper.connection.timeout.ms=null)",
+  "snippet": "zookeeper.connection.timeout.ms=6000",
+  "id": "removed-broker-config-52"
+ },
+ {
+  "repo": "debezium/container-images",
+  "rule": "removed-broker-config",
+  "severity": "warning",
+  "file": "kafka/2.0/docker-entrypoint.sh",
+  "line": 69,
+  "message": "KAFKA_ZOOKEEPER_CONNECT sets zookeeper.connect: ZooKeeper mode is gone in Kafka 4; remove it (migrate to KRaft first). A Kafka 4.3.1 broker starts and ignores it without a log line (variable-to-setting mapping is the apache/kafka and Bitnami image convention; mapped by name, the image was not run)",
+  "snippet": "export KAFKA_ZOOKEEPER_CONNECT=$ZOOKEEPER_CONNECT",
+  "id": "removed-broker-config-53"
+ },
+ {
+  "repo": "SilvaneiMartins/sampix-bank",
+  "rule": "removed-broker-config",
+  "severity": "warning",
+  "file": "codepix/docker-compose.yaml",
+  "line": 40,
+  "message": "KAFKA_ZOOKEEPER_CONNECT sets zookeeper.connect: ZooKeeper mode is gone in Kafka 4; remove it (migrate to KRaft first). A Kafka 4.3.1 broker starts and ignores it without a log line (variable-to-setting mapping is the apache/kafka and Bitnami image convention; mapped by name, the image was not run)",
+  "snippet": "KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181",
+  "id": "removed-broker-config-54"
+ },
+ {
+  "repo": "simonhoyos/earthquake-service",
+  "rule": "removed-broker-config",
+  "severity": "warning",
+  "file": "docker-compose.yaml",
+  "line": 16,
+  "message": "KAFKA_CFG_ZOOKEEPER_CONNECT sets zookeeper.connect: ZooKeeper mode is gone in Kafka 4; remove it (migrate to KRaft first). A Kafka 4.3.1 broker starts and ignores it without a log line (variable-to-setting mapping is the apache/kafka and Bitnami image convention; mapped by name, the image was not run)",
+  "snippet": "KAFKA_CFG_ZOOKEEPER_CONNECT: zookeeper:2181",
+  "id": "removed-broker-config-55"
+ },
+ {
+  "repo": "graphaelli/vm",
+  "rule": "removed-broker-config",
+  "severity": "warning",
+  "file": "kafka/provision.sh",
+  "line": 50,
+  "message": "zookeeper.connection.timeout.ms: ZooKeeper mode is gone in Kafka 4; remove it (migrate to KRaft first). A Kafka 4.3.1 broker starts and ignores it without a log line",
+  "snippet": "zookeeper.connection.timeout.ms=1000000",
+  "id": "removed-broker-config-56"
+ },
+ {
+  "repo": "lxl0928/timi_kafka",
+  "rule": "removed-broker-config",
+  "severity": "warning",
+  "file": "servers/1.1.0/resources/kafka.properties",
+  "line": 140,
+  "message": "zookeeper.connection.timeout.ms: ZooKeeper mode is gone in Kafka 4; remove it (migrate to KRaft first). A Kafka 4.3.1 broker starts and ignores it without a log line (`kafka-configs --describe --all` shows zookeeper.connection.timeout.ms=null)",
+  "snippet": "zookeeper.connection.timeout.ms=30000",
+  "id": "removed-broker-config-57"
+ },
+ {
+  "repo": "Wenox/distributed-anonymisation",
+  "rule": "removed-broker-config",
+  "severity": "warning",
+  "file": "automated_tests/simulation_4/docker-compose.simulation-4.yml",
+  "line": 79,
+  "message": "KAFKA_CFG_ZOOKEEPER_CONNECT sets zookeeper.connect: ZooKeeper mode is gone in Kafka 4; remove it (migrate to KRaft first). A Kafka 4.3.1 broker starts and ignores it without a log line (variable-to-setting mapping is the apache/kafka and Bitnami image convention; mapped by name, the image was not run)",
+  "snippet": "- KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181",
+  "id": "removed-broker-config-58"
+ },
+ {
+  "repo": "goodboy23/shell-script-collection",
+  "rule": "removed-broker-config",
+  "severity": "warning",
+  "file": "material/server.properties",
+  "line": 35,
+  "message": "advertised.host.name: removed; use advertised.listeners. A Kafka 4.3.1 broker starts and ignores it without a log line (`kafka-configs --describe --all` shows advertised.host.name=null)",
+  "snippet": "advertised.host.name=192.168.200.11",
+  "id": "removed-broker-config-59"
+ },
+ {
+  "repo": "signmem/sarama",
+  "rule": "removed-broker-config",
+  "severity": "warning",
+  "file": "vagrant/server.properties",
+  "line": 123,
+  "message": "zookeeper.connect: ZooKeeper mode is gone in Kafka 4; remove it (migrate to KRaft first). A Kafka 4.3.1 broker starts and ignores it without a log line (`kafka-configs --describe --all` shows zookeeper.connect=null)",
+  "snippet": "zookeeper.connect=localhost:ZK_PORT",
+  "id": "removed-broker-config-60"
+ },
+ {
+  "repo": "cloudurable/kafka-training",
+  "rule": "removed-broker-config",
+  "severity": "warning",
+  "file": "java/lab8.3/config/server-0.properties",
+  "line": 44,
+  "message": "zookeeper.connect: ZooKeeper mode is gone in Kafka 4; remove it (migrate to KRaft first). A Kafka 4.3.1 broker starts and ignores it without a log line (`kafka-configs --describe --all` shows zookeeper.connect=null)",
+  "snippet": "zookeeper.connect=localhost:2181",
+  "id": "removed-broker-config-61"
+ },
+ {
+  "repo": "graemej/k8s-kafka",
+  "rule": "removed-broker-config",
+  "severity": "warning",
+  "file": "config/server.properties",
+  "line": 65,
+  "message": "zookeeper.connect: ZooKeeper mode is gone in Kafka 4; remove it (migrate to KRaft first). A Kafka 4.3.1 broker starts and ignores it without a log line (`kafka-configs --describe --all` shows zookeeper.connect=null)",
+  "snippet": "zookeeper.connect={{ZOOKEEPER_CONNECT}}",
+  "id": "removed-broker-config-62"
+ },
+ {
+  "repo": "dpkp/kafka-python",
+  "rule": "removed-broker-config",
+  "severity": "warning",
+  "file": "servers/0.8.2.1/resources/kafka.properties",
+  "line": 28,
+  "message": "host.name: removed; use listeners. A Kafka 4.3.1 broker starts and ignores it without a log line (`kafka-configs --describe --all` shows host.name=null)",
+  "snippet": "host.name={host}",
+  "id": "removed-broker-config-63"
+ },
+ {
+  "repo": "bythebay/spark-deep-learning",
+  "rule": "removed-broker-config",
+  "severity": "warning",
+  "file": "config/kafka/server.properties",
+  "line": 120,
+  "message": "zookeeper.connection.timeout.ms: ZooKeeper mode is gone in Kafka 4; remove it (migrate to KRaft first). A Kafka 4.3.1 broker starts and ignores it without a log line (`kafka-configs --describe --all` shows zookeeper.connection.timeout.ms=null)",
+  "snippet": "zookeeper.connection.timeout.ms=6000",
+  "id": "removed-broker-config-64"
+ },
+ {
+  "repo": "HernanRivasAcosta/kafkerl",
+  "rule": "deprecated-broker-config",
+  "severity": "note",
+  "file": "bin/server2.properties",
+  "line": 14,
+  "message": "log.cleaner.enable=false: deprecated since Kafka 4.1; the log cleaner is always enabled in Kafka 5.0 and this setting is ignored",
+  "snippet": "log.cleaner.enable=false",
+  "id": "deprecated-broker-config-65"
+ },
+ {
+  "repo": "kabass/commcatre-cloud-cloned",
+  "rule": "deprecated-broker-config",
+  "severity": "note",
+  "file": "src/commcare_cloud/ansible/roles/kafka/templates/server.properties.j2",
+  "line": 119,
+  "message": "log.cleaner.enable=false: deprecated since Kafka 4.1; the log cleaner is always enabled in Kafka 5.0 and this setting is ignored",
+  "snippet": "log.cleaner.enable=false",
+  "id": "deprecated-broker-config-66"
+ },
+ {
+  "repo": "liferight/docker",
+  "rule": "deprecated-broker-config",
+  "severity": "note",
+  "file": "k8s/manifests/kafka/server.properties",
+  "line": 109,
+  "message": "log.cleaner.enable=false: deprecated since Kafka 4.1; the log cleaner is always enabled in Kafka 5.0 and this setting is ignored",
+  "snippet": "log.cleaner.enable=false",
+  "id": "deprecated-broker-config-67"
+ },
+ {
+  "repo": "CodeRayZhang/Movie_Recommend",
+  "rule": "deprecated-broker-config",
+  "severity": "note",
+  "file": "Spark_Movie/conf/kafka/server.properties",
+  "line": 109,
+  "message": "log.cleaner.enable=false: deprecated since Kafka 4.1; the log cleaner is always enabled in Kafka 5.0 and this setting is ignored",
+  "snippet": "log.cleaner.enable=false",
+  "id": "deprecated-broker-config-68"
+ },
+ {
+  "repo": "liyuqi/kafka_exp",
+  "rule": "deprecated-broker-config",
+  "severity": "note",
+  "file": "kafka-properties/server-z3-b7-p3.properties",
+  "line": 31,
+  "message": "log.cleaner.enable=false: deprecated since Kafka 4.1; the log cleaner is always enabled in Kafka 5.0 and this setting is ignored",
+  "snippet": "log.cleaner.enable=false",
+  "id": "deprecated-broker-config-69"
+ },
+ {
+  "repo": "GalacticExchange/framework_templates",
+  "rule": "deprecated-broker-config",
+  "severity": "note",
+  "file": "hadoop/slave/templates/etc/kafka/kafka.server.properties.erb",
+  "line": 90,
+  "message": "log.cleaner.enable=false: deprecated since Kafka 4.1; the log cleaner is always enabled in Kafka 5.0 and this setting is ignored",
+  "snippet": "log.cleaner.enable=false",
+  "id": "deprecated-broker-config-70"
+ },
+ {
+  "repo": "jvaesteves/udacity_project_2",
+  "rule": "deprecated-broker-config",
+  "severity": "note",
+  "file": "config/kafka.properties",
+  "line": 100,
+  "message": "log.cleaner.enable=false: deprecated since Kafka 4.1; the log cleaner is always enabled in Kafka 5.0 and this setting is ignored",
+  "snippet": "log.cleaner.enable=false",
+  "id": "deprecated-broker-config-71"
+ },
+ {
+  "repo": "wouterd/docker-zookeeper",
+  "rule": "deprecated-broker-config",
+  "severity": "note",
+  "file": "kafka/server.properties.initial",
+  "line": 48,
+  "message": "log.cleaner.enable=false: deprecated since Kafka 4.1; the log cleaner is always enabled in Kafka 5.0 and this setting is ignored",
+  "snippet": "log.cleaner.enable=false",
+  "id": "deprecated-broker-config-72"
+ },
+ {
+  "repo": "Theog75/simple-openshift-kafka-cluster",
+  "rule": "deprecated-broker-config",
+  "severity": "note",
+  "file": "containers/kafka/server.properties",
+  "line": 105,
+  "message": "log.cleaner.enable=false: deprecated since Kafka 4.1; the log cleaner is always enabled in Kafka 5.0 and this setting is ignored",
+  "snippet": "log.cleaner.enable=false",
+  "id": "deprecated-broker-config-73"
+ },
+ {
+  "repo": "funkygao/gafka",
+  "rule": "deprecated-broker-config",
+  "severity": "note",
+  "file": "cmd/gk/command/template/config/server.properties",
+  "line": 89,
+  "message": "log.cleaner.enable=false: deprecated since Kafka 4.1; the log cleaner is always enabled in Kafka 5.0 and this setting is ignored",
+  "snippet": "log.cleaner.enable=false",
+  "id": "deprecated-broker-config-74"
+ },
+ {
+  "repo": "BZCareer/hadoop-ansible",
+  "rule": "deprecated-broker-config",
+  "severity": "note",
+  "file": "roles/kafka/templates/server.properties.j2",
+  "line": 109,
+  "message": "log.cleaner.enable=false: deprecated since Kafka 4.1; the log cleaner is always enabled in Kafka 5.0 and this setting is ignored",
+  "snippet": "log.cleaner.enable=false",
+  "id": "deprecated-broker-config-75"
+ },
+ {
+  "repo": "danos/rsyslog",
+  "rule": "deprecated-broker-config",
+  "severity": "note",
+  "file": "tests/testsuites/kafka-server.dep_wrk2.properties",
+  "line": 19,
+  "message": "log.cleaner.enable=false: deprecated since Kafka 4.1; the log cleaner is always enabled in Kafka 5.0 and this setting is ignored",
+  "snippet": "log.cleaner.enable=false",
+  "id": "deprecated-broker-config-76"
+ },
+ {
+  "repo": "xiaokugua250/DataMingProject",
+  "rule": "deprecated-broker-config",
+  "severity": "note",
+  "file": "JavaCodeProject/src/main/resources/kafka-server.properties",
+  "line": 12,
+  "message": "log.cleaner.enable=false: deprecated since Kafka 4.1; the log cleaner is always enabled in Kafka 5.0 and this setting is ignored",
+  "snippet": "log.cleaner.enable=false",
+  "id": "deprecated-broker-config-77"
+ },
+ {
+  "repo": "ChristianTrolleMikkelsen/vagrant_kafka",
+  "rule": "deprecated-broker-config",
+  "severity": "note",
+  "file": "kafka1.properties",
+  "line": 111,
+  "message": "log.cleaner.enable=false: deprecated since Kafka 4.1; the log cleaner is always enabled in Kafka 5.0 and this setting is ignored",
+  "snippet": "log.cleaner.enable=false",
+  "id": "deprecated-broker-config-78"
+ },
+ {
+  "repo": "talevy/elastic-stack-tests",
+  "rule": "deprecated-broker-config",
+  "severity": "note",
+  "file": "config/kafka.properties",
+  "line": 109,
+  "message": "log.cleaner.enable=false: deprecated since Kafka 4.1; the log cleaner is always enabled in Kafka 5.0 and this setting is ignored",
+  "snippet": "log.cleaner.enable=false",
+  "id": "deprecated-broker-config-79"
+ },
+ {
+  "repo": "aglahe/vagrant-xdata",
+  "rule": "deprecated-broker-config",
+  "severity": "note",
+  "file": "kafka/server.properties",
+  "line": 105,
+  "message": "log.cleaner.enable=false: deprecated since Kafka 4.1; the log cleaner is always enabled in Kafka 5.0 and this setting is ignored",
+  "snippet": "log.cleaner.enable=false",
+  "id": "deprecated-broker-config-80"
+ },
+ {
+  "repo": "bahaaldine/scalable-big-data-architecture",
+  "rule": "deprecated-broker-config",
+  "severity": "note",
+  "file": "chapter4/kafka/server-1.properties",
+  "line": 109,
+  "message": "log.cleaner.enable=false: deprecated since Kafka 4.1; the log cleaner is always enabled in Kafka 5.0 and this setting is ignored",
+  "snippet": "log.cleaner.enable=false",
+  "id": "deprecated-broker-config-81"
+ },
+ {
+  "repo": "uber/uReplicator",
+  "rule": "deprecated-broker-config",
+  "severity": "note",
+  "file": "bin/server2.properties",
+  "line": 109,
+  "message": "log.cleaner.enable=false: deprecated since Kafka 4.1; the log cleaner is always enabled in Kafka 5.0 and this setting is ignored",
+  "snippet": "log.cleaner.enable=false",
+  "id": "deprecated-broker-config-82"
+ },
+ {
+  "repo": "tbartelmess/kafka-nio",
+  "rule": "deprecated-broker-config",
+  "severity": "note",
+  "file": "servers/0.11.0.0/resources/kafka.properties",
+  "line": 124,
+  "message": "log.cleaner.enable=false: deprecated since Kafka 4.1; the log cleaner is always enabled in Kafka 5.0 and this setting is ignored",
+  "snippet": "log.cleaner.enable=false",
+  "id": "deprecated-broker-config-83"
+ },
+ {
+  "repo": "Guangyang-Sunlight/kafka-python",
+  "rule": "deprecated-broker-config",
+  "severity": "note",
+  "file": "servers/0.8.1/resources/kafka.properties",
+  "line": 53,
+  "message": "log.cleaner.enable=false: deprecated since Kafka 4.1; the log cleaner is always enabled in Kafka 5.0 and this setting is ignored",
+  "snippet": "log.cleaner.enable=false",
+  "id": "deprecated-broker-config-84"
+ },
+ {
+  "repo": "zqhxuyuan/kafka-book",
+  "rule": "removed-cli-option",
+  "severity": "error",
+  "file": "bin/start-kafka08.sh",
+  "line": 17,
+  "message": "kafka-topics --zookeeper: Kafka 4.3.1 rejects it (\"--zookeeper is not a recognized option\" or its equivalent); use --bootstrap-server",
+  "snippet": "bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 2 --topic test",
+  "id": "removed-cli-option-85"
+ },
+ {
+  "repo": "xllusion-dong/MWHcheck-drone",
+  "rule": "removed-cli-option",
+  "severity": "error",
+  "file": "Kafka/story/kafka1.2.sh",
+  "line": 274,
+  "message": "kafka-topics --zookeeper: Kafka 4.3.1 rejects it (\"--zookeeper is not a recognized option\" or its equivalent); use --bootstrap-server",
+  "snippet": "$kafka_bin/kafka-topics.sh --list --zookeeper $zookeeper_ip_port",
+  "id": "removed-cli-option-86"
+ },
+ {
+  "repo": "Dymm88/LibraryKafka",
+  "rule": "removed-cli-option",
+  "severity": "error",
+  "file": "src/docker-compose.yml",
+  "line": 40,
+  "message": "kafka-topics --zookeeper: Kafka 4.3.1 rejects it (\"--zookeeper is not a recognized option\" or its equivalent); use --bootstrap-server",
+  "snippet": "test: [\"CMD\", \"kafka-topics.sh\", \"--list\", \"--zookeeper\", \"zookeeper:2181\"]",
+  "id": "removed-cli-option-87"
+ },
+ {
+  "repo": "xllusion-dong/MWHcheck-drone",
+  "rule": "removed-cli-option",
+  "severity": "error",
+  "file": "Kafka/story/kafka1.1.sh",
+  "line": 295,
+  "message": "kafka-configs --zookeeper: Kafka 4.3.1 rejects it (\"--zookeeper is not a recognized option\" or its equivalent); use --bootstrap-server",
+  "snippet": "$kafka_bin/kafka-configs.sh --zookeeper $zookeeper_ip_port --entity-type clients --describe",
+  "id": "removed-cli-option-88"
+ },
+ {
+  "repo": "nilshartmann/docker-arch-build-test",
+  "rule": "removed-cli-option",
+  "severity": "error",
+  "file": "kafka/1.7/docker-entrypoint.sh",
+  "line": 274,
+  "message": "kafka-topics --zookeeper: Kafka 4.3.1 rejects it (\"--zookeeper is not a recognized option\" or its equivalent); use --bootstrap-server",
+  "snippet": "exec $KAFKA_HOME/bin/kafka-topics.sh --create --zookeeper $KAFKA_ZOOKEEPER_CONNECT --replication-factor $REPLICAS --partitions $PARTITION --topic \"$TOPICNAME\" -",
+  "id": "removed-cli-option-89"
+ },
+ {
+  "repo": "xllusion-dong/MWHcheck-drone",
+  "rule": "removed-cli-option",
+  "severity": "error",
+  "file": "Kafka/story/kafka1.2.sh",
+  "line": 296,
+  "message": "kafka-configs --zookeeper: Kafka 4.3.1 rejects it (\"--zookeeper is not a recognized option\" or its equivalent); use --bootstrap-server",
+  "snippet": "$kafka_bin/kafka-configs.sh --zookeeper $zookeeper_ip_port --entity-type users --describe",
+  "id": "removed-cli-option-90"
+ },
+ {
+  "repo": "ppaulsantos/comandos",
+  "rule": "removed-cli-option",
+  "severity": "error",
+  "file": "kafka.sh",
+  "line": 9,
+  "message": "kafka-topics --zookeeper: Kafka 4.3.1 rejects it (\"--zookeeper is not a recognized option\" or its equivalent); use --bootstrap-server",
+  "snippet": "bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 2 --topic {nomeTopico}",
+  "id": "removed-cli-option-91"
+ },
+ {
+  "repo": "ppaulsantos/comandos",
+  "rule": "removed-cli-option",
+  "severity": "error",
+  "file": "kafka.sh",
+  "line": 11,
+  "message": "kafka-topics --zookeeper: Kafka 4.3.1 rejects it (\"--zookeeper is not a recognized option\" or its equivalent); use --bootstrap-server",
+  "snippet": "bin/kafka-topics.sh --delete --zookeeper localhost:2181 --topic {nomeTopico}",
+  "id": "removed-cli-option-92"
+ },
+ {
+  "repo": "ppaulsantos/comandos",
+  "rule": "removed-cli-option",
+  "severity": "error",
+  "file": "kafka.sh",
+  "line": 15,
+  "message": "kafka-topics --zookeeper: Kafka 4.3.1 rejects it (\"--zookeeper is not a recognized option\" or its equivalent); use --bootstrap-server",
+  "snippet": "bin/kafka-topics.sh --zookeeper localhost:2181 --alter --topic {nomeTopico} --config retention.ms=604800000",
+  "id": "removed-cli-option-93"
+ },
+ {
+  "repo": "zqhxuyuan/kafka-book",
+  "rule": "removed-cli-option",
+  "severity": "error",
+  "file": "bin/start-kafka.sh",
+  "line": 14,
+  "message": "kafka-topics --zookeeper: Kafka 4.3.1 rejects it (\"--zookeeper is not a recognized option\" or its equivalent); use --bootstrap-server",
+  "snippet": "bin/kafka-topics.sh --list --zookeeper localhost:2181",
+  "id": "removed-cli-option-94"
+ },
+ {
+  "repo": "debezium/container-images",
+  "rule": "removed-cli-option",
+  "severity": "error",
+  "file": "kafka/1.7/docker-entrypoint.sh",
+  "line": 278,
+  "message": "kafka-topics --zookeeper: Kafka 4.3.1 rejects it (\"--zookeeper is not a recognized option\" or its equivalent); use --bootstrap-server",
+  "snippet": "exec $KAFKA_HOME/bin/kafka-topics.sh --list --zookeeper $KAFKA_ZOOKEEPER_CONNECT",
+  "id": "removed-cli-option-95"
+ },
+ {
+  "repo": "ppaulsantos/comandos",
+  "rule": "removed-cli-option",
+  "severity": "error",
+  "file": "kafka.sh",
+  "line": 17,
+  "message": "kafka-topics --zookeeper: Kafka 4.3.1 rejects it (\"--zookeeper is not a recognized option\" or its equivalent); use --bootstrap-server",
+  "snippet": "bin/kafka-topics.sh --describe --zookeeper localhost:2181 --topic {nomeTopico}",
+  "id": "removed-cli-option-96"
+ },
+ {
+  "repo": "haltona/FlinkTrainingAttemp2",
+  "rule": "removed-cli-option",
+  "severity": "error",
+  "file": "flink-end-to-end-tests/test-scripts/kafka-common.sh",
+  "line": 139,
+  "message": "kafka-topics --zookeeper: Kafka 4.3.1 rejects it (\"--zookeeper is not a recognized option\" or its equivalent); use --bootstrap-server",
+  "snippet": "$KAFKA_DIR/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor $1 --partitions $2 --topic $3",
+  "id": "removed-cli-option-97"
+ },
+ {
+  "repo": "slawekj/wolf",
+  "rule": "removed-cli-option",
+  "severity": "error",
+  "file": "data.router/src/start-kafka.sh",
+  "line": 17,
+  "message": "kafka-topics --zookeeper: Kafka 4.3.1 rejects it (\"--zookeeper is not a recognized option\" or its equivalent); use --bootstrap-server",
+  "snippet": "./kafka_2.9.2-0.8.1.1/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic rules",
+  "id": "removed-cli-option-98"
+ },
+ {
+  "repo": "nilshartmann/docker-arch-build-test",
+  "rule": "removed-cli-option",
+  "severity": "error",
+  "file": "kafka/1.7/docker-entrypoint.sh",
+  "line": 278,
+  "message": "kafka-topics --zookeeper: Kafka 4.3.1 rejects it (\"--zookeeper is not a recognized option\" or its equivalent); use --bootstrap-server",
+  "snippet": "exec $KAFKA_HOME/bin/kafka-topics.sh --list --zookeeper $KAFKA_ZOOKEEPER_CONNECT",
+  "id": "removed-cli-option-99"
+ },
+ {
+  "repo": "dsilalahi/cookbook",
+  "rule": "removed-cli-option",
+  "severity": "error",
+  "file": "kafka/common.sh",
+  "line": 5,
+  "message": "kafka-topics --zookeeper: Kafka 4.3.1 rejects it (\"--zookeeper is not a recognized option\" or its equivalent); use --bootstrap-server",
+  "snippet": "kafka-topics --zookeeper localhost:2181 --create  --topic topic-name  --partitions 3  --replication-factor 1  --if-not-exists",
+  "id": "removed-cli-option-100"
+ },
+ {
+  "repo": "xllusion-dong/MWHcheck-drone",
+  "rule": "removed-cli-option",
+  "severity": "error",
+  "file": "Kafka/story/kafka1.0.sh",
+  "line": 259,
+  "message": "kafka-configs --zookeeper: Kafka 4.3.1 rejects it (\"--zookeeper is not a recognized option\" or its equivalent); use --bootstrap-server",
+  "snippet": "$kafka_bin/kafka-configs.sh --zookeeper $zookeeper_ip_port --entity-type topics --describe",
+  "id": "removed-cli-option-101"
+ },
+ {
+  "repo": "NZAE000/DEVS-MODELS",
+  "rule": "removed-cli-option",
+  "severity": "error",
+  "file": "StreamProcessing/apacheflink/yahoo-ads/stream-bench.sh",
+  "line": 340,
+  "message": "kafka-topics --zookeeper: Kafka 4.3.1 rejects it (\"--zookeeper is not a recognized option\" or its equivalent); use --bootstrap-server",
+  "snippet": "\"$KAFKA_HOME/bin/kafka-topics.sh\"  --zookeeper \"$ZK_HOST:$ZK_PORT\"  --create  --replication-factor 1  --partitions \"$PARTITIONS\"  --topic \"$TOPIC\"",
+  "id": "removed-cli-option-102"
+ },
+ {
+  "repo": "TahaMuslu/kafka-CDC-Project",
+  "rule": "removed-cli-option",
+  "severity": "error",
+  "file": "kafka-chart/kafka-2-deployment.yaml",
+  "line": 46,
+  "message": "kafka-topics --zookeeper: Kafka 4.3.1 rejects it (\"--zookeeper is not a recognized option\" or its equivalent); use --bootstrap-server",
+  "snippet": "- /usr/bin/kafka-topics --list --zookeeper zookeeper:2181",
+  "id": "removed-cli-option-103"
+ },
+ {
+  "repo": "AssetMantle/node",
+  "rule": "removed-cli-option",
+  "severity": "error",
+  "file": "kafkaCleanup.sh",
+  "line": 16,
+  "message": "kafka-topics --zookeeper: Kafka 4.3.1 rejects it (\"--zookeeper is not a recognized option\" or its equivalent); use --bootstrap-server",
+  "snippet": "declare -a topics=$(bin/kafka-topics.sh --list --zookeeper localhost:2181)",
+  "id": "removed-cli-option-104"
+ },
+ {
+  "repo": "githkm/shell-kjyw",
+  "rule": "removed-cli-option",
+  "severity": "error",
+  "file": "kafka/Kafka_zk.sh",
+  "line": 88,
+  "message": "kafka-topics --zookeeper: Kafka 4.3.1 rejects it (\"--zookeeper is not a recognized option\" or its equivalent); use --bootstrap-server",
+  "snippet": "bin/kafka-topics.sh --list --zookeeper 192.168.142.136:2181",
+  "id": "removed-cli-option-105"
+ },
+ {
+  "repo": "GigaSpaces-ProfessionalServices/Crowley",
+  "rule": "removed-cli-option",
+  "severity": "error",
+  "file": "insightedge-geo-demo-old-master/scripts/start-local.sh",
+  "line": 20,
+  "message": "kafka-topics --zookeeper: Kafka 4.3.1 rejects it (\"--zookeeper is not a recognized option\" or its equivalent); use --bootstrap-server",
+  "snippet": "$KAFKA_HOME/bin/kafka-topics.sh --create --zookeeper 127.0.0.1:2181 --replication-factor 1 --partitions 1 --topic orders",
+  "id": "removed-cli-option-106"
+ },
+ {
+  "repo": "transferia/transferia",
+  "rule": "removed-cli-option",
+  "severity": "error",
+  "file": "vendor_patched/github.com/segmentio/kafka-go/docker-compose.yml",
+  "line": 39,
+  "message": "kafka-configs --zookeeper: Kafka 4.3.1 rejects it (\"--zookeeper is not a recognized option\" or its equivalent); use --bootstrap-server",
+  "snippet": "- echo -e 'KafkaServer {\\norg.apache.kafka.common.security.scram.ScramLoginModule required\\n username=\"adminscram\"\\n password=\"admin-secret\";\\n org.apache.kafka",
+  "id": "removed-cli-option-107"
+ },
+ {
+  "repo": "cloudfoundry-community/ws-collector",
+  "rule": "removed-cli-option",
+  "severity": "error",
+  "file": "bin/init-kafka.sh",
+  "line": 28,
+  "message": "kafka-topics --zookeeper: Kafka 4.3.1 rejects it (\"--zookeeper is not a recognized option\" or its equivalent); use --bootstrap-server",
+  "snippet": "kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic messages",
+  "id": "removed-cli-option-108"
+ },
+ {
+  "repo": "xllusion-dong/MWHcheck-drone",
+  "rule": "removed-cli-option",
+  "severity": "error",
+  "file": "Kafka/story/kafka1.6.sh",
+  "line": 331,
+  "message": "kafka-configs --zookeeper: Kafka 4.3.1 rejects it (\"--zookeeper is not a recognized option\" or its equivalent); use --bootstrap-server",
+  "snippet": "$kafka_bin/kafka-configs.sh --zookeeper $zookeeper_ip_port --entity-type topics --describe",
+  "id": "removed-cli-option-109"
+ },
+ {
+  "repo": "aqzt/kjyw",
+  "rule": "removed-cli-option",
+  "severity": "error",
+  "file": "kafka/Kafka_zk.sh",
+  "line": 88,
+  "message": "kafka-topics --zookeeper: Kafka 4.3.1 rejects it (\"--zookeeper is not a recognized option\" or its equivalent); use --bootstrap-server",
+  "snippet": "bin/kafka-topics.sh --list --zookeeper 192.168.142.136:2181",
+  "id": "removed-cli-option-110"
+ },
+ {
+  "repo": "xllusion-dong/MWHcheck-drone",
+  "rule": "removed-cli-option",
+  "severity": "error",
+  "file": "Kafka/story/kafka1.5.sh",
+  "line": 304,
+  "message": "kafka-topics --zookeeper: Kafka 4.3.1 rejects it (\"--zookeeper is not a recognized option\" or its equivalent); use --bootstrap-server",
+  "snippet": "$kafka_bin/kafka-topics.sh --describe --zookeeper $zookeeper_ip_port --topic $i",
+  "id": "removed-cli-option-111"
+ },
+ {
+  "repo": "xllusion-dong/MWHcheck-drone",
+  "rule": "removed-cli-option",
+  "severity": "error",
+  "file": "Kafka/story/kafka1.5.sh",
+  "line": 330,
+  "message": "kafka-configs --zookeeper: Kafka 4.3.1 rejects it (\"--zookeeper is not a recognized option\" or its equivalent); use --bootstrap-server",
+  "snippet": "$kafka_bin/kafka-configs.sh --zookeeper $zookeeper_ip_port --entity-type users --describe",
+  "id": "removed-cli-option-112"
+ },
+ {
+  "repo": "adambaumeister/goflow",
+  "rule": "removed-cli-option",
+  "severity": "error",
+  "file": "backends/setup_scripts/kafka.sh",
+  "line": 12,
+  "message": "kafka-topics --zookeeper: Kafka 4.3.1 rejects it (\"--zookeeper is not a recognized option\" or its equivalent); use --bootstrap-server",
+  "snippet": "bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test",
+  "id": "removed-cli-option-113"
+ },
+ {
+  "repo": "xllusion-dong/MWHcheck-drone",
+  "rule": "removed-cli-option",
+  "severity": "error",
+  "file": "Kafka/story/kafka1.1.sh",
+  "line": 294,
+  "message": "kafka-configs --zookeeper: Kafka 4.3.1 rejects it (\"--zookeeper is not a recognized option\" or its equivalent); use --bootstrap-server",
+  "snippet": "$kafka_bin/kafka-configs.sh --zookeeper $zookeeper_ip_port --entity-type topics --describe",
+  "id": "removed-cli-option-114"
+ },
+ {
+  "repo": "zdoryk/kafka-studies",
+  "rule": "deprecated-cli-option",
+  "severity": "note",
+  "file": "kafka_for_beginners/kafka_java_project/sh_kafka_commands/1-kafka-cli/1-kafka-console-producer.sh",
+  "line": 22,
+  "message": "kafka-console-producer --producer-property: deprecated since Kafka 4.2, still accepted in 4.3.1 with a warning; use --command-property",
+  "snippet": "kafka-console-producer.sh --producer.config playground.config --bootstrap-server cluster.playground.cdkt.io:9092 --topic first_topic --producer-property acks=al",
+  "id": "deprecated-cli-option-115"
+ },
+ {
+  "repo": "zdoryk/kafka-studies",
+  "rule": "deprecated-cli-option",
+  "severity": "note",
+  "file": "kafka_for_beginners/kafka_java_project/sh_kafka_commands/1-kafka-cli/1-kafka-console-producer.sh",
+  "line": 60,
+  "message": "kafka-console-producer --producer-property: deprecated since Kafka 4.2, still accepted in 4.3.1 with a warning; use --command-property",
+  "snippet": "kafka-console-producer.sh --bootstrap-server localhost:9092 --topic first_topic --producer-property acks=all",
+  "id": "deprecated-cli-option-116"
+ },
+ {
+  "repo": "DataEngMastero/LearnByDoing",
+  "rule": "deprecated-cli-option",
+  "severity": "note",
+  "file": "Kafka/1-kafka-cli/1-kafka-console-producer.sh",
+  "line": 60,
+  "message": "kafka-console-producer --producer-property: deprecated since Kafka 4.2, still accepted in 4.3.1 with a warning; use --command-property",
+  "snippet": "kafka-console-producer.sh --bootstrap-server localhost:9092 --topic first_topic --producer-property acks=all",
+  "id": "deprecated-cli-option-117"
+ },
+ {
+  "repo": "naberss/study_notes",
+  "rule": "deprecated-cli-option",
+  "severity": "note",
+  "file": "Kafka/resources/kafka-for-beginners-code-20230117/code/1-kafka-cli/1-kafka-console-producer.sh",
+  "line": 39,
+  "message": "kafka-console-producer --producer.config: deprecated since Kafka 4.2, still accepted in 4.3.1 with a warning; use --command-config",
+  "snippet": "kafka-console-producer.sh --producer.config playground.config --bootstrap-server cluster.playground.cdkt.io:9092 --topic first_topic --property parse.key=true -",
+  "id": "deprecated-cli-option-118"
+ },
+ {
+  "repo": "DataEngMastero/LearnByDoing",
+  "rule": "deprecated-cli-option",
+  "severity": "note",
+  "file": "Kafka/1-kafka-cli/1-kafka-console-producer.sh",
+  "line": 14,
+  "message": "kafka-console-producer --producer.config: deprecated since Kafka 4.2, still accepted in 4.3.1 with a warning; use --command-config",
+  "snippet": "kafka-console-producer.sh --producer.config playground.config --bootstrap-server cluster.playground.cdkt.io:9092 --topic first_topic",
+  "id": "deprecated-cli-option-119"
+ },
+ {
+  "repo": "naberss/study_notes",
+  "rule": "deprecated-cli-option",
+  "severity": "note",
+  "file": "Kafka/resources/kafka-for-beginners-code-20230117/code/1-kafka-cli/1-kafka-console-producer.sh",
+  "line": 22,
+  "message": "kafka-console-producer --producer.config: deprecated since Kafka 4.2, still accepted in 4.3.1 with a warning; use --command-config",
+  "snippet": "kafka-console-producer.sh --producer.config playground.config --bootstrap-server cluster.playground.cdkt.io:9092 --topic first_topic --producer-property acks=al",
+  "id": "deprecated-cli-option-120"
+ },
+ {
+  "repo": "zqhxuyuan/kafka-book",
+  "rule": "deprecated-cli-option",
+  "severity": "note",
+  "file": "bin/start-kafka.sh",
+  "line": 30,
+  "message": "kafka-console-consumer --consumer.config: deprecated since Kafka 4.2, still accepted in 4.3.1 with a warning; use --command-config",
+  "snippet": "bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic test --from-beginning --consumer.config config/consumer.properties",
+  "id": "deprecated-cli-option-121"
+ },
+ {
+  "repo": "naberss/study_notes",
+  "rule": "deprecated-cli-option",
+  "severity": "note",
+  "file": "Kafka/resources/kafka-for-beginners-code-20230117/code/1-kafka-cli/1-kafka-console-producer.sh",
+  "line": 60,
+  "message": "kafka-console-producer --producer-property: deprecated since Kafka 4.2, still accepted in 4.3.1 with a warning; use --command-property",
+  "snippet": "kafka-console-producer.sh --bootstrap-server localhost:9092 --topic first_topic --producer-property acks=all",
+  "id": "deprecated-cli-option-122"
+ },
+ {
+  "repo": "DataEngMastero/LearnByDoing",
+  "rule": "deprecated-cli-option",
+  "severity": "note",
+  "file": "Kafka/1-kafka-cli/1-kafka-console-producer.sh",
+  "line": 22,
+  "message": "kafka-console-producer --producer.config: deprecated since Kafka 4.2, still accepted in 4.3.1 with a warning; use --command-config",
+  "snippet": "kafka-console-producer.sh --producer.config playground.config --bootstrap-server cluster.playground.cdkt.io:9092 --topic first_topic --producer-property acks=al",
+  "id": "deprecated-cli-option-123"
+ },
+ {
+  "repo": "DataEngMastero/LearnByDoing",
+  "rule": "deprecated-cli-option",
+  "severity": "note",
+  "file": "Kafka/1-kafka-cli/1-kafka-console-producer.sh",
+  "line": 29,
+  "message": "kafka-console-producer --producer.config: deprecated since Kafka 4.2, still accepted in 4.3.1 with a warning; use --command-config",
+  "snippet": "kafka-console-producer.sh --producer.config playground.config --bootstrap-server cluster.playground.cdkt.io:9092 --topic new_topic",
+  "id": "deprecated-cli-option-124"
+ },
+ {
+  "repo": "sumanththota/Kafka-Open-Search-Project",
+  "rule": "deprecated-cli-option",
+  "severity": "note",
+  "file": "Kafka/1-kafka-cli/1-kafka-console-producer.sh",
+  "line": 22,
+  "message": "kafka-console-producer --producer-property: deprecated since Kafka 4.2, still accepted in 4.3.1 with a warning; use --command-property",
+  "snippet": "kafka-console-producer.sh --producer.config playground.config --bootstrap-server cluster.playground.cdkt.io:9092 --topic first_topic --producer-property acks=al",
+  "id": "deprecated-cli-option-125"
+ },
+ {
+  "repo": "DataEngMastero/LearnByDoing",
+  "rule": "deprecated-cli-option",
+  "severity": "note",
+  "file": "Kafka/1-kafka-cli/1-kafka-console-producer.sh",
+  "line": 39,
+  "message": "kafka-console-producer --producer.config: deprecated since Kafka 4.2, still accepted in 4.3.1 with a warning; use --command-config",
+  "snippet": "kafka-console-producer.sh --producer.config playground.config --bootstrap-server cluster.playground.cdkt.io:9092 --topic first_topic --property parse.key=true -",
+  "id": "deprecated-cli-option-126"
+ },
+ {
+  "repo": "sumanththota/Kafka-Open-Search-Project",
+  "rule": "deprecated-cli-option",
+  "severity": "note",
+  "file": "Kafka/1-kafka-cli/1-kafka-console-producer.sh",
+  "line": 60,
+  "message": "kafka-console-producer --producer-property: deprecated since Kafka 4.2, still accepted in 4.3.1 with a warning; use --command-property",
+  "snippet": "kafka-console-producer.sh --bootstrap-server localhost:9092 --topic first_topic --producer-property acks=all",
+  "id": "deprecated-cli-option-127"
+ },
+ {
+  "repo": "zdoryk/kafka-studies",
+  "rule": "deprecated-cli-option",
+  "severity": "note",
+  "file": "kafka_for_beginners/kafka_java_project/sh_kafka_commands/1-kafka-cli/1-kafka-console-producer.sh",
+  "line": 22,
+  "message": "kafka-console-producer --producer.config: deprecated since Kafka 4.2, still accepted in 4.3.1 with a warning; use --command-config",
+  "snippet": "kafka-console-producer.sh --producer.config playground.config --bootstrap-server cluster.playground.cdkt.io:9092 --topic first_topic --producer-property acks=al",
+  "id": "deprecated-cli-option-128"
+ },
+ {
+  "repo": "zdoryk/kafka-studies",
+  "rule": "deprecated-cli-option",
+  "severity": "note",
+  "file": "kafka_for_beginners/kafka_java_project/sh_kafka_commands/1-kafka-cli/1-kafka-console-producer.sh",
+  "line": 29,
+  "message": "kafka-console-producer --producer.config: deprecated since Kafka 4.2, still accepted in 4.3.1 with a warning; use --command-config",
+  "snippet": "kafka-console-producer.sh --producer.config playground.config --bootstrap-server cluster.playground.cdkt.io:9092 --topic new_topic",
+  "id": "deprecated-cli-option-129"
+ },
+ {
+  "repo": "naberss/study_notes",
+  "rule": "deprecated-cli-option",
+  "severity": "note",
+  "file": "Kafka/resources/kafka-for-beginners-code-20230117/code/1-kafka-cli/1-kafka-console-producer.sh",
+  "line": 14,
+  "message": "kafka-console-producer --producer.config: deprecated since Kafka 4.2, still accepted in 4.3.1 with a warning; use --command-config",
+  "snippet": "kafka-console-producer.sh --producer.config playground.config --bootstrap-server cluster.playground.cdkt.io:9092 --topic first_topic",
+  "id": "deprecated-cli-option-130"
+ },
+ {
+  "repo": "naberss/study_notes",
+  "rule": "deprecated-cli-option",
+  "severity": "note",
+  "file": "Kafka/resources/kafka-for-beginners-code-20230117/code/1-kafka-cli/1-kafka-console-producer.sh",
+  "line": 29,
+  "message": "kafka-console-producer --producer.config: deprecated since Kafka 4.2, still accepted in 4.3.1 with a warning; use --command-config",
+  "snippet": "kafka-console-producer.sh --producer.config playground.config --bootstrap-server cluster.playground.cdkt.io:9092 --topic new_topic",
+  "id": "deprecated-cli-option-131"
+ },
+ {
+  "repo": "zqhxuyuan/kafka-book",
+  "rule": "deprecated-cli-option",
+  "severity": "note",
+  "file": "bin/start-kafka.sh",
+  "line": 31,
+  "message": "kafka-console-consumer --consumer.config: deprecated since Kafka 4.2, still accepted in 4.3.1 with a warning; use --command-config",
+  "snippet": "bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic test --from-beginning --consumer.config config/consumer.properties",
+  "id": "deprecated-cli-option-132"
+ },
+ {
+  "repo": "zqhxuyuan/kafka-book",
+  "rule": "deprecated-cli-option",
+  "severity": "note",
+  "file": "bin/start-kafka08.sh",
+  "line": 30,
+  "message": "kafka-console-consumer --consumer.config: deprecated since Kafka 4.2, still accepted in 4.3.1 with a warning; use --command-config",
+  "snippet": "bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic test --from-beginning --consumer.config config/consumer.properties",
+  "id": "deprecated-cli-option-133"
+ },
+ {
+  "repo": "Pl4tiNuM/Kubeflink",
+  "rule": "deprecated-cli-option",
+  "severity": "note",
+  "file": "flink/flink-end-to-end-tests/test-scripts/kafka-common.sh",
+  "line": 150,
+  "message": "kafka-console-consumer --consumer-property: deprecated since Kafka 4.2, still accepted in 4.3.1 with a warning; use --command-property",
+  "snippet": "$KAFKA_DIR/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --from-beginning  --max-messages $1  --topic $2  --consumer-property group.id=$3 2> /",
+  "id": "deprecated-cli-option-134"
+ },
+ {
+  "repo": "trainingrepo18/Kafka-connect-repo",
+  "rule": "removed-tool-class",
+  "severity": "error",
+  "file": "tiered-storage/scripts/jmx_metrics.sh",
+  "line": 3,
+  "message": "kafka-run-class kafka.tools.JmxTool: Kafka 4.3.1 fails with \"Could not find or load main class\"; use kafka-jmx.sh",
+  "snippet": "value=$(docker-compose exec broker kafka-run-class kafka.tools.JmxTool --jmx-url service:jmx:rmi:///jndi/rmi://localhost:8091/jmxrmi --object-name kafka.server:",
+  "id": "removed-tool-class-135"
+ },
+ {
+  "repo": "trainingrepo18/Kafka-connect-repo",
+  "rule": "removed-tool-class",
+  "severity": "error",
+  "file": "cluster-linking/scripts/3-list-links-and-lag.sh",
+  "line": 17,
+  "message": "kafka-run-class kafka.tools.JmxTool: Kafka 4.3.1 fails with \"Could not find or load main class\"; use kafka-jmx.sh",
+  "snippet": "LAG=$(docker-compose exec broker-east kafka-run-class kafka.tools.JmxTool --jmx-url service:jmx:rmi:///jndi/rmi://localhost:8092/jmxrmi  --object-name kafka.ser",
+  "id": "removed-tool-class-136"
+ },
+ {
+  "repo": "fabianschyrer/confluent-examples",
+  "rule": "removed-tool-class",
+  "severity": "error",
+  "file": "multiregion/scripts/jmx_metrics.sh",
+  "line": 11,
+  "message": "kafka-run-class kafka.tools.JmxTool: Kafka 4.3.1 fails with \"Could not find or load main class\"; use kafka-jmx.sh",
+  "snippet": "BW2=$(docker-compose exec broker-west-2 kafka-run-class kafka.tools.JmxTool --jmx-url service:jmx:rmi:///jndi/rmi://localhost:8092/jmxrmi --object-name kafka.cl",
+  "id": "removed-tool-class-137"
+ },
+ {
+  "repo": "xiaozhiliaoo/mq-practice",
+  "rule": "removed-tool-class",
+  "severity": "error",
+  "file": "kafka/src/main/resources/kafka-features.sh",
+  "line": 17,
+  "message": "kafka-run-class kafka.admin.FeatureCommand: Kafka 4.3.1 fails with \"Could not find or load main class\"; use kafka-features.sh",
+  "snippet": "exec $(dirname $0)/kafka-run-class.sh kafka.admin.FeatureCommand \"$@\"",
+  "id": "removed-tool-class-138"
+ },
+ {
+  "repo": "g33kdpr1nc3/g33kd-m4c-l0c4l",
+  "rule": "removed-tool-class",
+  "severity": "error",
+  "file": "Kafka_v3.0.2/bin/kafka-features.sh",
+  "line": 17,
+  "message": "kafka-run-class kafka.admin.FeatureCommand: Kafka 4.3.1 fails with \"Could not find or load main class\"; use kafka-features.sh",
+  "snippet": "exec $(dirname $0)/kafka-run-class.sh kafka.admin.FeatureCommand \"$@\"",
+  "id": "removed-tool-class-139"
+ },
+ {
+  "repo": "avinzhang/kafka",
+  "rule": "removed-tool-class",
+  "severity": "error",
+  "file": "monitoring/jmx/start.sh",
+  "line": 29,
+  "message": "kafka-run-class kafka.tools.JmxTool: Kafka 4.3.1 fails with \"Could not find or load main class\"; use kafka-jmx.sh",
+  "snippet": "kafka-run-class kafka.tools.JmxTool --object-name kafka.network:name=RequestQueueTimeMs,request=ReplicaStatus,type=RequestMetrics --jmx-url service:jmx:rmi://lo",
+  "id": "removed-tool-class-140"
+ },
+ {
+  "repo": "YEASEUL-JANG/PracticeProject",
+  "rule": "removed-tool-class",
+  "severity": "error",
+  "file": "MSA-practice/kafka-demo/zookeeper_kafkaserver/bin/kafka-features.sh",
+  "line": 17,
+  "message": "kafka-run-class kafka.admin.FeatureCommand: Kafka 4.3.1 fails with \"Could not find or load main class\"; use kafka-features.sh",
+  "snippet": "exec $(dirname $0)/kafka-run-class.sh kafka.admin.FeatureCommand \"$@\"",
+  "id": "removed-tool-class-141"
+ },
+ {
+  "repo": "Telefonica/alto-tid",
+  "rule": "removed-tool-class",
+  "severity": "error",
+  "file": "api/kafka_ale/bin/kafka-features.sh",
+  "line": 17,
+  "message": "kafka-run-class kafka.admin.FeatureCommand: Kafka 4.3.1 fails with \"Could not find or load main class\"; use kafka-features.sh",
+  "snippet": "exec $(dirname $0)/kafka-run-class.sh kafka.admin.FeatureCommand \"$@\"",
+  "id": "removed-tool-class-142"
+ },
+ {
+  "repo": "erosons/my_sandbox_new",
+  "rule": "removed-tool-class",
+  "severity": "error",
+  "file": "Kafka-Stream/kafka_2.13-3.3.1/bin/kafka-features.sh",
+  "line": 17,
+  "message": "kafka-run-class kafka.admin.FeatureCommand: Kafka 4.3.1 fails with \"Could not find or load main class\"; use kafka-features.sh",
+  "snippet": "exec $(dirname $0)/kafka-run-class.sh kafka.admin.FeatureCommand \"$@\"",
+  "id": "removed-tool-class-143"
+ },
+ {
+  "repo": "confluentinc/examples",
+  "rule": "removed-tool-class",
+  "severity": "error",
+  "file": "multiregion/scripts/jmx_metrics.sh",
+  "line": 16,
+  "message": "kafka-run-class kafka.tools.JmxTool: Kafka 4.3.1 fails with \"Could not find or load main class\"; use kafka-jmx.sh",
+  "snippet": "test \"$(docker inspect -f '{{.State.ExitCode}}' $(docker ps -laq --filter=\"name=broker-west-2\"))\" = \"0\"  && BW2=$(docker compose exec broker-west-2 kafka-run-cl",
+  "id": "removed-tool-class-144"
+ },
+ {
+  "repo": "PacktPublishing/Data-Engineering-Vol2-AWS-Data-Processing---Spark-Kafka",
+  "rule": "removed-tool-class",
+  "severity": "error",
+  "file": "kafka_2.12-2.8.1/kafka_2.12-2.8.1/bin/kafka-features.sh",
+  "line": 17,
+  "message": "kafka-run-class kafka.admin.FeatureCommand: Kafka 4.3.1 fails with \"Could not find or load main class\"; use kafka-features.sh",
+  "snippet": "exec $(dirname $0)/kafka-run-class.sh kafka.admin.FeatureCommand \"$@\"",
+  "id": "removed-tool-class-145"
+ },
+ {
+  "repo": "efesefe/crypto_currency_predictor",
+  "rule": "removed-tool-class",
+  "severity": "error",
+  "file": "kafka/bin/kafka-features.sh",
+  "line": 17,
+  "message": "kafka-run-class kafka.admin.FeatureCommand: Kafka 4.3.1 fails with \"Could not find or load main class\"; use kafka-features.sh",
+  "snippet": "exec $(dirname $0)/kafka-run-class.sh kafka.admin.FeatureCommand \"$@\"",
+  "id": "removed-tool-class-146"
+ },
+ {
+  "repo": "SSCT-Lab/DisBurser_Dataset",
+  "rule": "removed-tool-class",
+  "severity": "error",
+  "file": "Benchmark/Kafka/v2.8.0/kafka-2.8.0-src/bin/kafka-features.sh",
+  "line": 17,
+  "message": "kafka-run-class kafka.admin.FeatureCommand: Kafka 4.3.1 fails with \"Could not find or load main class\"; use kafka-features.sh",
+  "snippet": "exec $(dirname $0)/kafka-run-class.sh kafka.admin.FeatureCommand \"$@\"",
+  "id": "removed-tool-class-147"
+ },
+ {
+  "repo": "KU-Taverse/kafka",
+  "rule": "removed-tool-class",
+  "severity": "error",
+  "file": "kafka_2.13-2.7.0/bin/kafka-features.sh",
+  "line": 17,
+  "message": "kafka-run-class kafka.admin.FeatureCommand: Kafka 4.3.1 fails with \"Could not find or load main class\"; use kafka-features.sh",
+  "snippet": "exec $(dirname $0)/kafka-run-class.sh kafka.admin.FeatureCommand \"$@\"",
+  "id": "removed-tool-class-148"
+ },
+ {
+  "repo": "murugesan-code/Kafka",
+  "rule": "removed-tool-class",
+  "severity": "error",
+  "file": "kafka/bin/kafka-features.sh",
+  "line": 17,
+  "message": "kafka-run-class kafka.admin.FeatureCommand: Kafka 4.3.1 fails with \"Could not find or load main class\"; use kafka-features.sh",
+  "snippet": "exec $(dirname $0)/kafka-run-class.sh kafka.admin.FeatureCommand \"$@\"",
+  "id": "removed-tool-class-149"
+ },
+ {
+  "repo": "AnuchitO/kafka-commands",
+  "rule": "removed-tool-class",
+  "severity": "error",
+  "file": "kafka_2.13-3.0.0/bin/kafka-features.sh",
+  "line": 17,
+  "message": "kafka-run-class kafka.admin.FeatureCommand: Kafka 4.3.1 fails with \"Could not find or load main class\"; use kafka-features.sh",
+  "snippet": "exec $(dirname $0)/kafka-run-class.sh kafka.admin.FeatureCommand \"$@\"",
+  "id": "removed-tool-class-150"
+ },
+ {
+  "repo": "fiorotticaio/Starbucks-stocks",
+  "rule": "removed-tool-class",
+  "severity": "error",
+  "file": "kafka_2.13-3.4.0/bin/kafka-features.sh",
+  "line": 17,
+  "message": "kafka-run-class kafka.admin.FeatureCommand: Kafka 4.3.1 fails with \"Could not find or load main class\"; use kafka-features.sh",
+  "snippet": "exec $(dirname $0)/kafka-run-class.sh kafka.admin.FeatureCommand \"$@\"",
+  "id": "removed-tool-class-151"
+ },
+ {
+  "repo": "aescobar-icc/base-apache-kafka",
+  "rule": "removed-tool-class",
+  "severity": "error",
+  "file": "kafka_2.13-3.1.0/bin/kafka-features.sh",
+  "line": 17,
+  "message": "kafka-run-class kafka.admin.FeatureCommand: Kafka 4.3.1 fails with \"Could not find or load main class\"; use kafka-features.sh",
+  "snippet": "exec $(dirname $0)/kafka-run-class.sh kafka.admin.FeatureCommand \"$@\"",
+  "id": "removed-tool-class-152"
+ },
+ {
+  "repo": "Abhijeet2901/Library-KAFKA-SpringBoot-Project",
+  "rule": "removed-tool-class",
+  "severity": "error",
+  "file": "kafka_2.13-3.2.0/bin/kafka-features.sh",
+  "line": 17,
+  "message": "kafka-run-class kafka.admin.FeatureCommand: Kafka 4.3.1 fails with \"Could not find or load main class\"; use kafka-features.sh",
+  "snippet": "exec $(dirname $0)/kafka-run-class.sh kafka.admin.FeatureCommand \"$@\"",
+  "id": "removed-tool-class-153"
+ },
+ {
+  "repo": "shashankp28/MyLocal",
+  "rule": "removed-tool-class",
+  "severity": "error",
+  "file": "Kafka/kafka_2.13-3.1.0/bin/kafka-features.sh",
+  "line": 17,
+  "message": "kafka-run-class kafka.admin.FeatureCommand: Kafka 4.3.1 fails with \"Could not find or load main class\"; use kafka-features.sh",
+  "snippet": "exec $(dirname $0)/kafka-run-class.sh kafka.admin.FeatureCommand \"$@\"",
+  "id": "removed-tool-class-154"
+ },
+ {
+  "repo": "erosons/my_sandbox_new",
+  "rule": "removed-tool-class",
+  "severity": "error",
+  "file": "Kafka-Stream/kafka_2.13-3.1.0/bin/kafka-features.sh",
+  "line": 17,
+  "message": "kafka-run-class kafka.admin.FeatureCommand: Kafka 4.3.1 fails with \"Could not find or load main class\"; use kafka-features.sh",
+  "snippet": "exec $(dirname $0)/kafka-run-class.sh kafka.admin.FeatureCommand \"$@\"",
+  "id": "removed-tool-class-155"
+ },
+ {
+  "repo": "Artemproyd/unix",
+  "rule": "removed-tool-class",
+  "severity": "error",
+  "file": "lab4/kafka_temp/kafka_2.13-2.8.1/bin/kafka-features.sh",
+  "line": 17,
+  "message": "kafka-run-class kafka.admin.FeatureCommand: Kafka 4.3.1 fails with \"Could not find or load main class\"; use kafka-features.sh",
+  "snippet": "exec $(dirname $0)/kafka-run-class.sh kafka.admin.FeatureCommand \"$@\"",
+  "id": "removed-tool-class-156"
+ },
+ {
+  "repo": "afoone/kafka21feb22",
+  "rule": "removed-tool-class",
+  "severity": "error",
+  "file": "kafka_2.13-2.8.0/bin/kafka-features.sh",
+  "line": 17,
+  "message": "kafka-run-class kafka.admin.FeatureCommand: Kafka 4.3.1 fails with \"Could not find or load main class\"; use kafka-features.sh",
+  "snippet": "exec $(dirname $0)/kafka-run-class.sh kafka.admin.FeatureCommand \"$@\"",
+  "id": "removed-tool-class-157"
+ },
+ {
+  "repo": "lonen8188/Microservices-patterns",
+  "rule": "removed-tool-class",
+  "severity": "error",
+  "file": "etc/kafka_2.13-2.7.0/bin/kafka-features.sh",
+  "line": 17,
+  "message": "kafka-run-class kafka.admin.FeatureCommand: Kafka 4.3.1 fails with \"Could not find or load main class\"; use kafka-features.sh",
+  "snippet": "exec $(dirname $0)/kafka-run-class.sh kafka.admin.FeatureCommand \"$@\"",
+  "id": "removed-tool-class-158"
+ },
+ {
+  "repo": "amorim-dev/DSA_Data-Science-Course",
+  "rule": "removed-tool-class",
+  "severity": "error",
+  "file": "2.BigDataRealTime_Python_Spark/Ch15_Spark-Streaming_Part1/kafka_2.13-3.3.1/bin/kafka-features.sh",
+  "line": 17,
+  "message": "kafka-run-class kafka.admin.FeatureCommand: Kafka 4.3.1 fails with \"Could not find or load main class\"; use kafka-features.sh",
+  "snippet": "exec $(dirname $0)/kafka-run-class.sh kafka.admin.FeatureCommand \"$@\"",
+  "id": "removed-tool-class-159"
+ },
+ {
+  "repo": "Crisliu/Agile-Data-Science",
+  "rule": "zookeeper-script",
+  "severity": "error",
+  "file": "Dockerfile",
+  "line": 143,
+  "message": "zookeeper-server-start.sh: the Kafka 4.3.1 distribution contains no ZooKeeper script (ZooKeeper support was removed in Kafka 4.0); Remove the ZooKeeper step; use KRaft tools (kafka-metadata-quorum.sh, kafka-storage.sh).",
+  "snippet": "RUN /root/kafka/bin/zookeeper-server-start.sh -daemon /root/kafka/config/zookeeper.properties &&  /root/kafka/bin/kafka-server-start.sh -daemon /root/kafka/conf",
+  "id": "zookeeper-script-160"
+ },
+ {
+  "repo": "HernanRivasAcosta/kafkerl",
+  "rule": "zookeeper-script",
+  "severity": "error",
+  "file": "bin/start_zk.sh",
+  "line": 32,
+  "message": "zookeeper-server-start.sh: the Kafka 4.3.1 distribution contains no ZooKeeper script (ZooKeeper support was removed in Kafka 4.0); Remove the ZooKeeper step; use KRaft tools (kafka-metadata-quorum.sh, kafka-storage.sh).",
+  "snippet": "\"${d}/bin/zookeeper-server-start.sh\" ${cfg} &",
+  "id": "zookeeper-script-161"
+ },
+ {
+  "repo": "ufcg-lsd/SCO",
+  "rule": "zookeeper-script",
+  "severity": "error",
+  "file": "samples/kafka-sac/Dockerfile",
+  "line": 33,
+  "message": "zookeeper-server-start.sh: the Kafka 4.3.1 distribution contains no ZooKeeper script (ZooKeeper support was removed in Kafka 4.0); Remove the ZooKeeper step; use KRaft tools (kafka-metadata-quorum.sh, kafka-storage.sh).",
+  "snippet": "CMD /bin/bash -c \"cat /etc/hosts\" && /bin/bash -c \"/usr/src/modify_hosts.sh\" && /usr/src/kafka_2.11-0.9.0.1/bin/zookeeper-server-start.sh -daemon /usr/src/kafka",
+  "id": "zookeeper-script-162"
+ },
+ {
+  "repo": "doubaokun/dockers",
+  "rule": "zookeeper-script",
+  "severity": "error",
+  "file": "kafka/zk.sh",
+  "line": 3,
+  "message": "zookeeper-server-start.sh: the Kafka 4.3.1 distribution contains no ZooKeeper script (ZooKeeper support was removed in Kafka 4.0); Remove the ZooKeeper step; use KRaft tools (kafka-metadata-quorum.sh, kafka-storage.sh).",
+  "snippet": "/opt/kafka_2.8.0-0.8.1.1/bin/zookeeper-server-start.sh /opt/kafka_2.8.0-0.8.1.1/config/zookeeper.properties",
+  "id": "zookeeper-script-163"
+ },
+ {
+  "repo": "akosiaris/kafka",
+  "rule": "zookeeper-script",
+  "severity": "error",
+  "file": "system_test/producer_perf/bin/run-compression-test.sh",
+  "line": 26,
+  "message": "zookeeper-server-start.sh: the Kafka 4.3.1 distribution contains no ZooKeeper script (ZooKeeper support was removed in Kafka 4.0); Remove the ZooKeeper step; use KRaft tools (kafka-metadata-quorum.sh, kafka-storage.sh).",
+  "snippet": "$base_dir/../../bin/zookeeper-server-start.sh $base_dir/config/zookeeper.properties 2>&1 > $base_dir/zookeeper.log &",
+  "id": "zookeeper-script-164"
+ },
+ {
+  "repo": "opensource4you/astraea",
+  "rule": "zookeeper-script",
+  "severity": "error",
+  "file": "docker/start_kafka.sh",
+  "line": 122,
+  "message": "zookeeper-server-start.sh: the Kafka 4.3.1 distribution contains no ZooKeeper script (ZooKeeper support was removed in Kafka 4.0); Remove the ZooKeeper step; use KRaft tools (kafka-metadata-quorum.sh, kafka-storage.sh).",
+  "snippet": "docker run --rm  --name zk  -h zk  -p 2181:2181  -d  \"$IMAGE_NAME\" bin/zookeeper-server-start.sh config/zookeeper.properties",
+  "id": "zookeeper-script-165"
+ },
+ {
+  "repo": "Pl4tiNuM/Kubeflink",
+  "rule": "zookeeper-script",
+  "severity": "error",
+  "file": "flink/flink-end-to-end-tests/test-scripts/kafka-common.sh",
+  "line": 101,
+  "message": "zookeeper-shell.sh: the Kafka 4.3.1 distribution contains no ZooKeeper script (ZooKeeper support was removed in Kafka 4.0); Remove the ZooKeeper step; use KRaft tools (kafka-metadata-quorum.sh, kafka-storage.sh).",
+  "snippet": "while ! [[ $($KAFKA_DIR/bin/zookeeper-shell.sh localhost:2181 get /brokers/ids/0 2>&1) =~ .*listener_security_protocol_map.* ]]; do",
+  "id": "zookeeper-script-166"
+ },
+ {
+  "repo": "JVM00/Projects",
+  "rule": "zookeeper-script",
+  "severity": "error",
+  "file": "DB0250EN/KAFKA/kafka.sh",
+  "line": 5,
+  "message": "zookeeper-server-start.sh: the Kafka 4.3.1 distribution contains no ZooKeeper script (ZooKeeper support was removed in Kafka 4.0); Remove the ZooKeeper step; use KRaft tools (kafka-metadata-quorum.sh, kafka-storage.sh).",
+  "snippet": "bin/zookeeper-server-start.sh config/zookeeper.properties",
+  "id": "zookeeper-script-167"
+ },
+ {
+  "repo": "Abhi-DevHub/140_Project3_BD",
+  "rule": "zookeeper-script",
+  "severity": "error",
+  "file": "cs161/scripts/start-broker.sh",
+  "line": 32,
+  "message": "zookeeper-server-start.sh: the Kafka 4.3.1 distribution contains no ZooKeeper script (ZooKeeper support was removed in Kafka 4.0); Remove the ZooKeeper step; use KRaft tools (kafka-metadata-quorum.sh, kafka-storage.sh).",
+  "snippet": "$KAFKA_HOME/bin/zookeeper-server-start.sh $KAFKA_HOME/config/zookeeper.properties > /tmp/zookeeper.log 2>&1 &",
+  "id": "zookeeper-script-168"
+ },
+ {
+  "repo": "pipelinedb/talks",
+  "rule": "zookeeper-script",
+  "severity": "error",
+  "file": "kafka_meetup/demo.sh",
+  "line": 2,
+  "message": "zookeeper-server-start.sh: the Kafka 4.3.1 distribution contains no ZooKeeper script (ZooKeeper support was removed in Kafka 4.0); Remove the ZooKeeper step; use KRaft tools (kafka-metadata-quorum.sh, kafka-storage.sh).",
+  "snippet": "rm -rf /tmp/zookeeper; ./bin/zookeeper-server-start.sh config/zookeeper.properties",
+  "id": "zookeeper-script-169"
+ },
+ {
+  "repo": "hunglp9397/kafka_series",
+  "rule": "zookeeper-script",
+  "severity": "error",
+  "file": "reference-source-conducktor/code/0-start-kafka/windows/windows-wsl2-start-kafka-with-zookeeper.sh",
+  "line": 18,
+  "message": "zookeeper-server-start.sh: the Kafka 4.3.1 distribution contains no ZooKeeper script (ZooKeeper support was removed in Kafka 4.0); Remove the ZooKeeper step; use KRaft tools (kafka-metadata-quorum.sh, kafka-storage.sh).",
+  "snippet": "zookeeper-server-start.sh ~/kafka_2.13-3.1.0/config/zookeeper.properties",
+  "id": "zookeeper-script-170"
+ },
+ {
+  "repo": "l1x/shovel",
+  "rule": "zookeeper-script",
+  "severity": "error",
+  "file": "resources/docker/Dockerfile.zookeeper",
+  "line": 11,
+  "message": "zookeeper-server-start.sh: the Kafka 4.3.1 distribution contains no ZooKeeper script (ZooKeeper support was removed in Kafka 4.0); Remove the ZooKeeper step; use KRaft tools (kafka-metadata-quorum.sh, kafka-storage.sh).",
+  "snippet": "CMD [\"bash\", \"kafka_2.10-0.8.2.0/bin/zookeeper-server-start.sh\", \"kafka_2.10-0.8.2.0/config/zookeeper.properties\"]",
+  "id": "zookeeper-script-171"
+ },
+ {
+  "repo": "ait-aecid/logdata-anomaly-miner",
+  "rule": "zookeeper-script",
+  "severity": "error",
+  "file": "aecid-testsuite/runUnittests.sh",
+  "line": 11,
+  "message": "zookeeper-server-start.sh: the Kafka 4.3.1 distribution contains no ZooKeeper script (ZooKeeper support was removed in Kafka 4.0); Remove the ZooKeeper step; use KRaft tools (kafka-metadata-quorum.sh, kafka-storage.sh).",
+  "snippet": "$KAFKA_VERSIONSTRING/bin/zookeeper-server-start.sh $KAFKA_VERSIONSTRING/config/zookeeper.properties > /dev/null &",
+  "id": "zookeeper-script-172"
+ },
+ {
+  "repo": "influx6/actorkit",
+  "rule": "zookeeper-script",
+  "severity": "error",
+  "file": "tools/kafka-local-run.sh",
+  "line": 6,
+  "message": "zookeeper-server-start.sh: the Kafka 4.3.1 distribution contains no ZooKeeper script (ZooKeeper support was removed in Kafka 4.0); Remove the ZooKeeper step; use KRaft tools (kafka-metadata-quorum.sh, kafka-storage.sh).",
+  "snippet": "docker run --rm -it -p 9092:9092 influx6/kafka-rdkafka-alpine-base:0.1 bash -c \"cd /kafka && bash -c \\\"./bin/zookeeper-server-start.sh ./config/zookeeper.proper",
+  "id": "zookeeper-script-173"
+ },
+ {
+  "repo": "nathanmsc/DATA-ENGINEERING",
+  "rule": "zookeeper-script",
+  "severity": "error",
+  "file": "DOCKER/KAFKA/Dockerfile",
+  "line": 15,
+  "message": "zookeeper-server-start.sh: the Kafka 4.3.1 distribution contains no ZooKeeper script (ZooKeeper support was removed in Kafka 4.0); Remove the ZooKeeper step; use KRaft tools (kafka-metadata-quorum.sh, kafka-storage.sh).",
+  "snippet": "RUN /opt/kafka/bin/zookeeper-server-start.sh config/zookeeper.properties ;  /opt/kafka/bin/kafka-server-start.sh config/server.properties",
+  "id": "zookeeper-script-174"
+ },
+ {
+  "repo": "yk-st/data_platform_full_scratch",
+  "rule": "zookeeper-script",
+  "severity": "error",
+  "file": "files/kafka/start_up.sh",
+  "line": 3,
+  "message": "zookeeper-server-start.sh: the Kafka 4.3.1 distribution contains no ZooKeeper script (ZooKeeper support was removed in Kafka 4.0); Remove the ZooKeeper step; use KRaft tools (kafka-metadata-quorum.sh, kafka-storage.sh).",
+  "snippet": "/kafka/bin/zookeeper-server-start.sh /kafka/config/zookeeper.properties &",
+  "id": "zookeeper-script-175"
+ },
+ {
+  "repo": "nancyyanyu/kafka_stock",
+  "rule": "zookeeper-script",
+  "severity": "error",
+  "file": "starter/start_all.sh",
+  "line": 3,
+  "message": "zookeeper-server-start.sh: the Kafka 4.3.1 distribution contains no ZooKeeper script (ZooKeeper support was removed in Kafka 4.0); Remove the ZooKeeper step; use KRaft tools (kafka-metadata-quorum.sh, kafka-storage.sh).",
+  "snippet": "bin/zookeeper-server-start.sh config/zookeeper.properties &",
+  "id": "zookeeper-script-176"
+ },
+ {
+  "repo": "princebhatt9588/Stock_Market_Real_Time_Data_Pipeline_Project_with-Apache-Kafka-and-Cassandra",
+  "rule": "zookeeper-script",
+  "severity": "error",
+  "file": "command.sh",
+  "line": 20,
+  "message": "zookeeper-server-start.sh: the Kafka 4.3.1 distribution contains no ZooKeeper script (ZooKeeper support was removed in Kafka 4.0); Remove the ZooKeeper step; use KRaft tools (kafka-metadata-quorum.sh, kafka-storage.sh).",
+  "snippet": "bin/zookeeper-server-start.sh config/zookeeper.properties",
+  "id": "zookeeper-script-177"
+ },
+ {
+  "repo": "haltona/FlinkTrainingAttemp2",
+  "rule": "zookeeper-script",
+  "severity": "error",
+  "file": "flink-end-to-end-tests/test-scripts/kafka-common.sh",
+  "line": 101,
+  "message": "zookeeper-shell.sh: the Kafka 4.3.1 distribution contains no ZooKeeper script (ZooKeeper support was removed in Kafka 4.0); Remove the ZooKeeper step; use KRaft tools (kafka-metadata-quorum.sh, kafka-storage.sh).",
+  "snippet": "while ! [[ $($KAFKA_DIR/bin/zookeeper-shell.sh localhost:2181 get /brokers/ids/0 2>&1) =~ .*listener_security_protocol_map.* ]]; do",
+  "id": "zookeeper-script-178"
+ },
+ {
+  "repo": "AdamBien/docklands",
+  "rule": "zookeeper-script",
+  "severity": "error",
+  "file": "kafka/kafka-oracle-connect/Dockerfile",
+  "line": 14,
+  "message": "zookeeper-server-start.sh: the Kafka 4.3.1 distribution contains no ZooKeeper script (ZooKeeper support was removed in Kafka 4.0); Remove the ZooKeeper step; use KRaft tools (kafka-metadata-quorum.sh, kafka-storage.sh).",
+  "snippet": "RUN curl -L -O https://ftp-stud.hs-esslingen.de/pub/Mirrors/ftp.apache.org/dist/kafka/2.7.0/kafka_${VERSION}.tgz  && tar zxf kafka_${VERSION}.tgz -C ${INSTALL_D",
+  "id": "zookeeper-script-179"
+ },
+ {
+  "repo": "silvio-estat/Estudo_KAFKA",
+  "rule": "zookeeper-script",
+  "severity": "error",
+  "file": "start-kafka.sh",
+  "line": 18,
+  "message": "zookeeper-server-start.sh: the Kafka 4.3.1 distribution contains no ZooKeeper script (ZooKeeper support was removed in Kafka 4.0); Remove the ZooKeeper step; use KRaft tools (kafka-metadata-quorum.sh, kafka-storage.sh).",
+  "snippet": "$KAFKA_HOME/bin/zookeeper-server-start.sh -daemon $KAFKA_HOME/config/zookeeper.properties",
+  "id": "zookeeper-script-180"
+ },
+ {
+  "repo": "NZAE000/DEVS-MODELS",
+  "rule": "zookeeper-script",
+  "severity": "error",
+  "file": "StreamProcessing/apacheflink/yahoo-ads/stream-bench.sh",
+  "line": 324,
+  "message": "zookeeper-server-start.sh: the Kafka 4.3.1 distribution contains no ZooKeeper script (ZooKeeper support was removed in Kafka 4.0); Remove the ZooKeeper step; use KRaft tools (kafka-metadata-quorum.sh, kafka-storage.sh).",
+  "snippet": "[[ -x \"$KAFKA_HOME/bin/zookeeper-server-start.sh\" ]] || die \"ZooKeeper scripts are not available in $KAFKA_HOME.\"",
+  "id": "zookeeper-script-181"
+ },
+ {
+  "repo": "influx6/actorkit",
+  "rule": "zookeeper-script",
+  "severity": "error",
+  "file": "tools/kafka-run.sh",
+  "line": 6,
+  "message": "zookeeper-server-start.sh: the Kafka 4.3.1 distribution contains no ZooKeeper script (ZooKeeper support was removed in Kafka 4.0); Remove the ZooKeeper step; use KRaft tools (kafka-metadata-quorum.sh, kafka-storage.sh).",
+  "snippet": "bash -c \"cd /kafka && bash -c \\\"./bin/zookeeper-server-start.sh ./config/zookeeper.properties &\\\" &&  ./bin/kafka-server-start.sh ./config/server.properties\"",
+  "id": "zookeeper-script-182"
+ },
+ {
+  "repo": "tuhh-softsec/DockerCleaner",
+  "rule": "zookeeper-script",
+  "severity": "error",
+  "file": "dataset/fixed_binnacle_dockerfiles_parfum/f933de83c0bed1a8f7167f1ec8baeb7c517f89b3.dockerfile",
+  "line": 274,
+  "message": "zookeeper-server-stop.sh: the Kafka 4.3.1 distribution contains no ZooKeeper script (ZooKeeper support was removed in Kafka 4.0); Remove the ZooKeeper step; use KRaft tools (kafka-metadata-quorum.sh, kafka-storage.sh).",
+  "snippet": "COPY scripts/zookeeper-server-stop.sh /opt/kafka_2.11-1.0.0/bin",
+  "id": "zookeeper-script-183"
+ },
+ {
+  "repo": "gmagnotta/container-images",
+  "rule": "zookeeper-script",
+  "severity": "error",
+  "file": "amqstreams/Dockerfile.zookeeper",
+  "line": 8,
+  "message": "zookeeper-server-start.sh: the Kafka 4.3.1 distribution contains no ZooKeeper script (ZooKeeper support was removed in Kafka 4.0); Remove the ZooKeeper step; use KRaft tools (kafka-metadata-quorum.sh, kafka-storage.sh).",
+  "snippet": "ENTRYPOINT [\"/opt/kafka/bin/zookeeper-server-start.sh\", \"/opt/kafka/config/zookeeper.properties\"]",
+  "id": "zookeeper-script-184"
+ },
+ {
+  "repo": "wurstmeister/node-kafka-0.8-plus",
+  "rule": "zookeeper-script",
+  "severity": "error",
+  "file": "vagrant/zk.sh",
+  "line": 26,
+  "message": "zookeeper-server-start.sh: the Kafka 4.3.1 distribution contains no ZooKeeper script (ZooKeeper support was removed in Kafka 4.0); Remove the ZooKeeper step; use KRaft tools (kafka-metadata-quorum.sh, kafka-storage.sh).",
+  "snippet": "/opt/apache/kafka/bin/zookeeper-server-start.sh /opt/apache/kafka/config/zookeeper.properties 1>> /tmp/zk.log 2>> /tmp/zk.log &",
+  "id": "zookeeper-script-185"
+ },
+ {
+  "repo": "mindsetcloudit/infra-data-engineer",
+  "rule": "zookeeper-script",
+  "severity": "error",
+  "file": "docker/kafka/Dockerfile",
+  "line": 15,
+  "message": "zookeeper-server-start.sh: the Kafka 4.3.1 distribution contains no ZooKeeper script (ZooKeeper support was removed in Kafka 4.0); Remove the ZooKeeper step; use KRaft tools (kafka-metadata-quorum.sh, kafka-storage.sh).",
+  "snippet": "RUN /opt/kafka/bin/zookeeper-server-start.sh config/zookeeper.properties ;  /opt/kafka/bin/kafka-server-start.sh config/server.properties",
+  "id": "zookeeper-script-186"
+ },
+ {
+  "repo": "tuhh-softsec/DockerCleaner",
+  "rule": "zookeeper-script",
+  "severity": "error",
+  "file": "dataset/fixed_binnacle_dockerfiles_parfum/f933de83c0bed1a8f7167f1ec8baeb7c517f89b3.dockerfile",
+  "line": 282,
+  "message": "zookeeper-server-stop.sh: the Kafka 4.3.1 distribution contains no ZooKeeper script (ZooKeeper support was removed in Kafka 4.0); Remove the ZooKeeper step; use KRaft tools (kafka-metadata-quorum.sh, kafka-storage.sh).",
+  "snippet": "RUN chmod +x /opt/kafka_2.11-1.0.0/bin/zookeeper-server-stop.sh",
+  "id": "zookeeper-script-187"
+ },
+ {
+  "repo": "mhassan2/datafabric_splunk",
+  "rule": "zookeeper-script",
+  "severity": "error",
+  "file": "Dockerfile",
+  "line": 301,
+  "message": "zookeeper-server-stop.sh: the Kafka 4.3.1 distribution contains no ZooKeeper script (ZooKeeper support was removed in Kafka 4.0); Remove the ZooKeeper step; use KRaft tools (kafka-metadata-quorum.sh, kafka-storage.sh).",
+  "snippet": "COPY scripts/zookeeper-server-stop.sh /opt/kafka_2.11-1.0.0/bin",
+  "id": "zookeeper-script-188"
+ },
+ {
+  "repo": "friendbear/kafka-stream-code-v2",
+  "rule": "zookeeper-script",
+  "severity": "error",
+  "file": "1-course-intro/course-intro-mac-linux.sh",
+  "line": 9,
+  "message": "zookeeper-server-start.sh: the Kafka 4.3.1 distribution contains no ZooKeeper script (ZooKeeper support was removed in Kafka 4.0); Remove the ZooKeeper step; use KRaft tools (kafka-metadata-quorum.sh, kafka-storage.sh).",
+  "snippet": "bin/zookeeper-server-start.sh config/zookeeper.properties",
+  "id": "zookeeper-script-189"
+ },
+ {
+  "repo": "daironpf/SocialSeed",
+  "rule": "kraft-config-path",
+  "severity": "error",
+  "file": "infrastructure/kafka/start-kafka.sh",
+  "line": 14,
+  "message": "config/kraft/server.properties: Kafka 4.3.1 has no config/kraft directory (server.properties is KRaft by default); Use config/server.properties, config/broker.properties or config/controller.properties.",
+  "snippet": "/opt/kafka/bin/kafka-server-start.sh /opt/kafka/config/kraft/server.properties &",
+  "id": "kraft-config-path-190"
+ },
+ {
+  "repo": "s50600822/containers",
+  "rule": "kraft-config-path",
+  "severity": "error",
+  "file": "kafka/runner.sh",
+  "line": 10,
+  "message": "config/kraft/server.properties: Kafka 4.3.1 has no config/kraft directory (server.properties is KRaft by default); Use config/server.properties, config/broker.properties or config/controller.properties.",
+  "snippet": "exec kafka-server-start.sh /kafka/config/kraft/server.properties",
+  "id": "kraft-config-path-191"
+ },
+ {
+  "repo": "plexus/event-lab",
+  "rule": "kraft-config-path",
+  "severity": "error",
+  "file": "Justfile",
+  "line": 42,
+  "message": "config/kraft/server.properties: Kafka 4.3.1 has no config/kraft directory (server.properties is KRaft by default); Use config/server.properties, config/broker.properties or config/controller.properties.",
+  "snippet": "docker run -it --name event-lab-kafka-zkless -p 9092:9092 -e LOG_DIR=/tmp/logs quay.io/strimzi/kafka:latest-kafka-3.6.0-amd64 /bin/sh -c 'export CLUSTER_ID=$(bi",
+  "id": "kraft-config-path-192"
+ },
+ {
+  "repo": "iair-dev/kafka_learn",
+  "rule": "kraft-config-path",
+  "severity": "error",
+  "file": "dockerfile",
+  "line": 10,
+  "message": "config/kraft/server.properties: Kafka 4.3.1 has no config/kraft directory (server.properties is KRaft by default); Use config/server.properties, config/broker.properties or config/controller.properties.",
+  "snippet": "COPY ./data/properties/server.properties /app/kafka_2.13-3.5.0/config/kraft/server.properties",
+  "id": "kraft-config-path-193"
+ },
+ {
+  "repo": "NickZhu0110/Coronary-calcium-platform",
+  "rule": "kraft-config-path",
+  "severity": "error",
+  "file": "scripts/start-server-stack.sh",
+  "line": 96,
+  "message": "config/kraft/server.properties: Kafka 4.3.1 has no config/kraft directory (server.properties is KRaft by default); Use config/server.properties, config/broker.properties or config/controller.properties.",
+  "snippet": "cp \"$KAFKA_HOME/config/kraft/server.properties\" \"$KAFKA_CONFIG\"",
+  "id": "kraft-config-path-194"
+ },
+ {
+  "repo": "stefanjay/kafka-kraft-on-k8s",
+  "rule": "kraft-config-path",
+  "severity": "error",
+  "file": "manifests/kafka/entrypoint.sh",
+  "line": 63,
+  "message": "config/kraft/server.properties: Kafka 4.3.1 has no config/kraft directory (server.properties is KRaft by default); Use config/server.properties, config/broker.properties or config/controller.properties.",
+  "snippet": "echo \"auto.create.topics.enable=$AUTO_CREATE_TOPICS_ENABLE\" >> /opt/kafka/config/kraft/server.properties",
+  "id": "kraft-config-path-195"
+ },
+ {
+  "repo": "redhat-gpte-devopsautomation/quarkus-super-heroes-rhbq213",
+  "rule": "kraft-config-path",
+  "severity": "error",
+  "file": "deploy/k8s/java11-openshift.yml",
+  "line": 991,
+  "message": "config/kraft/server.properties: Kafka 4.3.1 has no config/kraft directory (server.properties is KRaft by default); Use config/server.properties, config/broker.properties or config/controller.properties.",
+  "snippet": "- \"export CLUSTER_ID=$(bin/kafka-storage.sh random-uuid) && bin/kafka-storage.sh \\ format -t ${CLUSTER_ID} -c config/kraft/server.properties && bin/kafka-server",
+  "id": "kraft-config-path-196"
+ },
+ {
+  "repo": "moeenz/docker-kafka-kraft",
+  "rule": "kraft-config-path",
+  "severity": "error",
+  "file": "docker-entrypoint.sh",
+  "line": 10,
+  "message": "config/kraft/server.properties: Kafka 4.3.1 has no config/kraft directory (server.properties is KRaft by default); Use config/server.properties, config/broker.properties or config/controller.properties.",
+  "snippet": "properties_file=/opt/kafka/config/kraft/server.properties;",
+  "id": "kraft-config-path-197"
+ },
+ {
+  "repo": "spicyparrot/kafka-kraft-action",
+  "rule": "kraft-config-path",
+  "severity": "error",
+  "file": "scripts/entrypoint.sh",
+  "line": 25,
+  "message": "config/kraft/server.properties: Kafka 4.3.1 has no config/kraft directory (server.properties is KRaft by default); Use config/server.properties, config/broker.properties or config/controller.properties.",
+  "snippet": "exec kafka-server-start.sh /opt/kafka/config/kraft/server.properties",
+  "id": "kraft-config-path-198"
+ },
+ {
+  "repo": "daironpf/SocialSeed",
+  "rule": "kraft-config-path",
+  "severity": "error",
+  "file": "infrastructure/kafka/kafka-start.sh",
+  "line": 13,
+  "message": "config/kraft/server.properties: Kafka 4.3.1 has no config/kraft directory (server.properties is KRaft by default); Use config/server.properties, config/broker.properties or config/controller.properties.",
+  "snippet": "exec /opt/kafka/bin/kafka-server-start.sh /opt/kafka/config/kraft/server.properties",
+  "id": "kraft-config-path-199"
+ },
+ {
+  "repo": "pprosser-redhat/quarkus-superheroes-skupper",
+  "rule": "kraft-config-path",
+  "severity": "error",
+  "file": "event-statistics/deploy/k8s/native-openshift.yml",
+  "line": 137,
+  "message": "config/kraft/server.properties: Kafka 4.3.1 has no config/kraft directory (server.properties is KRaft by default); Use config/server.properties, config/broker.properties or config/controller.properties.",
+  "snippet": "- \"export CLUSTER_ID=$(bin/kafka-storage.sh random-uuid) && bin/kafka-storage.sh \\ format -t ${CLUSTER_ID} -c config/kraft/server.properties && bin/kafka-server",
+  "id": "kraft-config-path-200"
+ },
+ {
+  "repo": "minhhungit/kafka-kraft-cluster-docker-compose",
+  "rule": "kraft-config-path",
+  "severity": "error",
+  "file": "docker-compose.yaml",
+  "line": 19,
+  "message": "config/kraft/server.properties: Kafka 4.3.1 has no config/kraft directory (server.properties is KRaft by default); Use config/server.properties, config/broker.properties or config/controller.properties.",
+  "snippet": "- ./config/kafka01/server.properties:/kafka/config/kraft/server.properties",
+  "id": "kraft-config-path-201"
+ },
+ {
+  "repo": "utopios/cloud_native_juin_25",
+  "rule": "kraft-config-path",
+  "severity": "error",
+  "file": "quarkus-super-heroes/rest-fights/deploy/k8s/java17-kubernetes-all-downstream.yml",
+  "line": 1474,
+  "message": "config/kraft/server.properties: Kafka 4.3.1 has no config/kraft directory (server.properties is KRaft by default); Use config/server.properties, config/broker.properties or config/controller.properties.",
+  "snippet": "- \"export CLUSTER_ID=$(bin/kafka-storage.sh random-uuid) && bin/kafka-storage.sh \\ format -t ${CLUSTER_ID} -c config/kraft/server.properties && bin/kafka-server",
+  "id": "kraft-config-path-202"
+ },
+ {
+  "repo": "cdsap/rhsm-subscriptions-",
+  "rule": "kraft-config-path",
+  "severity": "error",
+  "file": "config/kafka/init_kafka.sh",
+  "line": 4,
+  "message": "config/kraft/server.properties: Kafka 4.3.1 has no config/kraft directory (server.properties is KRaft by default); Use config/server.properties, config/broker.properties or config/controller.properties.",
+  "snippet": "bin/kafka-storage.sh format --ignore-formatted -t $CLUSTER_ID -c config/kraft/server.properties",
+  "id": "kraft-config-path-203"
+ },
+ {
+  "repo": "siddharth-nandagopal/kafka-kraft-cluster",
+  "rule": "kraft-config-path",
+  "severity": "error",
+  "file": "docker-build/start-kafka.sh",
+  "line": 3,
+  "message": "config/kraft/server.properties: Kafka 4.3.1 has no config/kraft directory (server.properties is KRaft by default); Use config/server.properties, config/broker.properties or config/controller.properties.",
+  "snippet": "/kafka/bin/kafka-storage.sh format -t 76BLQI7sT_ql1mBfKsOk9Q -c /kafka/config/kraft/server.properties --ignore-formatted",
+  "id": "kraft-config-path-204"
+ },
+ {
+  "repo": "debezium/container-images",
+  "rule": "kraft-config-path",
+  "severity": "error",
+  "file": "kafka/2.5/docker-entrypoint.sh",
+  "line": 55,
+  "message": "config/kraft/controller.properties: Kafka 4.3.1 has no config/kraft directory (server.properties is KRaft by default); Use config/server.properties, config/broker.properties or config/controller.properties.",
+  "snippet": "'controller' ) CONFIG_FILE=config/kraft/controller.properties;;",
+  "id": "kraft-config-path-205"
+ },
+ {
+  "repo": "debezium/container-images",
+  "rule": "kraft-config-path",
+  "severity": "error",
+  "file": "kafka/2.5/docker-entrypoint.sh",
+  "line": 54,
+  "message": "config/kraft/broker.properties: Kafka 4.3.1 has no config/kraft directory (server.properties is KRaft by default); Use config/server.properties, config/broker.properties or config/controller.properties.",
+  "snippet": "'broker' ) CONFIG_FILE=config/kraft/broker.properties;;",
+  "id": "kraft-config-path-206"
+ },
+ {
+  "repo": "nilshartmann/docker-arch-build-test",
+  "rule": "kraft-config-path",
+  "severity": "error",
+  "file": "kafka/1.9/docker-entrypoint.sh",
+  "line": 56,
+  "message": "config/kraft/server.properties: Kafka 4.3.1 has no config/kraft directory (server.properties is KRaft by default); Use config/server.properties, config/broker.properties or config/controller.properties.",
+  "snippet": "*) CONFIG_FILE=config/kraft/server.properties;;",
+  "id": "kraft-config-path-207"
+ },
+ {
+  "repo": "Emanueltyc/kafka-go-payment-system",
+  "rule": "kraft-config-path",
+  "severity": "error",
+  "file": "docker-compose.yml",
+  "line": 13,
+  "message": "config/kraft/server.properties: Kafka 4.3.1 has no config/kraft directory (server.properties is KRaft by default); Use config/server.properties, config/broker.properties or config/controller.properties.",
+  "snippet": "/opt/kafka/bin/kafka-storage.sh format  --ignore-formatted  --cluster-id $(/opt/kafka/bin/kafka-storage.sh random-uuid)  --config /opt/kafka/config/kraft/server",
+  "id": "kraft-config-path-208"
+ },
+ {
+  "repo": "uzaaaiiir/apache-kafka",
+  "rule": "kraft-config-path",
+  "severity": "error",
+  "file": "kafka-beginners-code/0-start-kafka/macosx/macosx-start-kafka-kraft.sh",
+  "line": 22,
+  "message": "config/kraft/server.properties: Kafka 4.3.1 has no config/kraft directory (server.properties is KRaft by default); Use config/server.properties, config/broker.properties or config/controller.properties.",
+  "snippet": "kafka-storage.sh format -t <uuid> -c ~/kafka_2.13-3.1.0/config/kraft/server.properties",
+  "id": "kraft-config-path-209"
+ },
+ {
+  "repo": "ElliotChen/KafkaDemo",
+  "rule": "kraft-config-path",
+  "severity": "error",
+  "file": "01Logging/docker/docker-compose.yml",
+  "line": 105,
+  "message": "config/kraft/server.properties: Kafka 4.3.1 has no config/kraft directory (server.properties is KRaft by default); Use config/server.properties, config/broker.properties or config/controller.properties.",
+  "snippet": "bin/kafka-storage.sh format -t $$CLUSTER_ID -c config/kraft/server.properties &&",
+  "id": "kraft-config-path-210"
+ },
+ {
+  "repo": "debezium/container-images",
+  "rule": "kraft-config-path",
+  "severity": "error",
+  "file": "kafka/2.0/docker-entrypoint.sh",
+  "line": 56,
+  "message": "config/kraft/server.properties: Kafka 4.3.1 has no config/kraft directory (server.properties is KRaft by default); Use config/server.properties, config/broker.properties or config/controller.properties.",
+  "snippet": "*) CONFIG_FILE=config/kraft/server.properties;;",
+  "id": "kraft-config-path-211"
+ },
+ {
+  "repo": "moeenz/docker-kafka-kraft",
+  "rule": "kraft-config-path",
+  "severity": "error",
+  "file": "docker-entrypoint.sh",
+  "line": 43,
+  "message": "config/kraft/server.properties: Kafka 4.3.1 has no config/kraft directory (server.properties is KRaft by default); Use config/server.properties, config/broker.properties or config/controller.properties.",
+  "snippet": "./bin/kafka-server-start.sh ./config/kraft/server.properties &",
+  "id": "kraft-config-path-212"
+ },
+ {
+  "repo": "inovex/blog-kafka-connect",
+  "rule": "kraft-config-path",
+  "severity": "error",
+  "file": "Dockerfile",
+  "line": 9,
+  "message": "config/kraft/server.properties: Kafka 4.3.1 has no config/kraft directory (server.properties is KRaft by default); Use config/server.properties, config/broker.properties or config/controller.properties.",
+  "snippet": "COPY server.properties kafka/config/kraft/server.properties",
+  "id": "kraft-config-path-213"
+ },
+ {
+  "repo": "aerosim-open/aerosim",
+  "rule": "kraft-config-path",
+  "severity": "error",
+  "file": "kafka/run_kafka_local.sh",
+  "line": 6,
+  "message": "config/kraft/server.properties: Kafka 4.3.1 has no config/kraft directory (server.properties is KRaft by default); Use config/server.properties, config/broker.properties or config/controller.properties.",
+  "snippet": "KAFKA_CONFIG=\"config/kraft/server.properties\"",
+  "id": "kraft-config-path-214"
+ },
+ {
+  "repo": "niichiro/final-exam",
+  "rule": "removed-connector-config",
+  "severity": "warning",
+  "file": "infra/kafka/config/mirrormaker.properties",
+  "line": 13,
+  "message": "topics.blacklist: MirrorSourceConnector in Kafka 4.3.1 no longer defines it, so Connect accepts the connector and ignores the key; use topics.exclude",
+  "snippet": "topics.blacklist=\"*.internal,__.*\"",
+  "id": "removed-connector-config-215"
+ }
+]

@@ -64,10 +64,53 @@ def cases():
     out += [("bootstrap-server-format", t, "bootstrap") for t in R.BOOTSTRAP_TOOLS]
     out += [("removed-tool-class", c, "class") for c in R.REMOVED_CLASSES]
     out += [("zookeeper-script", s, "script") for s in R.ZOOKEEPER_SCRIPTS]
+    out += [("removed-tool-script", s, "script") for s in R.REMOVED_SCRIPTS]
+    out += [("removed-broker-config", IMAGE_CASE, "image")]
     out += [("kraft-config-path", p, "kraft-path") for p in R.KRAFT_PATHS]
     out += [("removed-partitioner", c.rsplit(".", 1)[1], "client") for c in R.REMOVED_PARTITIONERS]
-    out += [("idempotence-in-flight", "idempotence+6", "client")]
+    out += [("idempotence-in-flight", "idempotence+6", "client"), ("idempotence-in-flight", "default+6", "client"), ("idempotence-in-flight", "idempotence off+6 (control)", "client")]
+    out += [("removed-connector-config", k, "connect") for k in R.REMOVED_CONNECTOR]
+    out += [("removed-connector-config", f"ReplaceField {k}", "connect") for k in R.REPLACEFIELD_KEYS]
     return out
+
+
+IMAGE_CASE = "apache/kafka image: KAFKA_* variable names -> settings"
+
+
+def var_for(key: str) -> str:
+    """The environment variable the apache/kafka image documents for a setting: `.` -> `_`, `_` -> `__`, `-` -> `___`, upper case, KAFKA_ prefix."""
+    return "KAFKA_" + key.replace("_", "__").replace("-", "___").replace(".", "_").upper()
+
+
+def image_env_case(k):
+    """The docker image of Apache Kafka turns KAFKA_* variables into server.properties with kafka.docker.KafkaDockerWrapper, which ships in the tarball's kafka jar.
+    Run that very class (no container needed) with a variable for every setting of the rules, and check that kafka4-ready maps the same names."""
+    from kafka4_ready.scan import env_to_key
+    d = tempfile.mkdtemp(prefix="k4img-", dir=k.tmp)
+    for sub in ("default", "mounted", "final"):
+        os.makedirs(f"{d}/{sub}")
+    open(f"{d}/default/server.properties", "w").close()
+    env = dict(k.env, CLUSTER_ID=CID, KAFKA_NODE_ID="1", KAFKA_PROCESS_ROLES="broker,controller", KAFKA_LISTENERS="PLAINTEXT://:9092,CONTROLLER://:9093",
+               KAFKA_ADVERTISED_LISTENERS="PLAINTEXT://localhost:9092", KAFKA_CONTROLLER_LISTENER_NAMES="CONTROLLER",
+               KAFKA_LISTENER_SECURITY_PROTOCOL_MAP="CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT", KAFKA_CONTROLLER_QUORUM_VOTERS="1@localhost:9093",
+               KAFKA_LOG_DIRS=f"{d}/data", KAFKA_HEAP_OPTS="-Xmx128m")
+    extra = {"KAFKA_GROUP__INITIAL__REBALANCE__DELAY__MS": "group_initial_rebalance_delay_ms", "KAFKA_LOG___SEGMENT___BYTES": "log-segment-bytes"}   # the `__` and `___` escapes
+    for key in R.REMOVED_BROKER:
+        env[var_for(key)] = "x"
+    env.update({v: "1" for v in extra})
+    try:
+        p = subprocess.run([f"{k.home}/bin/kafka-run-class.sh", "kafka.docker.KafkaDockerWrapper", "setup", "--default-configs-dir", f"{d}/default",
+                            "--mounted-configs-dir", f"{d}/mounted", "--final-configs-dir", f"{d}/final"], capture_output=True, text=True, timeout=120, env=env)
+        out = p.stderr + p.stdout
+    except subprocess.TimeoutExpired:
+        return {("removed-broker-config", IMAGE_CASE): (False, "wrapper timed out")}
+    try:
+        got = {l.split("=", 1)[0] for l in open(f"{d}/final/server.properties") if "=" in l}
+    except OSError:
+        return {("removed-broker-config", IMAGE_CASE): (False, "wrapper wrote no server.properties: " + first(out, "."))}
+    bad = [key for key in R.REMOVED_BROKER if key.lower() not in got or env_to_key(var_for(key)) != key.lower() or env_to_key("KAFKA_CFG_" + var_for(key)[6:]) != key.lower()]
+    bad += [v for v, want in extra.items() if want not in got or env_to_key(v) != want]
+    return {("removed-broker-config", IMAGE_CASE): (not bad, f"{len(R.REMOVED_BROKER)} variables became settings with the same names kafka4-ready maps" if not bad else "mismatch: " + ", ".join(bad))}
 
 
 class Kafka:
@@ -222,6 +265,9 @@ def run_release(home: str):
             gone = f"Could not find or load main class {cls}" in out
             repl = os.path.exists(f"{home}/bin/{new}") if new.endswith(".sh") else True
             res[("removed-tool-class", cls)] = (gone and repl, f"Could not find or load main class {cls}" if gone else first(out, "."))
+        for s, _why in R.REMOVED_SCRIPTS.items():
+            here = glob.glob(f"{home}/bin/{s}*") + glob.glob(f"{home}/bin/windows/{s}*")
+            res[("removed-tool-script", s)] = (not here, "no such file in the distribution" if not here else "present: " + here[0])
         for s in R.ZOOKEEPER_SCRIPTS:
             here = glob.glob(f"{home}/bin/{s}*") + glob.glob(f"{home}/bin/windows/{s}*")
             res[("zookeeper-script", s)] = (not here, "no such file in the distribution" if not here else "present: " + here[0])
@@ -235,12 +281,60 @@ def run_release(home: str):
             open(c, "w").write(f"partitioner.class={cls}\n")
             rc, out = k.run([k.bin("kafka-console-producer"), "--bootstrap-server", B, "--topic", "t1", CFG, c], stdin="a\n", t=90)
             res[("removed-partitioner", name)] = (bool(re.search(r"ConfigException|ClassNotFoundException|Class .* could not be found", out)), first(out, r"ConfigException|ClassNotFound|could not be found"))
-        c = k.tmp + "/idem.properties"
-        open(c, "w").write("enable.idempotence=true\nmax.in.flight.requests.per.connection=6\n")
-        rc, out = k.run([k.bin("kafka-console-producer"), "--bootstrap-server", B, "--topic", "t1", CFG, c], stdin="a\n", t=90)
-        res[("idempotence-in-flight", "idempotence+6")] = (bool(re.search(r"ConfigException", out)) and "max.in.flight" in out, first(out, "ConfigException"))
+        for case, props, want in (("idempotence+6", "enable.idempotence=true\nmax.in.flight.requests.per.connection=6\n", True),
+                                  ("default+6", "max.in.flight.requests.per.connection=6\n", True),
+                                  ("idempotence off+6 (control)", "enable.idempotence=false\nmax.in.flight.requests.per.connection=6\n", False)):
+            c = k.tmp + "/idem.properties"
+            open(c, "w").write(props)
+            rc, out = k.run([k.bin("kafka-console-producer"), "--bootstrap-server", B, "--topic", "t1", CFG, c], stdin="a\n", t=90)
+            rej = bool(re.search(r"ConfigException", out)) and "max.in.flight" in out
+            res[("idempotence-in-flight", case)] = (rej == want, first(out, "ConfigException") if rej else "accepted (no ConfigException)")
+        res.update(connect_cases(k))
+        res.update(image_env_case(k))
     finally:
         k.close()
+    return res
+
+
+def connect_cases(k):
+    """Start a standalone Connect worker (small heap) next to the broker and ask its REST validate endpoint which settings a connector defines."""
+    import urllib.request
+    res = {}
+    w = k.tmp + "/worker.properties"
+    with open(w, "w") as fh:
+        fh.write(f"bootstrap.servers={B}\nkey.converter=org.apache.kafka.connect.json.JsonConverter\nvalue.converter=org.apache.kafka.connect.json.JsonConverter\n"
+                 f"offset.storage.file.filename={k.tmp}/connect.offsets\nlisteners=HTTP://localhost:18083\n")
+    log = []
+    p = subprocess.Popen([k.bin("connect-standalone"), w], env=dict(k.env, KAFKA_HEAP_OPTS="-Xmx256m -Xms64m"), stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, start_new_session=True)
+    threading.Thread(target=lambda: [log.append(x) for x in p.stdout], daemon=True).start()
+
+    def req(path, body):
+        r = urllib.request.Request("http://localhost:18083" + path, data=json.dumps(body).encode(), method="PUT", headers={"Content-Type": "application/json"})
+        return json.load(urllib.request.urlopen(r, timeout=60))
+
+    try:
+        names = None
+        base = {"connector.class": "org.apache.kafka.connect.mirror.MirrorSourceConnector", "name": "m", "source.cluster.alias": "a", "target.cluster.alias": "b"}
+        for _ in range(60):
+            try:
+                names = {c["definition"]["name"] for c in req("/connector-plugins/MirrorSourceConnector/config/validate", base)["configs"]}
+                break
+            except Exception:
+                time.sleep(2)
+        rf = dict(base, **{"transforms": "x", "transforms.x.type": R.REPLACEFIELD_TYPE + "$Value"})
+        rfnames = {c["definition"]["name"] for c in req("/connector-plugins/MirrorSourceConnector/config/validate", rf)["configs"]} if names else set()
+        for key, (cls, _) in R.REMOVED_CONNECTOR.items():
+            ok = bool(names) and key not in names and "topics.exclude" in names
+            res[("removed-connector-config", key)] = (ok, f"{key} is not among the {len(names or [])} settings MirrorSourceConnector defines" if ok else f"defined, or worker did not start: {first(''.join(log), 'rror|xception')}")
+        for key, new in R.REPLACEFIELD_KEYS.items():
+            ok = bool(rfnames) and f"transforms.x.{key}" not in rfnames and f"transforms.x.{new}" in rfnames
+            res[("removed-connector-config", f"ReplaceField {key}")] = (ok, f"transforms.x.{key} not defined, transforms.x.{new} is" if ok else "still defined, or worker did not start")
+    finally:
+        try:
+            os.killpg(p.pid, signal.SIGKILL)
+        except Exception:
+            pass
+        p.wait()
     return res
 
 
