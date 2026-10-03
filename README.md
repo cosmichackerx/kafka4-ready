@@ -33,6 +33,7 @@ Every number below is from this repository's own tests or scripts. "Not proven" 
 | "Removed settings are silently ignored" | `kafka-configs --describe --all` on the running broker: a known setting shows its value, an unknown one shows `=null sensitive=true`, with two known settings as controls | 35 | all 35 shown as unknown, the broker started without a log line about them | This is the broker's own report of what it knows, not a test that a changed value has no effect. All 35 were added at once to one broker |
 | Detection works on real-world files | A [precision study](docs/precision-study.md): 3,185 files of 2,446 public repositories found by read-only code search, **378 findings labelled by hand** in three samples, plus a miss check with an independent loose regex; plus the unit tests (145+ unit tests) | 216 + 97 + 65 findings | v0.1.0: 186 of 216 correct (86%), **30 false positives, of which 20 were one pattern** (vendored `bin/kafka-features.sh` copies); fixed in v0.2.0; on a fresh sample 96 of 97 correct and 64 of 65 for the findings the quoted-string fix added | The sample is a convenience sample (code search relevance order, queries chosen for these patterns): it says nothing about how common the problems are. One labeller. Four rules had **no hit at all** in the corpus, so their precision in the wild is untested. Recall is only probed (a loose regex), not measured |
 | Image environment variables (`KAFKA_ZOOKEEPER_CONNECT`, ...) map to the setting | The **apache/kafka image's own entrypoint code**: `kafka.docker.KafkaDockerWrapper`, which ships in the Kafka tarball, run with a variable for every removed setting (no container needed) | 35 + 2 escapes | all 35 variables became the same settings kafka4-ready maps (`.` = `_`, `_` = `__`, `-` = `___`) on 4.0.1 to 4.3.1 | **The image itself was not run** (no container runtime). The Bitnami `KAFKA_CFG_*` convention is not part of the Kafka distribution and is **not verified** |
+| `--fix` rewrites are correct | The fixed commands run on the real tools of 4.0.1, 4.1.2, 4.2.2 and 4.3.1 against a real broker | 13 fix cases x 4 | the original is rejected, the fixed command is accepted and does its job (lists the topic, consumes), idempotent | Kafka 3 was not run, so "also works on Kafka 3" is not claimed; the `config/kraft` rewrite is checked by the target file existing, not by starting a broker with it |
 | Kafka Connect, MirrorMaker 2, Streams | A real Connect worker; `PUT /connector-plugins/MirrorSourceConnector/config/validate` lists the settings a connector defines | 7 | `topics.blacklist`, `groups.blacklist`, `config.properties.blacklist`, `use.incremental.alter.configs`, `add.source.alias.to.metrics` and ReplaceField `whitelist` / `blacklist` are no longer defined | One connector class (MirrorSourceConnector) and ReplaceField only; other connectors and Kafka Streams are **not covered** |
 
 Oracle outcomes, condensed (the full 94-row table per release is printed in the CI job summary):
@@ -110,13 +111,35 @@ server.properties
 | `removed-partitioner` | error | `partitioner.class` = `DefaultPartitioner` / `UniformStickyPartitioner` | oracle: client ConfigException |
 | `idempotence-in-flight` | error | `enable.idempotence=true` with `max.in.flight.requests.per.connection` above 5 | oracle: client ConfigException |
 
+## Fix the mechanical ones (`--fix`)
+
+```
+kafka4-ready . --diff      # show the changes as a unified diff, write nothing (exit 1 if there would be any)
+kafka4-ready . --fix       # apply them in place
+```
+
+Only spellings with exactly one correct replacement are rewritten, in shell scripts, Dockerfiles, Makefiles, YAML (compose, Kubernetes, CI) and the like; `.properties` files are never touched.
+
+| Before | After |
+|---|---|
+| `kafka-console-consumer --whitelist x` | `--include x` |
+| `kafka-replica-verification --topic-white-list x` | `--topics-include x` |
+| `--broker-list` of `kafka-console-producer`, `kafka-consumer-perf-test`, `kafka-verifiable-consumer` | `--bootstrap-server` |
+| `kafka-console-consumer --new-consumer` | (option deleted) |
+| `--bootstrap-server "a:9092 b:9092"` (`kafka-topics`, `kafka-configs`, `kafka-console-consumer`) | `"a:9092,b:9092"` |
+| `config/kraft/{server,broker,controller}.properties` in a command | `config/{...}.properties` (not where a `COPY` or volume mount creates the path) |
+
+Not rewritten, because they need a decision: `--zookeeper` (the replacement is another host), `kafka-acls --authorizer*`, ZooKeeper and MirrorMaker 1 scripts, removed settings, tool classes, `--producer.config` and friends (they only exist from Kafka 4.2).
+Each rewrite is run on the real tools by [`tests/oracle/run_fix_oracle.py`](tests/oracle/run_fix_oracle.py) (13 fix cases on Kafka 4.0.1, 4.1.2, 4.2.2 and 4.3.1: the original command must be rejected, the fixed one must run), the fixer is idempotent (a second run changes nothing; unit-tested), and only the option itself changes (indentation, line endings, comments stay).
+The new spellings are for Kafka 4: `config/server.properties` is a ZooKeeper-mode file in Kafka 3, so do not run `--fix` on a file that must keep working on both. **Not verified:** the same commands on Kafka 3 (no Kafka 3 binary was run), values given by variable (skipped), and anything that is not on the list above.
+
 ## GitHub Action
 
 ```yaml
 - uses: actions/checkout@v7
   with:
     fetch-depth: 0          # only needed for pr-mode
-- uses: cosmichackerx/kafka4-ready@v0.2.0
+- uses: cosmichackerx/kafka4-ready@v0.3.0
   with:
     path: .
     fail-on: error          # error | warning | never
@@ -133,7 +156,7 @@ Inputs: `path`, `fail-on`, `disable`, `ignore`, `summary` (job summary), `pr-mod
 ```yaml
 repos:
   - repo: https://github.com/cosmichackerx/kafka4-ready
-    rev: v0.2.0
+    rev: v0.3.0
     hooks:
       - id: kafka4-ready        # report; fails the commit on errors
 ```

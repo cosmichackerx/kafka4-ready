@@ -103,6 +103,27 @@ jobs:
         if: always()
         run: cat "$RUNNER_TEMP/matrix.md" >> "$GITHUB_STEP_SUMMARY" || true
 
+  fix-oracle:
+    # `kafka4-ready --fix`: the rewritten commands are run on the real tools of all four releases (the original must be rejected, the fixed one accepted).
+    name: fix oracle (Kafka 4.0.1, 4.1.2, 4.2.2, 4.3.1)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.13"
+      - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          distribution: temurin
+          java-version: "17"
+      - run: python tests/oracle/fetch_kafka.py "$RUNNER_TEMP/kafka"
+      - name: Run the fixed commands
+        run: >
+          python tests/oracle/run_fix_oracle.py --kafka "$RUNNER_TEMP/kafka/kafka_2.13-4.3.1"
+          --extra-kafka "$RUNNER_TEMP/kafka/kafka_2.13-4.2.2" --extra-kafka "$RUNNER_TEMP/kafka/kafka_2.13-4.1.2" --extra-kafka "$RUNNER_TEMP/kafka/kafka_2.13-4.0.1"
+
   action:
     name: action (this checkout, fixtures)
     runs-on: ubuntu-latest

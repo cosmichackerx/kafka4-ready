@@ -334,3 +334,7 @@ def test_commands_inside_quoted_strings():
     assert run('echo "the kafka docs say hello there"\n') == []
     f = run("x: \"bash -c 'kafka-topics --zookeeper zk:2181'\"\n", "c.yml")[0]
     assert (f.line, f.col) == (1, 27)
+
+
+def test_bootstrap_value_quoted_after_equals():
+    assert ids(run("kafka-topics.sh --bootstrap-server='a:9092 b:9092' --list\n")) == ["bootstrap-server-format"]

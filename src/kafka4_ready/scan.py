@@ -205,6 +205,7 @@ def command_findings(text: str, file: str):
                 a = norm(args[b][0])
                 if a.startswith("--") and len(a) > 2:
                     fl, eq, val = a.partition("=")
+                    val = norm(val) if eq else val
                     if not eq and b + 1 < len(args) and not norm(args[b + 1][0]).startswith("-"):
                         val = norm(args[b + 1][0])
                     flags.append((fl, val if (eq or val) else None, args[b][1]))
