@@ -1,0 +1,9 @@
+{
+  "claims": [
+    {"id": "oracle case count", "file": "README.md", "regex": "(\\d+) cases", "expect": {"command": "python tests/oracle/run_oracle.py --count", "regex": "^(\\d+) cases"}},
+    {"id": "rule count", "file": "README.md", "regex": "(\\d+) rules", "expect": {"command": "python tests/oracle/run_oracle.py --count", "regex": ", (\\d+) rules"}},
+    {"id": "removed broker settings", "file": "README.md", "regex": "(\\d+) removed broker settings", "expect": {"command": "PYTHONPATH=src python -c \"from kafka4_ready.rules import REMOVED_BROKER as r; print(len(r))\"", "regex": "^(\\d+)$"}},
+    {"id": "unit tests", "file": "README.md", "regex": "\\((\\d+)\\+ unit tests\\)", "match": "at-least", "max_gap": 25, "expect": {"command": "python -m pytest --collect-only -q", "regex": "^(\\d+) tests? collected"}},
+    {"id": "action and hook pins in the README", "file": "README.md", "regex": "(?:kafka4-ready@|rev: )v([0-9.]+)", "expect": {"file": "pyproject.toml", "regex": "^version = \"([0-9.]+)\""}}
+  ]
+}

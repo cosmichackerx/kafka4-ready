@@ -1,0 +1,7 @@
+- id: kafka4-ready
+  name: kafka4-ready (Kafka 3 to Kafka 4 readiness)
+  description: Report Kafka settings and CLI usage that Kafka 4 rejects or silently ignores in .properties files, scripts, Dockerfiles, compose and CI files.
+  entry: kafka4-ready
+  language: python
+  files: '(\.properties(\.[\w]+)?|\.ya?ml|\.sh|\.bash|Makefile|\.mk|Dockerfile[^/]*|Jenkinsfile)$'
+  pass_filenames: false
