@@ -1,0 +1,18 @@
+# bitnami/kafka chart 32.x
+kraftVersion: 1
+config:
+  log.message.format.version: "3.5"
+  num.network.threads: 3
+controller:
+  replicaCount: 3
+  overrideConfiguration:
+    inter.broker.protocol.version: "3.6"
+broker:
+  config: {}
+  extraConfig: |
+    log.cleaner.enable=false
+    # a comment
+    log.message.format.version=3.5
+other:
+  config:
+    log.message.format.version: "not kafka"

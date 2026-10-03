@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.0 - 2026-10-03
+
+* **More operator resources and Helm values** (roadmap #7): Strimzi `KafkaConnect` (`spec.config`), `KafkaMirrorMaker2` (`spec.clusters[].config`) and `KafkaBridge` (`producer`/`consumer`/`admin` config) are read as client settings; Bitnami-style Helm values (`config`, `overrideConfiguration`, `controller.*`, `broker.*`, and `extraConfig: |` blocks in `values*.yaml` files that mention Kafka) as broker settings. `KafkaNodePool` has no config map. Not run against Strimzi, Helm or a cluster; see the README.
+* Unit tests: `tests/test_operator_helm.py` (7 cases).
+
 ## 0.4.0 - 2026-10-03
 
 * **Strimzi `Kafka` resources**: the `spec.kafka.config` map of YAML documents with `apiVersion: kafka.strimzi.io/...` and `kind: Kafka` is checked with `removed-broker-config`, `invalid-config-value` and `deprecated-broker-config` (closes the gap the v0.2.0 study found: 83 lines). Not run against Strimzi itself; see the README.

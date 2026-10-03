@@ -1,0 +1,43 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaConnect
+metadata:
+  name: connect
+spec:
+  replicas: 1
+  bootstrapServers: my-cluster-kafka-bootstrap:9093
+  config:
+    group.id: connect-cluster
+    host.name: x
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaMirrorMaker2
+metadata:
+  name: mm2
+spec:
+  connectCluster: target
+  clusters:
+    - alias: source
+      bootstrapServers: a:9092
+      config:
+        partitioner.class: org.apache.kafka.clients.producer.internals.DefaultPartitioner
+    - alias: target
+      bootstrapServers: b:9092
+      config:
+        ssl.endpoint.identification.algorithm: ""
+  mirrors:
+    - sourceCluster: source
+      targetCluster: target
+      sourceConnector:
+        config:
+          topics.blacklist: "^tmp.*"
+          replication.factor: 3
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaNodePool
+metadata:
+  name: pool
+spec:
+  replicas: 3
+  roles: [controller, broker]
+  storage:
+    type: jbod
