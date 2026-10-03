@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.0 - 2026-10-03
+
+* **Strimzi `Kafka` resources**: the `spec.kafka.config` map of YAML documents with `apiVersion: kafka.strimzi.io/...` and `kind: Kafka` is checked with `removed-broker-config`, `invalid-config-value` and `deprecated-broker-config` (closes the gap the v0.2.0 study found: 83 lines). Not run against Strimzi itself; see the README.
+* Unit tests: `tests/test_strimzi.py` (12 cases).
+
 ## 0.3.0 - 2026-10-03
 
 * **`--fix` and `--diff`**: rewrite the mechanical spellings (`--whitelist` to `--include`, `--topic-white-list` to `--topics-include`, `--broker-list` to `--bootstrap-server`, `--new-consumer` deleted, spaces to commas in `--bootstrap-server`, `config/kraft/` to `config/`). Idempotent, only the option changes. 13 fix cases run on the real tools of Kafka 4.0.1 to 4.3.1 in CI (`tests/oracle/run_fix_oracle.py`).

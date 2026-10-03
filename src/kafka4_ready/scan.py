@@ -309,11 +309,12 @@ def is_broker_file(name: str, keys: set) -> bool:
     return bool(keys & BROKER_HINTS)
 
 
-def properties_findings(text: str, file: str, name: str):
+def properties_findings(text: str, file: str, name: str, items=None, strimzi: bool = False):
+    """`items` and `strimzi=True` come from a Strimzi `Kafka` resource: the entries are broker settings by definition, and process.roles is managed by the operator."""
     out = []
-    items = parse_properties(text)
+    items = parse_properties(text) if items is None else items
     keys = {k for k, _, _, _ in items}
-    broker = is_broker_file(name, keys)
+    broker = True if strimzi else is_broker_file(name, keys)
     kv = {k: (v, ln) for k, v, ln, _ in items}
     for k, v, ln, raw in items:
         snippet = raw.strip()[:160]
@@ -340,11 +341,67 @@ def properties_findings(text: str, file: str, name: str):
         how = "with enable.idempotence=true" if idem else "and idempotence on (the default)"
         out.append(Finding("idempotence-in-flight", "error", file, mif[1], 1,
                            f"max.in.flight.requests.per.connection={mif[0]} {how}: a Kafka {V} producer fails with ConfigException (older clients silently turned idempotence off); {RULES['idempotence-in-flight'].fix}", ""))
-    if broker and "process.roles" not in keys and ({"zookeeper.connect", "log.dirs", "log.dir", "broker.id"} & keys):
+    if broker and not strimzi and "process.roles" not in keys and ({"zookeeper.connect", "log.dirs", "log.dir", "broker.id"} & keys):
         ln = kv["zookeeper.connect"][1] if "zookeeper.connect" in kv else 1
         out.append(Finding("zookeeper-mode", "error", file, ln, 1,
                            f"no process.roles: this is a ZooKeeper-mode broker file; Kafka {V} refuses to start (\"Missing required configuration \\\"process.roles\\\"\"). {RULES['zookeeper-mode'].fix}", ""))
     return out
+
+
+# ---------------------------------------------------------------- Strimzi
+YAML_KEY = re.compile(r"""^(\s*)(?:-\s+)?(?:"([^"]+)"|'([^']+)'|([^\s:#"'][^:#]*?))\s*:(?:\s+(.*))?$""")
+STRIMZI_API = re.compile(r"^apiVersion:\s*[\"']?kafka\.strimzi\.io/", re.M)
+STRIMZI_KIND = re.compile(r"^kind:\s*[\"']?Kafka[\"']?\s*(?:#.*)?$", re.M)
+
+
+def _yaml_value(raw: str) -> str:
+    raw = (raw or "").strip()
+    if raw[:1] in "\"'":
+        end = raw.find(raw[0], 1)
+        return raw[1:end] if end > 0 else raw[1:]
+    return re.split(r"\s+#", raw, maxsplit=1)[0].strip()
+
+
+def strimzi_items(text: str):
+    """The `key: value` entries of `spec.kafka.config` in every Strimzi `Kafka` document of a YAML file, as (key, value, line, raw) like a .properties file.
+    Plain indentation tracking, no YAML parser: flow style (`config: {a: b}`), anchors and multi-line scalars are not read."""
+    items, doc, start = [], [], 0
+    lines = text.splitlines()
+    docs, cur, first = [], [], 1
+    for i, line in enumerate(lines):
+        if line.startswith("---"):
+            docs.append((first, cur))
+            cur, first = [], i + 2
+        else:
+            cur.append(line)
+    docs.append((first, cur))
+    for first, dl in docs:
+        body = "\n".join(dl)
+        if not (STRIMZI_API.search(body) and STRIMZI_KIND.search(body)):
+            continue
+        stack = []
+        for off, line in enumerate(dl):
+            if not line.strip() or line.lstrip().startswith("#"):
+                continue
+            m = YAML_KEY.match(line)
+            if not m:
+                continue
+            indent = len(m.group(1)) + (2 if re.match(r"\s*-\s", line) else 0)
+            key = m.group(2) or m.group(3) or m.group(4)
+            while stack and stack[-1][0] >= indent:
+                stack.pop()
+            if [k for _, k in stack] == ["spec", "kafka", "config"] and "{{" not in key and "{{" not in (m.group(5) or ""):
+                items.append((key, _yaml_value(m.group(5)), first + off, line))
+            stack.append((indent, key))
+    return items
+
+
+def strimzi_findings(text: str, file: str):
+    items = strimzi_items(text)
+    if not items:
+        return []
+    out = properties_findings(text, file, os.path.basename(file), items=items, strimzi=True)
+    return [f for f in out if f.rule in ("removed-broker-config", "invalid-config-value", "deprecated-broker-config")]
 
 
 # ---------------------------------------------------------------- Connect
@@ -391,6 +448,8 @@ def scan_text(text: str, file: str, kind: str, name: str = ""):
         findings, n_inv = command_findings(text, file)
         findings += env_findings(text, file)
     findings += connector_findings(text, file)
+    if kind == "yaml":
+        findings += strimzi_findings(text, file)
     lines = text.splitlines()
     return [f for f in findings if not suppressed(lines, f.line, f.rule)], n_inv
 

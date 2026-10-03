@@ -31,7 +31,7 @@ Every number below is from this repository's own tests or scripts. "Not proven" 
 | Each rule's claim about Kafka 4 (rejects / ignores / warns) is true | A **real KRaft broker** (formatted with `kafka-storage.sh`, started with `kafka-server-start.sh`), a **real Connect worker** (REST validate endpoint) and the real tools of **Kafka 4.3.1** (2026-09), run by [`tests/oracle/run_oracle.py`](tests/oracle/run_oracle.py) on every push; SHA-512 pinned tarballs | 94 cases for 14 rules: 35 removed broker settings, 3 format-time rejections, 2 deprecated settings, 15 removed and 6 deprecated CLI options, 3 bootstrap-server cases, 7 removed classes, 4 ZooKeeper and 3 other removed scripts, 3 KRaft paths, 2 partitioner and 3 idempotence cases, 7 Connect cases, 1 image variable mapping | 0 disagreements required for CI to pass; the agreement was 94/94 on 4.3.1 | Linux and Java 17 only, Scala 2.13 tarballs. A case passes on what the tool printed or what the broker described, so it shows the *message*, not that nothing else changed |
 | The same on older releases | Kafka **4.0.1, 4.1.2, 4.2.2** (same cases, [matrix](docs/oracle-matrix.md)) | 94 x 3 | 94/94 on each, with the harness adapting two options that did not exist before 4.2; deprecations show up from the release that introduced them (4.1, 4.2, 4.3) and not before | Other 4.x patch releases and Kafka 3.x were not run. Behaviour can change between releases, so a rule is true **for the tested versions**, nothing else |
 | "Removed settings are silently ignored" | `kafka-configs --describe --all` on the running broker: a known setting shows its value, an unknown one shows `=null sensitive=true`, with two known settings as controls | 35 | all 35 shown as unknown, the broker started without a log line about them | This is the broker's own report of what it knows, not a test that a changed value has no effect. All 35 were added at once to one broker |
-| Detection works on real-world files | A [precision study](docs/precision-study.md): 3,185 files of 2,446 public repositories found by read-only code search, **378 findings labelled by hand** in three samples, plus a miss check with an independent loose regex; plus the unit tests (145+ unit tests) | 216 + 97 + 65 findings | v0.1.0: 186 of 216 correct (86%), **30 false positives, of which 20 were one pattern** (vendored `bin/kafka-features.sh` copies); fixed in v0.2.0; on a fresh sample 96 of 97 correct and 64 of 65 for the findings the quoted-string fix added | The sample is a convenience sample (code search relevance order, queries chosen for these patterns): it says nothing about how common the problems are. One labeller. Four rules had **no hit at all** in the corpus, so their precision in the wild is untested. Recall is only probed (a loose regex), not measured |
+| Detection works on real-world files | A [precision study](docs/precision-study.md): 3,185 files of 2,446 public repositories found by read-only code search, **378 findings labelled by hand** in three samples, plus a miss check with an independent loose regex; plus the unit tests (180+ unit tests) | 216 + 97 + 65 findings | v0.1.0: 186 of 216 correct (86%), **30 false positives, of which 20 were one pattern** (vendored `bin/kafka-features.sh` copies); fixed in v0.2.0; on a fresh sample 96 of 97 correct and 64 of 65 for the findings the quoted-string fix added | The sample is a convenience sample (code search relevance order, queries chosen for these patterns): it says nothing about how common the problems are. One labeller. Four rules had **no hit at all** in the corpus, so their precision in the wild is untested. Recall is only probed (a loose regex), not measured |
 | Image environment variables (`KAFKA_ZOOKEEPER_CONNECT`, ...) map to the setting | The **apache/kafka image's own entrypoint code**: `kafka.docker.KafkaDockerWrapper`, which ships in the Kafka tarball, run with a variable for every removed setting (no container needed) | 35 + 2 escapes | all 35 variables became the same settings kafka4-ready maps (`.` = `_`, `_` = `__`, `-` = `___`) on 4.0.1 to 4.3.1 | **The image itself was not run** (no container runtime). The Bitnami `KAFKA_CFG_*` convention is not part of the Kafka distribution and is **not verified** |
 | `--fix` rewrites are correct | The fixed commands run on the real tools of 4.0.1, 4.1.2, 4.2.2 and 4.3.1 against a real broker | 13 fix cases x 4 | the original is rejected, the fixed command is accepted and does its job (lists the topic, consumes), idempotent | Kafka 3 was not run, so "also works on Kafka 3" is not claimed; the `config/kraft` rewrite is checked by the target file existing, not by starting a broker with it |
 | Kafka Connect, MirrorMaker 2, Streams | A real Connect worker; `PUT /connector-plugins/MirrorSourceConnector/config/validate` lists the settings a connector defines | 7 | `topics.blacklist`, `groups.blacklist`, `config.properties.blacklist`, `use.incremental.alter.configs`, `add.source.alias.to.metrics` and ReplaceField `whitelist` / `blacklist` are no longer defined | One connector class (MirrorSourceConnector) and ReplaceField only; other connectors and Kafka Streams are **not covered** |
@@ -139,7 +139,7 @@ The new spellings are for Kafka 4: `config/server.properties` is a ZooKeeper-mod
 - uses: actions/checkout@v7
   with:
     fetch-depth: 0          # only needed for pr-mode
-- uses: cosmichackerx/kafka4-ready@v0.3.0
+- uses: cosmichackerx/kafka4-ready@v0.4.0
   with:
     path: .
     fail-on: error          # error | warning | never
@@ -156,7 +156,7 @@ Inputs: `path`, `fail-on`, `disable`, `ignore`, `summary` (job summary), `pr-mod
 ```yaml
 repos:
   - repo: https://github.com/cosmichackerx/kafka4-ready
-    rev: v0.3.0
+    rev: v0.4.0
     hooks:
       - id: kafka4-ready        # report; fails the commit on errors
 ```
@@ -193,13 +193,25 @@ Other tools for the Kafka 4 move, with what they do differently (read from their
 
 I found no other static scanner for Kafka 4 config files and scripts in my search; that is not proof there is none.
 
+## Strimzi `Kafka` resources
+
+A YAML document with `apiVersion: kafka.strimzi.io/...` and `kind: Kafka` has its `spec.kafka.config` map read like a broker `.properties` file, with the rules `removed-broker-config`, `invalid-config-value` and `deprecated-broker-config` (the v0.2.0 study had found 83 `log.message.format.version` / `inter.broker.protocol.version` lines there that nothing saw). Line numbers point at the real YAML line; `# kafka4-ready: ignore <rule>` works.
+
+```yaml
+  kafka:
+    config:
+      log.message.format.version: "3.5"      # 11:1  warning  removed-broker-config
+```
+
+What this does **not** prove: the Kafka side (removed keys are ignored by a 4.x broker, invalid values are refused) comes from the oracle on real brokers; what Strimzi does with the key before it reaches the broker (it may reject or rewrite some options itself) was **not** run, there is no Kubernetes or operator in the test setup. The reader is plain indentation tracking, not a YAML parser: flow style (`config: {a: b}`), anchors, and Helm template lines are skipped. `spec.zookeeper` sections are not reported (Strimzi 0.46+ dropped ZooKeeper per its release notes; this is not checked here).
+
 ## Limitations (read these)
 
 * Text matching on logical lines, not a shell parser: a Kafka tool inside `eval`, a variable-built command line, `xargs` or a wrapper script is not seen. Option values given by variable are not inspected (`--bootstrap-server "$BROKERS"` is not flagged).
 * Rules hold for Kafka 4.0.1, 4.1.2, 4.2.2 and 4.3.1 (Scala 2.13 tarballs on Linux, Java 17) only; the scanner's messages quote the newest. A rule is only claimed for what was run. Flag and setting lists are **not exhaustive**: only changes reproduced on a real broker or tool are rules.
 * Broker settings that are **ignored** are verified through `kafka-configs --describe --all`, not by observing a behaviour change. Client settings that Kafka 4 ignores (for example `auto.include.jmx.reporter` in a producer) could not be told apart from valid ones through the tools, so there is no client rule for them.
 * **Kafka Streams is not covered, Connect only for MirrorSourceConnector and ReplaceField, and no container image was run.** The `KAFKA_*` variable mapping was checked against the apache/kafka image's own wrapper code (not the image); Bitnami's `KAFKA_CFG_*` mapping is by name only.
-* It does not read Helm charts or operator custom resources (Strimzi `Kafka` resources: the study found 83 `log.message.format.version` / `inter.broker.protocol.version` lines in `config:` blocks that no rule sees) and does not check ACLs, topics or data.
+* It does not render Helm charts and does not check ACLs, topics or data. Of operator resources it reads only the `spec.kafka.config` map of Strimzi `Kafka` resources (see below); `KafkaConnect`, `KafkaMirrorMaker2`, `KafkaNodePool` and Kustomize patches are not read.
 * The [precision study](docs/precision-study.md) is a convenience sample labelled by one person; four rules never fired in it. A finding is true for the file as written, not proof that a deployment breaks: many hits are old Kafka 0.8 to 3.x fixtures, copies of the same course repository, or templates.
 
 ## Roadmap
